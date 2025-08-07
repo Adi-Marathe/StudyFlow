@@ -1,0 +1,29 @@
+.chatbot-container {
+  display: flex;
+  height: 100vh;
+  background-color: #fdf8ee;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .chatbot-container {
+  background-color: #212121;
+}
+
+.chatbot-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+  overflow: hidden;
+}
+
+.chatbot-main {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* WebKit Browsers (Chrome, Safari, Edge) */
+.chatbot-main::-webkit-scrollbar {
+  width: 0px;              
+}
+

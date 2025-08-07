@@ -1,0 +1,16 @@
+.pomodoro-container{
+    display: flex;
+    min-height: 100vh;
+    background-color: #fdf8ee;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .pomodoro-container{
+    background-color: #212121;
+}
+
+.pomodoro-main {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  overflow-y: auto;
+}

@@ -1,0 +1,16 @@
+.mindmaps-container{
+  display: flex;
+    min-height: 100vh;
+    background-color: #fdf8ee;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .mindmaps-container{
+    background-color: #212121;
+}
+
+.mindmaps-main {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  overflow-y: auto;
+}
