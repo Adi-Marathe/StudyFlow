@@ -95,8 +95,8 @@ const Aibot = ({ username = "Aditya" }) => {
   };
    
   const removeThinkTag = (text) => {
-  if (!text) return '';
-    return text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+    if (!text) return '';
+    return text.replace(/<\s*think\s*>[\s\S]*?<\s*\/\s*think\s*>/gi, '').trim();
   };
 
   return (
