@@ -1,16 +1,29 @@
-.taskmanager-container{
-    display: flex;
-    min-height: 100vh;
-    background-color: #fdf8ee;
-    transition: background-color 0.3s ease;
+.taskmanager-container {
+  display: flex;
+  height: 100vh;
+  background-color: #fdf8ee;
+  transition: background-color 0.3s ease;
 }
 
-body.dark-mode .taskmanager-container{
-    background-color: #212121;
+body.dark-mode .taskmanager-container {
+  background-color: #212121;
+}
+
+.taskmanager-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+  overflow: hidden;
 }
 
 .taskmanager-main {
   flex: 1;
-  padding: 0.5rem 1rem;
   overflow-y: auto;
 }
+
+/* WebKit Browsers (Chrome, Safari, Edge) */
+.taskmanager-main::-webkit-scrollbar {
+  width: 0px;              
+}
+

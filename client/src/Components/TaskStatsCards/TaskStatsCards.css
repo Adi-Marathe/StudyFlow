@@ -1,0 +1,108 @@
+.stats-cards-container {
+    display: flex;
+    gap: 16px;
+    padding: 0px 0;
+    flex-wrap: wrap;
+  }
+  
+  .stats-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 16px;
+    border-radius: 26px;
+    min-width: 175px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding-left: 35px;
+  }
+
+  /* Purple card styling */
+  .stats-card-purple {
+    background: linear-gradient(135deg, #8B7CF6 0%, #A78BFA 100%);
+    color: #8B7CF6;
+  }
+  
+  /* Blue card styling */
+  .stats-card-blue {
+    background: linear-gradient(135deg, #67E8F9 0%, #7DD3FC 100%);
+    color: #67E8F9;
+  }
+  
+  /* Pink card styling */
+  .stats-card-pink {
+    background: linear-gradient(135deg, #F9A8D4 0%, #FBCFE8 100%);
+    color: #F9A8D4;
+  }
+  
+  /* Green card styling */
+  .stats-card-green {
+    background: linear-gradient(135deg, #6EE7B7 0%, #86EFAC 100%);
+    color: #6EE7B7;
+  }
+  
+  .stats-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: white;
+    backdrop-filter: blur(10px);
+  }
+  
+  .stats-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .stats-number {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  
+  .stats-label {
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.9;
+    text-transform: capitalize;
+    color: #fff;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .stats-cards-container {
+      gap: 12px;
+    }
+    
+    .stats-card {
+      min-width: 160px;
+      padding: 16px 20px;
+    }
+    
+    .stats-number {
+      font-size: 24px;
+    }
+    
+    .stats-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .stats-cards-container {
+      flex-direction: column;
+    }
+    
+    .stats-card {
+      min-width: 100%;
+    }
+  }
