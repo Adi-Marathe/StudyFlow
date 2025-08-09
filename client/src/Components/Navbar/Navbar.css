@@ -1,7 +1,7 @@
 .d-navbar {
   background-color: #FDF8EE;
   border-bottom: 1px solid #e5e7eb;
-  padding: 0rem 1.5rem 0.2rem 1.5rem;
+  padding: 0rem 1.5rem 0.2rem 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

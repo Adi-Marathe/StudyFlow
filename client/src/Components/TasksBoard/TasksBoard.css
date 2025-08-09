@@ -1,0 +1,238 @@
+.tasks-board {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.board-header {
+  margin-bottom: 16px;
+  margin-left: 0.5rem;
+}
+
+.board-header h2 {
+  font-size: 20px;
+  font-weight: 540;
+  color: #1f2937;
+  margin: 0;
+}
+
+.board-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  height: calc(100vh - 100px);
+  max-height: 650px;
+}
+
+.column {
+  background: #f1f5f9;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 800px;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.column-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column-indicator {
+  width: 9.5px;
+  height: 9.5px;
+  border-radius: 50%;
+}
+
+.column-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #050c26;
+  margin: 0;
+}
+
+.task-count {
+  background-color: #e5e7eb;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.column-menu {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.column-menu:hover {
+  color: #5b5f65;
+}
+
+.tasks-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  max-height: calc(650px - 80px);
+}
+
+.tasks-container::-webkit-scrollbar {
+  width: 3px;
+}
+
+.tasks-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tasks-container::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.tasks-container::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+.task-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: grab;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  border: 1px solid transparent;
+}
+
+.task-card:hover {
+  border-color: #e5e7eb;
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+.task-card.dragging {
+  opacity: 0.8;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+.task-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.task-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+  margin-right: 8px;
+}
+
+.task-menu {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.task-menu:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.task-desc {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .board-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tasks-board {
+    padding: 16px;
+  }
+  
+  .board-columns {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-height: none;
+    height: auto;
+  }
+  
+  .tasks-container {
+    max-height: 400px;
+  }
+}
+
+/* Drag and Drop Visual Feedback */
+.column:has(.task-card.dragging) {
+  background-color: rgba(139, 92, 246, 0.08);
+  border: 2px dashed rgba(139, 92, 246, 0.3);
+}
+
+.column:hover:has(.task-card.dragging) {
+  background-color: rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Animation for task movement */
+@keyframes taskMove {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-card {
+  animation: taskMove 0.3s ease-out;
+}
