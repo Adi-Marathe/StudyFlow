@@ -16,6 +16,7 @@
     "aos": "^2.3.4",
     "axios": "^1.10.0",
     "bootstrap": "^5.3.7",
+    "canvas-confetti": "^1.9.3",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.525.0",
     "marked": "^16.1.2",

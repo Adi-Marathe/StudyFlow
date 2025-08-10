@@ -2,32 +2,36 @@ import React from 'react';
 import { CheckCircle, Clock, RotateCcw, CheckCheck } from 'lucide-react';
 import './TaskStatsCards.css';
 
-const TaskStatsCards = () => {
+const TaskStatsCards = ({
+  stats = { total: 0, todo: 0, inProgress: 0, done: 0 }
+}) => {
+  const format2 = (n) => String(n ?? 0).padStart(2, '0');
+
   const statsData = [
     {
       id: 1,
-      number: '1220',
+      number: format2(stats.total),
       label: 'Total Task',
       icon: CheckCircle,
       className: 'stats-card-purple'
     },
     {
       id: 2,
-      number: '07',
-      label: 'To do',
+      number: format2(stats.todo),
+      label: 'To Do',
       icon: Clock,
       className: 'stats-card-blue'
     },
     {
       id: 3,
-      number: '43',
-      label: 'In progress',
+      number: format2(stats.inProgress),
+      label: 'In Progress',
       icon: RotateCcw,
       className: 'stats-card-pink'
     },
     {
       id: 4,
-      number: '1550',
+      number: format2(stats.done),
       label: 'Completed',
       icon: CheckCheck,
       className: 'stats-card-green'

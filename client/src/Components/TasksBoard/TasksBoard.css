@@ -138,7 +138,7 @@
 
 .task-card.dragging {
   opacity: 0.8;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.18);
 }
 
 .task-header {
@@ -235,4 +235,25 @@
 
 .task-card {
   animation: taskMove 0.3s ease-out;
+}
+
+/* Empty column state */
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88px;            /* similar height to 1–2 cards */  /* subtle dashed border */
+  border-radius: 8px;
+  color: #5a5b5d;              /* neutral text */
+        /* light bg */
+}
+
+.empty-text {
+  font-size: 14px;
+}
+
+/* Optional: make empty state highlight on drag over */
+.column.drag-over .empty-state {
+  border-color: #a78bfa;       /* violet-ish to match your theme */
+  background: #f5f3ff;
 }

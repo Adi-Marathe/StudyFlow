@@ -14,6 +14,7 @@ app.use(express.json());
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/chat', require('./routes/chatbot')); 
+app.use('/api/tasks', require('./routes/taskRoutes')); 
 
 app.get('/', (req, res) => {
   res.send('API is running...');
