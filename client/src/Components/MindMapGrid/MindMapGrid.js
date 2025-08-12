@@ -161,7 +161,7 @@ const MindMapGrid = ({ mindMaps, loading, onCardClick, onDeleteMindMap }) => {
         {mindMaps.length === 0 && (
           <div className="empty-state">
             <div className="empty-state-content">
-              <div className="empty-icon">🧠</div>
+              <div className="empty-icon"></div>
               <h3>No Mind Maps Yet</h3>
               <p>Create your first mind map to visualize your thoughts and ideas!</p>
             </div>
