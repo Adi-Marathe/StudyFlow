@@ -9,10 +9,11 @@ import PrivateRoute from './routes/PrivateRoute';
 import Chatbot from './Pages/Chatbot/Chatbot';
 import Eventscheduler from './Pages/Eventscheduler/Eventscheduler';
 import Mindmaps from './Pages/Mindmaps/Mindmaps';
+import MindMapEditor from './Components/MindMapEditor/MindMapEditor';
 import Flashcards from './Pages/Flashcards/Flashcards';
 import Pomodoro from './Pages/Pomodoro/Pomodoro';
 import Messages from './Pages/Messages/Messages';
-import Taskmanager from './Pages/Taskmanager/Taskmanger';
+import Taskmanager from './Pages/Taskmanager/Taskmanager';
 import Focusmode from './Pages/Focusmode/Focusmode';
 import Notes from './Pages/Notes/Notes';
 import { DarkModeProvider } from './context/DarkModeContext';
@@ -41,6 +42,7 @@ function App() {
           <Route path="/flashcards" element={<Flashcards/>}/>
           <Route path="/focusmode" element={<Focusmode/>}/>
           <Route path="/mindmaps" element={<Mindmaps/>}/>
+          <Route path="/mindmaped" element={<MindMapEditor />} />
           <Route path="/pomodoro" element={<Pomodoro/>}/>
           <Route path="/taskmanager" element={<Taskmanager/>}/>
           <Route path="/notes" element={<Notes/>}/>

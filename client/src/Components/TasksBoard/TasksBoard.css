@@ -16,6 +16,7 @@
   font-weight: 540;
   color: #1f2937;
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 .board-columns {
@@ -27,13 +28,14 @@
 }
 
 .column {
-  background: #f1f5f9;
+  background: #ffffff;
   border-radius: 16px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   height: 100%;
   max-height: 800px;
+  transition: background-color 0.3s ease;
 }
 
 .column-header {
@@ -62,6 +64,7 @@
   font-weight: 600;
   color: #050c26;
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 .task-count {
@@ -73,6 +76,7 @@
   border-radius: 12px;
   min-width: 20px;
   text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .column-menu {
@@ -119,13 +123,14 @@
 }
 
 .task-card {
-  background: #ffffff;
+  background: #f1f5f9;
   border-radius: 12px;
   padding: 16px;
   cursor: grab;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   border: 1px solid transparent;
+  transition: background-color 0.3s ease;
 }
 
 .task-card:hover {
@@ -156,6 +161,7 @@
   line-height: 1.4;
   flex: 1;
   margin-right: 8px;
+  transition: color 0.3s ease;
 }
 
 .task-menu {
@@ -176,13 +182,14 @@
 
 .task-desc {
   font-size: 14px;
-  color: #6b7280;
+  color: #3a3b3d;
   line-height: 1.5;
   margin: 0 0 10px 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: color 0.3s ease;
 }
 
 
@@ -256,4 +263,37 @@
 .column.drag-over .empty-state {
   border-color: #a78bfa;       /* violet-ish to match your theme */
   background: #f5f3ff;
+}
+
+/* dark-mode */
+body.dark-mode .board-header h2{
+  color: #fff;
+}
+body.dark-mode .column{
+  background-color: #2c2c2c;
+}
+
+body.dark-mode .column-title{
+  color: #e5e7eb;
+}
+
+body.dark-mode .task-count{
+  background-color: #3a3a3a ;
+  color: 9ca3af;
+}
+
+body.dark-mode .task-card{
+  background-color: #3f3f46  ;
+}
+
+body.dark-mode .task-card:hover {
+  border-color: #4b5563;
+}
+
+body.dark-mode .task-title{
+  color: #f9fafb ;
+}
+
+body.dark-mode .task-desc{
+  color: #f9fafb ;
 }

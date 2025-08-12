@@ -1,0 +1,968 @@
+/* Reset and Base */
+* {
+  box-sizing: border-box;
+}
+
+/* Main Container */
+.mindmap-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: #f8fafc;
+  color: #2d3748;
+  overflow: hidden;
+}
+
+/* Header */
+.mindmap-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 12px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+  min-height: 60px;
+  gap: 16px;
+}
+
+/* sf-Logo Section */
+.header-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sf-logo {
+  display: flex;
+  align-items: center; 
+  gap: 0.625rem; /* 10px */
+  margin-left: 1.5rem; /* 24px */
+}
+
+.sf-logo-icon {
+  width: 2rem; /* 32px */
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sf-logo-text {
+  font-size: 1.5rem; /* 25px */
+  font-weight: 500;
+  color: #4d2c5e;
+  transition: color 0.3s ease;
+}
+
+/* Title Section */
+.header-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mind-map-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.mind-map-title:hover {
+  background-color: #f7fafc;
+}
+
+.title-input {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 0px;
+  outline: none;
+  text-align: center;
+  background: #ffffff;
+  max-width: 300px;
+  width: 100%;
+}
+
+.title-input::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+}
+
+/* Save Button Section */
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn-save {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #4d2c5e;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(76, 81, 191, 0.2);
+  white-space: nowrap;
+}
+
+.btn-save:hover {
+  background: #5e3672;
+}
+
+/* Body Layout */
+.mindmap-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar with Top and Bottom Sections */
+.mindmap-sidebar {
+  width: 70px;
+  min-width: 70px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.06);
+  overflow-y: auto;
+}
+
+.sidebar-top {
+  flex: 1;
+  padding: 20px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.sidebar-bottom {
+  padding: 16px 8px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Action Buttons */
+.action-btn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.m-add-btn {
+  background: #48bb78;
+}
+
+.m-add-btn:hover {
+  background: #38a169;
+}
+
+.delete-btn {
+  background: #f56565;
+
+}
+
+.delete-btn:hover {
+  background: #e53e3e;
+}
+
+/* Exit Button */
+.exit-btn {
+  width: 35px;
+  height: 35px;
+  background: #718096;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.exit-btn:hover {
+  background: #4a5568;
+}
+
+.sidebar-divider {
+  width: 32px;
+  height: 1px;
+  background: #e2e8f0;
+  margin: 8px 0;
+  flex-shrink: 0;
+}
+
+/* Sidebar Sections */
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.section-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+/* Color Palette */
+.color-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.color-option {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.color-option:hover {
+  border-color: #cbd5e0;
+}
+
+.color-option.active {
+  border-color: #4a5568;
+}
+
+/* Font Controls */
+.font-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.font-btn {
+  width: 25px;
+  height: 25px;
+  background: #66b7ea;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.font-btn:hover {
+  background: #5a67d8;
+}
+
+.font-display {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* Canvas */
+.mindmap-canvas {
+  flex: 1;
+  position: relative;
+  background: #fdf8ee;
+  min-width: 0;
+}
+
+/* Node Styles */
+.custom-node {
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: grab;
+  user-select: none;
+  min-width: 120px;
+  max-width: 250px;
+  text-align: center;
+  transition: all 0.2s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  word-wrap: break-word;
+}
+
+.custom-node:active {
+  cursor: grabbing;
+}
+
+.custom-node:hover {
+  /* transform: translateY(-2px) scale(1.02); */
+}
+
+.custom-node.selected {
+  transform:scale(1.03);
+}
+
+.node-label {
+  font-weight: 600;
+  color: inherit;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.node-input {
+  width: 100%;
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  font-family: inherit;
+}
+
+/* Connection Handles */
+.custom-handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.7) !important;
+  border-radius: 50% !important;
+  transition: all 0.2s ease;
+}
+
+.custom-handle:hover {
+  background: #6d84eb !important;
+  border-color: #5a67d8 !important;
+  transform: scale(1.3);
+}
+
+/* Hand-drawn Style Edges */
+.react-flow__edge path {
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.react-flow__edge.smoothstep path {
+  stroke-dasharray: 8 4 2 4;
+  animation: handdrawn 4s ease-in-out infinite;
+}
+
+@keyframes handdrawn {
+  0%, 100% {
+    stroke-dashoffset: 0;
+    opacity: 0.9;
+  }
+  50% {
+    stroke-dashoffset: 14;
+    opacity: 1;
+  }
+}
+
+.react-flow__edge.selected path {
+  stroke-width: 4;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+}
+
+/* React Flow Controls */
+.custom-controls {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-controls button {
+  background: transparent;
+  color: #4a5568;
+  border: none;
+}
+
+.custom-controls button:hover {
+  background: #f7fafc;
+  color: #2d3748;
+}
+
+.custom-minimap {
+  background:#fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .mindmap-header {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  
+  .sf-logo-text {
+    display: none;
+  }
+  
+  .mind-map-title {
+    font-size: 1rem;
+    max-width: 200px;
+  }
+  
+  .title-input {
+    font-size: 1rem;
+    max-width: 200px;
+  }
+  
+  .btn-save {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .mindmap-sidebar {
+    width: 60px;
+    min-width: 60px;
+  }
+  
+  .sidebar-top {
+    padding: 16px 4px;
+    gap: 16px;
+  }
+  
+  .sidebar-bottom {
+    padding: 12px 4px;
+  }
+  
+  .action-btn, .exit-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .color-option {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .font-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mindmap-header {
+    grid-template-columns: auto 1fr auto;
+    gap: 4px;
+  }
+  
+  .sf-logo-icon {
+    font-size: 1.2rem;
+  }
+  
+  .mind-map-title {
+    font-size: 0.9rem;
+    max-width: 150px;
+    padding: 6px 8px;
+  }
+  
+  .title-input {
+    font-size: 0.9rem;
+    max-width: 150px;
+    padding: 6px 8px;
+  }
+  
+  .btn-save {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .btn-save svg {
+    display: none;
+  }
+}
+
+/* Scrollbar Styling */
+.mindmap-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mindmap-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.3);
+  border-radius: 2px;
+}
+
+.mindmap-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.5);
+}
+
+/* Enhanced Connection Styles - Add to your existing CSS */
+
+/* Precise handle positioning */
+.custom-handle {
+  width: 12px !important;
+  height: 12px !important;
+  background: rgba(139, 92, 246, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.custom-node:hover .custom-handle {
+  opacity: 1;
+}
+
+.custom-handle:hover {
+  background: #8b5cf6 !important;
+  border-color: #ffffff !important;
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+}
+
+/* Beautiful edge styling */
+.custom-edge path {
+  filter: drop-shadow(0 2px 8px rgba(139, 92, 246, 0.2));
+  transition: all 0.3s ease;
+}
+
+.custom-edge:hover path {
+  stroke-width: 4;
+  filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.4));
+}
+
+.connection-dot {
+  filter: drop-shadow(0 1px 3px rgba(139, 92, 246, 0.3));
+}
+
+/* Enhanced node styling for better connections */
+.custom-node {
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.custom-node.selected {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Performance optimizations for ultra-smooth dragging */
+.react-flow__node {
+  will-change: transform;
+  transform: translateZ(0); /* Hardware acceleration */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  touch-action: none;
+}
+
+.react-flow__node-default {
+  transition: none !important; /* Remove transitions during drag */
+}
+
+.react-flow__node.react-flow__node-dragging {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+  transform: translateZ(0) scale(1.02);
+}
+
+.custom-node {
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  touch-action: none;
+  transition: box-shadow 0.15s ease;
+}
+
+.custom-node:active {
+  cursor: grabbing !important;
+}
+
+/* Optimized handles */
+.custom-handle {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0;
+  pointer-events: all;
+}
+
+.custom-node:hover .custom-handle {
+  opacity: 1;
+}
+
+/* Optimized edge performance */
+.react-flow__edge {
+  will-change: stroke-width;
+  pointer-events: stroke;
+}
+
+.react-flow__edge path {
+  transition: none; /* Remove edge transitions for performance */
+}
+
+.connection-dot {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Pane optimizations */
+.react-flow__pane {
+  cursor: grab;
+  touch-action: none;
+}
+
+.react-flow__pane:active {
+  cursor: grabbing;
+}
+
+.react-flow__pane.dragging {
+  cursor: grabbing;
+}
+
+/* Viewport optimizations */
+.react-flow__viewport {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Remove expensive animations during interactions */
+.react-flow__node.react-flow__node-dragging * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Smooth minimap */
+.custom-minimap {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* GPU acceleration for entire canvas */
+.mindmap-canvas {
+  will-change: transform;
+  transform: translateZ(0);
+  contain: layout style paint;
+}
+
+/* CRITICAL PERFORMANCE CSS - Add these to your existing styles */
+
+/* Disable expensive animations during drag */
+.react-flow__node.dragging,
+.react-flow__node.dragging * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Optimize transforms for GPU acceleration */
+.react-flow__node {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Optimize handles */
+.custom-handle {
+  will-change: opacity;
+  transition: opacity 0.1s ease;
+  opacity: 0;
+}
+
+.custom-node:hover .custom-handle {
+  opacity: 1;
+}
+
+/* Remove edge animations completely for performance */
+.react-flow__edge {
+  pointer-events: stroke;
+}
+
+.react-flow__edge path {
+  transition: none;
+  animation: none;
+}
+
+/* Optimize viewport */
+.react-flow__viewport {
+  will-change: transform;
+}
+
+/* Optimize pane interactions */
+.react-flow__pane {
+  touch-action: none;
+  user-select: none;
+}
+
+/* dark mode */
+body.dark-mode .mindmap-header {
+  background: #4d2c5e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .sf-logo-text{
+  color: #fff;
+  font-weight: 400;
+}
+
+body.dark-mode .mind-map-title {
+  color: #f3f4f6;
+}
+
+body.dark-mode .mind-map-title:hover {
+  background-color: rgba(255, 255, 255, 0.08); 
+}
+
+body.dark-mode .title-input {
+  color: #f3f4f6;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .title-input::placeholder {
+  color: rgba(255, 255, 255, 0.5); 
+}
+
+body.dark-mode .btn-save {
+  background: #ff7426; 
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(255, 116, 38, 0.4);
+}
+
+body.dark-mode .btn-save:hover {
+  background: #ffa066; 
+}
+
+body.dark-mode .mindmap-sidebar {
+  background: #2c2c2c;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .m-add-btn {
+  background: #48bb78;
+}
+body.dark-mode .m-add-btn:hover {
+  background: #38a169;
+}
+
+body.dark-mode .delete-btn {
+  background: #f56565;
+}
+body.dark-mode .delete-btn:hover {
+  background: #e53e3e;
+}
+
+body.dark-mode .exit-btn {
+  background: #a0aec0; 
+}
+body.dark-mode .exit-btn:hover {
+  background: #cbd5e0; 
+}
+
+body.dark-mode .sidebar-divider {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .section-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body.dark-mode .color-option:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+body.dark-mode .color-option.active {
+  border-color: #494949; 
+}
+
+body.dark-mode .font-btn {
+  background: #66b7ea;
+}
+body.dark-mode .font-btn:hover {
+  background: #5a67d8;
+}
+body.dark-mode .font-display {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+body.dark-mode .mindmap-canvas {
+  background: #212121;
+}
+
+body.dark .custom-node {
+  background: #2c2c2c;
+  color: #f1f1f1;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark .node-input {
+  color: #ffffff;
+}
+
+body.dark .custom-handle {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 2px solid rgba(255, 255, 255, 0.7) !important;
+}
+
+body.dark .custom-handle:hover {
+  background: #ff7426 !important;
+  border-color: #ffffff !important;
+}
+
+body.dark .react-flow__edge path {
+  stroke: #cccccc;
+}
+
+body.dark .react-flow__edge.selected path {
+  stroke: #ff7426;
+}
+
+body.dark .custom-controls {
+  background: rgba(34, 34, 34, 0.95);
+  border: 1px solid #444;
+}
+
+body.dark .custom-controls button {
+  color: #e0e0e0;
+}
+
+body.dark .custom-controls button:hover {
+  background: #333;
+  color: #ffffff;
+}
+
+body.dark .custom-minimap {
+  background: #1e1e1e;
+  border: 1px solid #444;
+}
+
+body.dark .mindmap-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 116, 38, 0.4);
+}
+
+body.dark .mindmap-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 116, 38, 0.6);
+}
+
+body.dark .mindmap-canvas {
+  background: #212121;
+}
+
+body.dark .custom-minimap {
+  background: #23272F !important;
+  border: 1.5px solid #222 !important;
+}
+
+body.dark .custom-minimap .react-flow__minimap-bg {
+  fill: #23272F !important;
+}
+
+body.dark .custom-minimap .react-flow__minimap-node {
+  fill: #ededed !important;
+}
+
+body.dark .custom-minimap .react-flow__minimap-mask {
+  background-color: rgba(30, 32, 36, 0.80) !important;
+}
+
+/* Dark mode styles for Controls */
+body.dark .custom-controls {
+  background: #23272F !important;
+  border: 1px solid #444 !important;
+  color: #ededed !important;
+}
+
+body.dark .custom-controls button {
+  background: transparent !important;
+  color: #ededed !important;
+  border: none !important;
+}
+
+body.dark .custom-controls button:hover {
+  background: #363940 !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .custom-minimap,
+body.dark .custom-minimap {
+  background: #23272F !important;
+  border: 1.5px solid #23272F !important;
+}
+body.dark-mode .custom-minimap svg,
+body.dark .custom-minimap svg {
+  background: #23272F !important;
+}
+body.dark-mode .custom-minimap .react-flow__minimap-bg,
+body.dark .custom-minimap .react-flow__minimap-bg {
+  fill: #23272F !important;
+}
+body.dark-mode .custom-minimap .react-flow__minimap-mask,
+body.dark .custom-minimap .react-flow__minimap-mask {
+  background-color: rgba(30,32,36,0.8) !important;
+  fill: rgba(30,32,36,0.8) !important;
+}
+body.dark-mode .custom-minimap .react-flow__minimap-node,
+body.dark .custom-minimap .react-flow__minimap-node {
+  fill: #2b2a2a !important;
+  stroke: #444444 !important;
+}
+
+body.dark-mode .custom-controls,
+body.dark .custom-controls {
+  background: #23272F !important;
+  border: 1px solid #393939 !important;
+  color: #ededed !important;
+}
+body.dark-mode .custom-controls button,
+body.dark .custom-controls button {
+  background: transparent !important;
+  color: #252424 !important;
+  border: none !important;
+}
+body.dark-mode .custom-controls button:hover,
+body.dark .custom-controls button:hover {
+  background: #363940 !important;
+  color: #fff !important;
+}

@@ -235,8 +235,8 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
   };
 
   const columns = [
-    { id: 'todo', title: 'To do', color: '#8B5CF6' },
-    { id: 'inprogress', title: 'In progress', color: '#F59E0B' },
+    { id: 'todo', title: 'To do', color: '#67E8F9' },
+    { id: 'inprogress', title: 'In progress', color: '#F9A8D4' },
     { id: 'done', title: 'Done', color: '#6EE7B7' }
   ];
 
@@ -279,6 +279,7 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
                     draggable
                     onDragStart={(e) => handleDragStart(e, task, column.id)}
                     onDragEnd={handleDragEnd}
+                    style={{ borderLeft: `5px solid ${column.color}` }}
                   >
                     <div className="task-header">
                       <h4 className="task-title">{task.title}</h4>

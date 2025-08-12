@@ -1,3 +1,4 @@
+/* Existing CSS stays the same */
 .taskmanager-container {
   display: flex;
   height: 100vh;
@@ -22,8 +23,44 @@ body.dark-mode .taskmanager-container {
   overflow-y: auto;
 }
 
+.overview{
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-overview{
+  flex-direction: column;
+}
+
 /* WebKit Browsers (Chrome, Safari, Edge) */
 .taskmanager-main::-webkit-scrollbar {
   width: 0px;              
 }
 
+/* NEW CSS - Add this for side-by-side layout */
+.main-content-grid {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-top: 24px;
+}
+
+.main-content-grid > *:first-child {
+  flex: 1; /* TasksBoard takes remaining space */
+}
+
+.main-content-grid > *:last-child {
+  flex-shrink: 0; /* TaskPercentage maintains its width */
+  width: 400px; /* Fixed width for TaskPercentage */
+}
+
+/* Responsive: Stack vertically on smaller screens */
+@media (max-width: 1200px) {
+  .main-content-grid {
+    flex-direction: column;
+  }
+  
+  .main-content-grid > *:last-child {
+    width: 100%;
+  }
+}

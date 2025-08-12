@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import Navbar from '../../Components/Navbar/Navbar';
 import WelcomeBanner from '../../Components/WelcomeBanner/WelcomeBanner';
 import TaskStatsCards from '../../Components/TaskStatsCards/TaskStatsCards';
 import AddTaskModal from '../../Components/AddTaskModal/AddTaskModal';
 import TasksBoard from '../../Components/TasksBoard/TasksBoard';
+import TaskPercentage from '../../Components/TaskPercentage/TaskPercentage';
 import './Taskmanager.css';
 
 function Taskmanager() {
@@ -28,10 +29,10 @@ function Taskmanager() {
     setIsModalOpen(false);
   };
 
-  // Receive counts from TasksBoard whenever its internal tasks change
-  const handleCountsChange = (counts) => {
+  // 🔥 FIX: Wrap with useCallback to prevent infinite re-renders
+  const handleCountsChange = useCallback((counts) => {
     setStats(counts);
-  };
+  }, []); // Empty dependency array since setStats is stable
 
   return (
     <div className="taskmanager-container">
@@ -40,6 +41,8 @@ function Taskmanager() {
       <div className="taskmanager-content-wrapper">
         <Navbar />
         <main className="taskmanager-main">
+         <div className='overview'>
+          <div className='left-overview'>
           <WelcomeBanner
             subtitle="Welcome To"
             title="Your Task Management Area"
@@ -51,12 +54,15 @@ function Taskmanager() {
 
           {/* Live stats from the board */}
           <TaskStatsCards stats={stats} />
-
-          {/* Board fetches tasks, emits counts up, and appends lastAddedTask instantly */}
-          <TasksBoard
-            newTask={lastAddedTask}
-            onCountsChange={handleCountsChange}
-          />
+          </div>
+          <TaskPercentage stats={stats} />
+          </div>
+            <TasksBoard
+              newTask={lastAddedTask}
+              onCountsChange={handleCountsChange}
+            />
+            
+          
         </main>
       </div>
 

@@ -1,16 +1,16 @@
-.messages-container{
-    display: flex;
-    min-height: 100vh;
-    background-color: #fdf8ee;
-    transition: background-color 0.3s ease;
+.sf-messages-container{
+  display: flex;
+  min-height: 100vh;
+  background-color: #fdf8ee;
+  transition: background-color 0.3s ease;
 }
 
-body.dark-mode .messages-container{
-    background-color: #212121;
+body.dark-mode .sf-messages-container{
+  background-color: #212121;
 }
 
-.messages-main {
-  flex: 1;
-  padding: 0.5rem 1rem;
-  overflow-y: auto;
+.sf-messages-main {
+flex: 1;
+padding: 0.5rem 1rem;
+overflow-y: auto;
 }

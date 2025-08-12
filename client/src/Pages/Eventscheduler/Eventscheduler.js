@@ -13,6 +13,7 @@ function Eventschedular() {
         <Navbar />
         <main className="eventscheduler-main">
           <div style={{ height: "2000px" }}>
+          <div className='sf-welcome-header'>
             <WelcomeBanner
               subtitle="Welcome To"
               title="Your Event Scheduler"
@@ -21,6 +22,7 @@ function Eventschedular() {
               onButtonClick={() => console.log("Open Add Modal")}
               animation="https://lottie.host/12047cbf-ae5e-42c1-8fc7-edff6e6eaa4f/jTKxWt1KmD.lottie"
             />
+          </div>
           </div>
         </main>
       </div>

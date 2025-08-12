@@ -1,16 +1,32 @@
-.mindmaps-container{
+.mindmaps-container {
   display: flex;
-    min-height: 100vh;
-    background-color: #fdf8ee;
-    transition: background-color 0.3s ease;
+  height: 100vh;
+  background-color: #fdf8ee;
+  transition: background-color 0.3s ease;
 }
 
-body.dark-mode .mindmaps-container{
-    background-color: #212121;
+body.dark-mode .mindmaps-container {
+  background-color: #212121;
+}
+
+.mindmaps-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+  overflow: hidden;
 }
 
 .mindmaps-main {
   flex: 1;
-  padding: 0.5rem 1rem;
   overflow-y: auto;
+}
+
+/* WebKit Browsers (Chrome, Safari, Edge) */
+.mindmaps-main::-webkit-scrollbar {
+  width: 0px;              
+}
+
+.sf-welcome-header{
+  width: 60%
 }
