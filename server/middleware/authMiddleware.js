@@ -10,9 +10,10 @@ const authenticateToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = {id: decoded. id }; // ✅ Fix here
+    req.user = { id: decoded.id }; // ✅ Fixed: removed extra space
     next();
   } catch (error) {
+    console.error('JWT verification error:', error); // ✅ Add logging
     return res.status(403).json({ message: 'Invalid or expired token' });
   }
 };

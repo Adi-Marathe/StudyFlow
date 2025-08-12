@@ -1,0 +1,86 @@
+/* EventCalendar.css */
+
+.calendar-wrapper {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.rbc-calendar {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  height: 80vh;
+}
+
+.rbc-toolbar {
+  background-color: transparent;
+  padding: 1rem;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rbc-btn-group button {
+  background-color: #ff7426;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.rbc-toolbar button {
+  visibility: visible !important;
+}
+
+.rbc-btn-group button:hover {
+  background-color: #e05e1f;
+}
+
+.rbc-event {
+  padding: 4px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  color: white;
+  border: none;
+}
+
+.rbc-event-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Light Theme */
+:root {
+  --bg-color: #fffefe;
+  --text-color: #050c26;
+}
+
+/* Dark Theme */
+body.dark-mode {
+  --bg-color: #2d2d2e;
+  --text-color: #fffefe;
+}
+
+.rbc-today {
+  background-color: rgba(255, 116, 38, 0.1);
+}
+
+.rbc-selected-cell {
+  background-color: rgba(255, 116, 38, 0.2) !important;
+}
+
+.rbc-toolbar-label {
+  font-weight: bold;
+  color: var(--text-color);
+  font-size: 1.1rem;
+}
+
+.rbc-calendar {
+  height: 90vh !important; /* or use px, e.g., 800px */
+}

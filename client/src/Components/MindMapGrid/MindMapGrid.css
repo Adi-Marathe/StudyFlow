@@ -1,0 +1,420 @@
+.mindmap-grid-container {
+    width: 100%;
+  }
+  
+  .mindmap-grid-header {
+    margin-bottom: 0px;
+    padding-bottom: 16px;
+  }
+  
+  .mindmap-grid-header h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1c1c1c;
+    margin: 0;
+  }
+  
+  /* Grid Layout */
+  .mindmap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Mind Map Cards */
+  .mindmap-card {
+    background: #fff;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+    height: 280px;
+    border: 1px solid #f1f5f9;
+  }
+  
+  .mindmap-card:hover {
+    transform: translateY(-6px);
+    border-color: #e2e8f0;
+  }
+  
+  .mindmap-card-content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Card Header */
+  .mindmap-card-header {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+  }
+  
+  .delete-btn {
+    background: rgba(255, 255, 255, 0.95);
+    color: #ef4444;
+    border: 1px solid #fee2e2;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+  }
+  
+  .mindmap-card:hover .delete-btn {
+    opacity: 1;
+  }
+  
+  .delete-btn:hover {
+    background: #fef2f2;
+    border-color: #fecaca;
+    transform: scale(1.1);
+  }
+  
+  /* Preview Container */
+  .mindmap-preview-container {
+    position: relative;
+    height: 160px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .mindmap-preview {
+    position: relative;
+    width: 140px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .preview-nodes {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .preview-node {
+    position: absolute;
+    background: #8B7CF6;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 16px;
+    font-size: 10px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(112, 26, 217, 0.25);
+    max-width: 60px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 2px solid white;
+    z-index: 2;
+  }
+  
+  .preview-node.more-nodes {
+    background: #8b5cf6;
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+  
+  .preview-empty {
+    color: #64748b;
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+  }
+  
+  .preview-connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .connection-line {
+    position: absolute;
+    background: #221f2b;
+    border-radius: 1px;
+    opacity: 0.6;
+  }
+  
+  .line-1 {
+    width: 2px;
+    height: 30px;
+    top: 25px;
+    left: 45px;
+    transform: rotate(45deg);
+  }
+  
+  .line-2 {
+    width: 2px;
+    height: 25px;
+    top: 30px;
+    right: 50px;
+    transform: rotate(-30deg);
+  }
+  
+  /* Preview Overlay */
+  .preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #8B7CF6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(2px);
+  }
+  
+  .mindmap-card:hover .preview-overlay {
+    opacity: 1;
+  }
+  
+  .overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: white;
+  }
+  
+  .overlay-content svg {
+    color: white;
+  }
+  
+  .overlay-content span {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  /* Mind Map Info */
+  .mindmap-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .mindmap-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #1e293b;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  
+  .mindmap-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    margin-top: auto;
+  }
+  
+  .nodes-count {
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    color: #475569;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .created-date {
+    color: #64748b;
+    font-weight: 500;
+  }
+  
+  /* Card Hover Overlay */
+  .card-hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(112, 26, 217, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .mindmap-card:hover .card-hover-overlay {
+    opacity: 1;
+  }
+  
+  .hover-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #701ad9;
+    font-weight: 700;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(112, 26, 217, 0.1);
+  }
+  
+  /* Loading State */
+  .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    gap: 16px;
+  }
+  
+  .loading-spinner {
+    position: relative;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f1f5f9;
+    border-top: 3px solid #701ad9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  .loading-state p {
+    color: #64748b;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Empty State */
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px dashed #cbd5e1;
+  }
+  
+  .empty-state-content {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+  
+  .empty-state h3 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+  }
+  
+  .empty-state p {
+    color: #64748b;
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .mindmap-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mindmap-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    
+    .mindmap-card {
+      height: 260px;
+    }
+    
+    .mindmap-preview-container {
+      height: 140px;
+    }
+    
+    .mindmap-info {
+      padding: 16px;
+    }
+    
+    .mindmap-title {
+      font-size: 1.1rem;
+    }
+    
+    .delete-btn {
+      opacity: 1; /* Always show on mobile */
+    }
+    
+    .mindmap-grid-header h2 {
+      font-size: 1.6rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .mindmap-card {
+      height: 240px;
+    }
+    
+    .mindmap-preview-container {
+      height: 120px;
+    }
+    
+    .mindmap-info {
+      padding: 14px;
+    }
+    
+    .mindmap-grid-header {
+      margin-bottom: 20px;
+    }
+    
+    .empty-state {
+      padding: 60px 16px;
+    }
+  }
+  

@@ -42,7 +42,7 @@ function App() {
           <Route path="/flashcards" element={<Flashcards/>}/>
           <Route path="/focusmode" element={<Focusmode/>}/>
           <Route path="/mindmaps" element={<Mindmaps/>}/>
-          <Route path="/mindmaped" element={<MindMapEditor />} />
+          <Route path="/mindmap-editor" element={<MindMapEditor />} />
           <Route path="/pomodoro" element={<Pomodoro/>}/>
           <Route path="/taskmanager" element={<Taskmanager/>}/>
           <Route path="/notes" element={<Notes/>}/>

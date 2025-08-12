@@ -24,6 +24,23 @@ body.dark-mode .eventscheduler-container {
 
 /* WebKit Browsers (Chrome, Safari, Edge) */
 .eventscheduler-main::-webkit-scrollbar {
-  width: 0px;              
+  width: 0px;
 }
 
+.welcome-events-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-banner-section {
+  flex: 1;
+  min-width: 500px;
+}
+
+.event-list{
+  display : flex;
+}

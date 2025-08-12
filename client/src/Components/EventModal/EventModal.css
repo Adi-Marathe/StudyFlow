@@ -1,0 +1,102 @@
+.event-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.event-modal-box {
+  background: var(--bg-color, #fff);
+  color: var(--text-color, #000);
+  padding: 24px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.event-modal-box h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+}
+
+.event-form input,
+.event-form select,
+.event-form textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 4px;
+}
+
+.event-form textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.event-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.color-palette {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.color-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+.color-circle.selected {
+  border: 2px solid #333;
+  transform: scale(1.1);
+}
+
+.event-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.event-modal-actions button {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.event-modal-actions .cancel {
+  background-color: #ccc;
+}
+
+.event-modal-actions .delete {
+  background-color: #d9534f;
+  color: white;
+}
+
+.event-modal-actions .save {
+  background-color: #ff7426;
+  color: white;
+}

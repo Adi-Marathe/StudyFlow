@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect, useRef, memo, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ReactFlow, {
   Controls,
   Background,
@@ -12,11 +12,16 @@ import ReactFlow, {
   ReactFlowProvider
 } from "reactflow";
 import { FiPlus, FiTrash2, FiSave, FiMinus, FiX } from "react-icons/fi";
+import { toast } from 'react-toastify';
 import "reactflow/dist/style.css";
+import 'react-toastify/dist/ReactToastify.css';
 import "./MindMapEditor.css";
 import logo from '../../Assets/images/StudyFlow-logo.png'
 
 const colors = ["#701ad9", "#ff6f61", "#ffa500", "#4caf50", "#2196f3", "#9c27b0"];
+
+// API Configuration
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 // MEMOIZED CUSTOM NODE - This is crucial for performance
 const CustomNode = memo(({ data, id, selected }) => {
@@ -130,28 +135,77 @@ const edgeTypes = { custom: CustomEdge };
 
 function MindMapEditor() {
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // ✅ Extract existing mind map data from navigation state
+  const existingMindMap = location.state;
   
   const [mindMapTitle, setMindMapTitle] = useState("Untitled");
   const [editingTitle, setEditingTitle] = useState(false);
+  const [mindMapId, setMindMapId] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasLoaded, setHasLoaded] = useState(false); // ✅ Guard against duplicate loading
   const titleInputRef = useRef(null);
 
-  const initialNodes = useMemo(() => [
-    {
-      id: "root",
-      type: "customNode",
-      position: { x: 0, y: 0 },
-      data: { 
-        label: "Idea Flow", 
-        color: colors[0], 
-        fontSize: 16
+  // ✅ Dynamic initial nodes based on existing data
+  const initialNodes = useMemo(() => {
+    if (existingMindMap?.nodes && existingMindMap.nodes.length > 0) {
+      return existingMindMap.nodes.map(node => ({
+        ...node,
+        data: {
+          ...node.data,
+          onChange: null // Will be set later
+        }
+      }));
+    }
+    
+    return [
+      {
+        id: "root",
+        type: "customNode",
+        position: { x: 0, y: 0 },
+        data: { 
+          label: "Idea Flow", 
+          color: colors[0], 
+          fontSize: 16
+        },
       },
-    },
-  ], []);
+    ];
+  }, [existingMindMap]);
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [fontSize, setFontSize] = useState(14);
+
+  // ✅ Load existing mind map data on component mount (FIXED - No duplicate toasts)
+  useEffect(() => {
+    // ✅ Prevent duplicate loading
+    if (hasLoaded) return;
+
+    console.log('Loading mind map data...');
+    console.log('Existing mind map:', existingMindMap);
+
+    if (existingMindMap) {
+      // Set title and ID for existing mind map
+      setMindMapTitle(existingMindMap.title || "Untitled");
+      setMindMapId(existingMindMap.mindMapId);
+      
+      // Set nodes and edges
+      setNodes(existingMindMap.nodes || initialNodes);
+      setEdges(existingMindMap.edges || []);
+      
+      // ✅ REMOVED: Duplicate toast notification - cleaner UX
+    } else {
+      // New mind map
+      setNodes(initialNodes);
+      setEdges([]);
+    }
+    
+    setIsLoading(false);
+    setHasLoaded(true); // ✅ Mark as loaded to prevent duplicates
+  }, []); // ✅ Empty dependency array - only run once
 
   // MEMOIZED CALLBACK FUNCTIONS - Critical for performance
   const onNodeLabelChange = useCallback((id, newLabel) => {
@@ -164,15 +218,17 @@ function MindMapEditor() {
     );
   }, [setNodes]);
 
-  // Update nodes with onChange callback
+  // ✅ Update nodes with onChange callback after loading
   useEffect(() => {
-    setNodes((nds) =>
-      nds.map((n) => ({ 
-        ...n, 
-        data: { ...n.data, onChange: onNodeLabelChange } 
-      }))
-    );
-  }, [onNodeLabelChange, setNodes]);
+    if (!isLoading && nodes.length > 0) {
+      setNodes((nds) =>
+        nds.map((n) => ({ 
+          ...n, 
+          data: { ...n.data, onChange: onNodeLabelChange } 
+        }))
+      );
+    }
+  }, [onNodeLabelChange, setNodes, isLoading, nodes.length]);
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge({ ...params, type: "custom" }, eds)),
@@ -240,26 +296,90 @@ function MindMapEditor() {
     );
   }, [fontSize, setNodes]);
 
-  const handleSave = useCallback(() => {
+  // ✅ UPDATED SAVE FUNCTION WITH DATA CLEANING
+  const handleSave = useCallback(async () => {
     const finalTitle = mindMapTitle.trim() || "Untitled";
-    const mindMapData = { title: finalTitle, nodes, edges };
-    console.log("Saving mind map:", mindMapData);
-    alert("Mind map saved successfully!");
-  }, [mindMapTitle, nodes, edges]);
+    
+    // ✅ Clean nodes and edges data before sending (REMOVE FUNCTIONS)
+    const cleanNodes = nodes.map(node => ({
+      id: node.id,
+      type: node.type,
+      position: node.position,
+      data: {
+        label: node.data.label,
+        color: node.data.color,
+        fontSize: node.data.fontSize
+      },
+      selected: node.selected || false
+    }));
+
+    const cleanEdges = edges.map(edge => ({
+      id: edge.id,
+      source: edge.source,
+      target: edge.target,
+      type: edge.type,
+      selected: edge.selected || false
+    }));
+
+    const mindMapData = { 
+      title: finalTitle, 
+      nodes: cleanNodes, 
+      edges: cleanEdges 
+    };
+
+    setIsSaving(true);
+
+    try {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        toast.error('Please log in to save mind maps');
+        setIsSaving(false);
+        return;
+      }
+
+      const isUpdate = mindMapId !== null;
+      const url = isUpdate 
+        ? `${API_BASE_URL}/api/mindmaps/${mindMapId}` 
+        : `${API_BASE_URL}/api/mindmaps`;
+      const method = isUpdate ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(mindMapData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Failed to ${isUpdate ? 'update' : 'save'} mind map`);
+      }
+
+      const result = await response.json();
+      
+      toast.success(`Mind map ${isUpdate ? 'updated' : 'saved'} successfully! 🎉`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      
+      if (!isUpdate) {
+        setMindMapId(result.mindMap._id); // ✅ Fixed: removed escaped underscore
+      }
+      
+    } catch (error) {
+      console.error('Error saving mind map:', error);
+      toast.error(`Error saving mind map: ${error.message}`);
+    } finally {
+      setIsSaving(false);
+    }
+  }, [mindMapTitle, nodes, edges, mindMapId]);
 
   const handleExit = useCallback(() => {
-    const hasChanges = nodes.length > 1 || edges.length > 0 || mindMapTitle !== "Untitled";
-    
-    if (hasChanges) {
-      // eslint-disable-next-line no-restricted-globals
-      const shouldExit = window.confirm(
-        "You have unsaved changes. Are you sure you want to exit?"
-      );
-      if (!shouldExit) return;
-    }
-    
     navigate('/mindmaps');
-  }, [nodes.length, edges.length, mindMapTitle, navigate]);
+  }, [navigate]);
 
   const handleTitleClick = useCallback(() => {
     setEditingTitle(true);
@@ -289,7 +409,21 @@ function MindMapEditor() {
     type: "custom"
   }), []);
 
-  const snapGrid = useMemo(() => ([10, 10]), []); // Grid snapping for better performance
+  const snapGrid = useMemo(() => ([10, 10]), []);
+
+  // ✅ Show loading state while initializing
+  if (isLoading) {
+    return (
+      <div className="mindmap-loading-container">
+        <div className="mindmap-loading-content">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+          </div>
+          <p>Loading mind map...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mindmap-container">
@@ -322,8 +456,14 @@ function MindMapEditor() {
         </div>
 
         <div className="header-right">
-          <button className="btn-save" onClick={handleSave}>
-            <FiSave /> Save
+          {/* ✅ Only Save button - No cancel/exit button */}
+          <button 
+            className="btn-save" 
+            onClick={handleSave} 
+            disabled={isSaving}
+            style={{ opacity: isSaving ? 0.6 : 1 }}
+          >
+            <FiSave /> {isSaving ? 'Saving...' : 'Save'}
           </button>
         </div>
       </header>
@@ -334,7 +474,7 @@ function MindMapEditor() {
             <button className="action-btn m-add-btn" title="Add Node" onClick={addNode}>
               <FiPlus />
             </button>
-            <button className="action-btn delete-btn" title="Delete Selected" onClick={deleteSelected}>
+            <button className="action-btn m-delete-btn" title="Delete Selected" onClick={deleteSelected}>
               <FiTrash2 />
             </button>
 
