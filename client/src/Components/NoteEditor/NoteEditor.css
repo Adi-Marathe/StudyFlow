@@ -1,0 +1,761 @@
+.note-editor {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+  
+  /* Header Styles */
+  .editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #8B7CF6;
+    padding: 12px 20px;
+    color: white;
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2);
+    flex-shrink: 0;
+  }
+  
+  .header-left,
+  .header-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-right {
+    justify-content: flex-end;
+  }
+  
+  .header-center {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .header-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 18px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .header-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+  
+  .header-btn:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+  }
+  
+  .header-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .save-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #6366f1;
+  }
+  
+  .save-btn:hover:not(:disabled) {
+    background: white;
+    color: #4f46e5;
+  }
+  
+  .file-name-input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+  }
+  
+  .file-name-input:focus {
+    outline: none;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .file-name-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Toolbar Styles */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-height: 48px;
+    flex-shrink: 0;
+    contain: layout style paint;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .toolbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .toolbar-section {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  
+  .toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background: #e5e7eb;
+    margin: 0 8px;
+    flex-shrink: 0;
+  }
+  
+  .toolbar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #374151;
+    transition: all 0.15s ease;
+    min-width: 32px;
+    height: 32px;
+    position: relative;
+    white-space: nowrap;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .toolbar-btn:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+  }
+  
+  .toolbar-btn:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+  }
+  
+  .toolbar-btn.active {
+    background: #e0e7ff;
+    border-color: #6366f1;
+    color: #6366f1;
+  }
+  
+  .heading-btn {
+    font-weight: 600;
+    font-size: 16px;
+    min-width: 36px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .heading-btn:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+  }
+  
+  /* Enhanced font select styling */
+  .font-select {
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 14px;
+    color: #374151;
+    cursor: pointer;
+    min-width: 120px;
+    height: 32px;
+    max-width: 150px;
+  }
+  
+  .font-select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+  }
+  
+  /* Style the optgroups */
+  .font-select optgroup {
+    font-weight: 600;
+    color: #6366f1;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  
+  .font-select option {
+    padding: 4px 8px;
+    font-weight: 400;
+    color: #374151;
+  }
+  
+  /* Preview fonts in the dropdown */
+  .font-select option[value="Georgia"] { font-family: Georgia, serif; }
+  .font-select option[value="Times New Roman"] { font-family: "Times New Roman", serif; }
+  .font-select option[value="Arial"] { font-family: Arial, sans-serif; }
+  .font-select option[value="Helvetica"] { font-family: Helvetica, sans-serif; }
+  .font-select option[value="Courier New"] { font-family: "Courier New", monospace; }
+  .font-select option[value="Roboto"] { font-family: Roboto, sans-serif; }
+  .font-select option[value="Open Sans"] { font-family: "Open Sans", sans-serif; }
+  .font-select option[value="Montserrat"] { font-family: Montserrat, sans-serif; }
+  .font-select option[value="Dancing Script"] { font-family: "Dancing Script", cursive; }
+  .font-select option[value="Pacifico"] { font-family: Pacifico, cursive; }
+  .font-select option[value="Lato"] { font-family: Lato, sans-serif; }
+  .font-select option[value="Poppins"] { font-family: Poppins, sans-serif; }
+  .font-select option[value="Source Sans Pro"] { font-family: "Source Sans Pro", sans-serif; }
+  .font-select option[value="Ubuntu"] { font-family: Ubuntu, sans-serif; }
+  .font-select option[value="Nunito"] { font-family: Nunito, sans-serif; }
+  .font-select option[value="Playfair Display"] { font-family: "Playfair Display", serif; }
+  .font-select option[value="Merriweather"] { font-family: Merriweather, serif; }
+  .font-select option[value="Lora"] { font-family: Lora, serif; }
+  .font-select option[value="Fira Code"] { font-family: "Fira Code", monospace; }
+  .font-select option[value="Source Code Pro"] { font-family: "Source Code Pro", monospace; }
+  .font-select option[value="JetBrains Mono"] { font-family: "JetBrains Mono", monospace; }
+  .font-select option[value="Oswald"] { font-family: Oswald, sans-serif; }
+  .font-select option[value="Raleway"] { font-family: Raleway, sans-serif; }
+  
+  .size-btn {
+    font-weight: 600;
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .font-size-display {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    min-width: 24px;
+    text-align: center;
+    margin: 0 4px;
+  }
+  
+  .page-add-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-color: #10b981;
+    font-weight: 600;
+    gap: 4px;
+    padding: 6px 12px;
+    min-width: auto;
+    border-radius: 18px;
+  }
+  
+  .page-add-btn:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    border-color: #059669;
+    transform: translateY(-1px);
+  }
+  
+  .add-page-text {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .page-counter {
+    margin-left: auto;
+    padding: 6px 12px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    flex-shrink: 0;
+  }
+  
+  /* Color Controls */
+  .color-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    background: white;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  
+  .color-group:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+  }
+  
+  .color-picker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  
+  .color-icon {
+    pointer-events: none;
+    color: #6b7280;
+  }
+  
+  /* Content Container */
+  .content-container {
+    flex: 1;
+    background: #e5e7eb;
+    padding: 25px 15px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+  }
+  
+  .pages-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 850px;
+    align-items: center;
+  }
+  
+  .document-page {
+    width: 210mm;
+    min-height: 297mm;
+    max-width: 794px;
+    background: white;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    padding: 60px 80px;
+    position: relative;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    contain: layout style paint size;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .title-section {
+    margin-bottom: 40px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 20px;
+  }
+  
+  .page-title-input {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    outline: none;
+    font-size: 30px;
+    font-weight: 700;
+    color: #1e293b;
+    background: transparent;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    direction: ltr;
+    unicode-bidi: normal;
+  }
+  
+  .page-title-input:focus {
+    border-bottom-color: #6366f1;
+  }
+  
+  .page-title-input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+  }
+  
+  .content-editor {
+    flex: 1;
+    outline: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    line-height: 1.7;
+    color: #1f2937;
+    min-height: 500px;
+    font-size: 16px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    direction: ltr !important;
+    unicode-bidi: normal !important;
+    text-align: left !important;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .content-editor:empty::before {
+    content: attr(data-placeholder);
+    color: #9ca3af;
+    font-style: italic;
+    pointer-events: none;
+  }
+  
+  .content-editor h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 32px 0 16px 0;
+    line-height: 1.2;
+    direction: ltr;
+  }
+  
+  .content-editor h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 24px 0 12px 0;
+    line-height: 1.3;
+    direction: ltr;
+  }
+  
+  .content-editor p {
+    margin: 16px 0;
+    direction: ltr;
+    text-align: left;
+  }
+  
+  .content-editor ul,
+  .content-editor ol {
+    margin: 16px 0;
+    padding-left: 24px;
+    direction: ltr;
+  }
+  
+  .content-editor li {
+    margin: 8px 0;
+    direction: ltr;
+  }
+  
+  /* Fix for RTL text issues */
+  .content-editor * {
+    direction: ltr !important;
+    unicode-bidi: normal !important;
+  }
+  
+  /* Page Number */
+  .page-number {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    background-color: #8b5cf6;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 10;
+    min-width: 20px;
+    text-align: center;
+  }
+  
+  /* Custom scrollbar */
+  .content-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .content-container::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  .content-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  
+  .content-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  
+  /* Accessibility improvements */
+  @media (prefers-contrast: high) {
+    .toolbar-btn {
+      border-color: #374151;
+    }
+    
+    .toolbar-btn.active {
+      background: #1e293b;
+      color: white;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Mobile responsive adjustments for font select */
+  @media (max-width: 768px) {
+    .font-select {
+      min-width: 80px;
+      font-size: 12px;
+      max-width: 100px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .font-select {
+      min-width: 70px;
+      font-size: 11px;
+      max-width: 90px;
+    }
+    
+    .font-select optgroup {
+      font-size: 10px;
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .document-page {
+      width: 95%;
+      max-width: 750px;
+      padding: 50px 60px;
+    }
+  
+    .content-container {
+      padding: 25px 15px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .editor-header {
+      padding: 10px 15px;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .header-left,
+    .header-right,
+    .header-center {
+      flex: none;
+      width: 100%;
+    }
+  
+    .header-center {
+      order: -1;
+    }
+  
+    .file-name-input {
+      max-width: none;
+      font-size: 18px;
+    }
+  
+    .btn-text {
+      display: none;
+    }
+  
+    .toolbar {
+      padding: 6px 12px;
+      gap: 2px;
+      flex-wrap: wrap;
+    }
+  
+    .toolbar-section {
+      gap: 1px;
+    }
+  
+    .toolbar-btn {
+      min-width: 28px;
+      height: 28px;
+      padding: 4px 6px;
+    }
+  
+    .add-page-text {
+      display: none;
+    }
+  
+    .page-counter {
+      order: 10;
+      margin-left: 0;
+      margin-top: 5px;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .document-page {
+      width: 100%;
+      max-width: none;
+      padding: 30px 25px;
+      margin: 0;
+    }
+  
+    .content-container {
+      padding: 20px 10px;
+    }
+  
+    .pages-wrapper {
+      gap: 25px;
+    }
+  
+    .page-title-input {
+      font-size: 24px;
+    }
+  
+    .content-editor {
+      font-size: 15px;
+      min-height: 400px;
+    }
+  
+    .page-number {
+      bottom: 15px;
+      right: 20px;
+      font-size: 11px;
+      padding: 5px 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .editor-header {
+      padding: 8px 12px;
+    }
+  
+    .header-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+  
+    .toolbar {
+      padding: 4px 8px;
+    }
+  
+    .toolbar-btn {
+      min-width: 26px;
+      height: 26px;
+      padding: 3px 5px;
+    }
+  
+    .heading-btn {
+      font-size: 14px;
+      min-width: 32px;
+    }
+  
+    .font-size-display {
+      font-size: 12px;
+      min-width: 20px;
+    }
+  
+    .document-page {
+      padding: 20px 15px;
+      border-radius: 4px;
+    }
+  
+    .page-title-input {
+      font-size: 20px;
+    }
+  
+    .content-editor {
+      font-size: 14px;
+      min-height: 350px;
+    }
+  
+    .page-number {
+      bottom: 10px;
+      right: 15px;
+      font-size: 10px;
+      padding: 4px 8px;
+    }
+  }
+  
+  /* Print Styles */
+  @media print {
+    .editor-header,
+    .toolbar {
+      display: none;
+    }
+  
+    .content-container {
+      padding: 0;
+      background: white;
+    }
+  
+    .document-page {
+      width: 210mm;
+      height: 297mm;
+      box-shadow: none;
+      border-radius: 0;
+      margin: 0;
+      padding: 2.54cm;
+      page-break-after: always;
+    }
+  
+    .page-number {
+      position: static;
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+  
+  /* Ensure highlighting doesn't continue */
+  .content-editor * {
+    direction: ltr !important;
+    unicode-bidi: normal !important;
+  }
+  
+  /* Force formatting breaks */
+  .content-editor span[style*="background-color"] + * {
+    background-color: transparent !important;
+  }
+  
+  /* Clean up after highlighted spans */
+  .content-editor span[style*="background-color"]:after {
+    content: "";
+    background-color: transparent;
+  }
+  
+  /* Prevent inherited highlighting */
+  .content-editor {
+    background-color: transparent !important;
+  }
+  

@@ -26,3 +26,4 @@ router.put('/:id', authenticateToken, updateMindMap);
 router.delete('/:id', authenticateToken, deleteMindMap);
 
 module.exports = router;
+  

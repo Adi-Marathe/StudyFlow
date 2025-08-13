@@ -17,14 +17,7 @@ router.post("/", async (req, res) => {
 
 // PUT update event
 router.put("/:id", async (req, res) => {
-  const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(updatedEvent);
-});
-
-// DELETE event
-router.delete("/:id", async (req, res) => {
-  await Event.findByIdAndDelete(req.params.id);
-  res.json({ message: "Event deleted" });
+  const updatedEvent = awaim
 });
 
 module.exports = router;

@@ -6,7 +6,6 @@ import WelcomeBanner from '../../Components/WelcomeBanner/WelcomeBanner';
 import MindMapGrid from '../../Components/MindMapGrid/MindMapGrid';
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 function Mindmaps() {
   const navigate = useNavigate();
