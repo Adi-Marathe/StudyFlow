@@ -1,0 +1,311 @@
+.notes-grid-container {
+    width: 100%;
+  }
+  
+  .notes-grid-header {
+    margin-bottom: 0px;
+    padding-bottom: 16px;
+  }
+  
+  .notes-grid-header h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1c1c1c;
+    margin-left: 5px;
+    padding-top: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  /* Grid Layout */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Note Cards */
+  .note-card {
+    background-color: #fff;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    overflow: hidden;
+    position: relative;
+    height: 280px;
+    border: 1px solid #f1f5f9;
+    transition: background-color 0.3s ease, border 0.3s ease;
+  }
+  
+  .note-card:hover {
+    transform: translateY(-6px);
+    border-color: #e2e8f0;
+  }
+  
+  .note-card-content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Card Header */
+  .note-card-header {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+  }
+  
+  .delete-btn {
+    background: rgba(255, 255, 255, 0.95);
+    color: #ef4444;
+    border: 1px solid #fee2e2;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+  }
+  
+  .note-card:hover .delete-btn {
+    opacity: 1;
+  }
+  
+  .delete-btn:hover {
+    background: #fef2f2;
+    border-color: #fecaca;
+    transform: scale(1.1);
+  }
+  
+  /* Preview Container */
+  .note-preview-container {
+    position: relative;
+    height: 160px;
+    background-color: #f1f5f9;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 16px;
+    transition: background-color 0.3s ease, border-bottom 0.3s ease;
+  }
+  
+  .note-preview {
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* limit preview lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    transition: color 0.3s ease;
+  }
+  
+  .preview-empty {
+    color: #64748b;
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+  }
+  
+  /* Preview Overlay */
+  .preview-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(116, 84, 174, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(2px);
+  }
+  
+  .note-card:hover .preview-overlay {
+    opacity: 1;
+  }
+  
+  .overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: white;
+  }
+  
+  .overlay-content svg {
+    color: white;
+  }
+  
+  .overlay-content span {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  /* Note Info */
+  .note-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .note-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #1e293b;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+  }
+  
+  .note-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+  
+  .pages-count {
+    background-color: #f1f5f9;
+    color: #475569;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    border: 1px solid #e2e8f0;
+    transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+  }
+  
+  .updated-date {
+    color: #64748b;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  /* Empty State */
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 2px dashed #cbd5e1;
+  }
+  
+  .empty-state-content {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .empty-state h3 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+  }
+  
+  .empty-state p {
+    color: #64748b;
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  
+  /* Loading State */
+  .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    gap: 16px;
+  }
+  
+  .loading-spinner {
+    position: relative;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f1f5f9;
+    border-top: 3px solid #701ad9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  .loading-state p {
+    color: #64748b;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .notes-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .notes-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .note-card {
+      height: auto;
+    }
+  
+    .delete-btn {
+      opacity: 1; /* always visible on mobile */
+    }
+  }
+  
+  /* Dark mode overrides */
+  body.dark-mode .note-card {
+    background-color: #2c2c2c;
+    border: 1px solid #2e2e2e;
+  }
+  
+  body.dark-mode .notes-grid-header h2 {
+    color: #fff;
+  }
+  
+  body.dark-mode .note-preview-container {
+    background-color:#323232 ;
+    border-bottom: 1px solid #2e2e2e;
+  }
+  
+  body.dark-mode .note-preview{
+    color: #fef2f2;
+  }
+  body.dark-mode .note-title {
+    color: #e5e7eb;
+  }
+  
+  body.dark-mode .pages-count {
+    background-color:#323232;
+    color: #d1d5db;
+    border: 1px solid #3a3a3a;
+  }
+  
+  body.dark-mode .updated-date {
+    color: #9ca3af;
+  }
+  

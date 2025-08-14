@@ -1,17 +1,16 @@
 .focusmode-container{
-    display: flex;
-    min-height: 100vh;
-    background-color: #fdf8ee;
-    transition: background-color 0.3s ease;
+  display: flex;
+  min-height: 100vh;
+  background-color: #fdf8ee;
+  transition: background-color 0.3s ease;
 }
 
 body.dark-mode .focusmode-container{
-    background-color: #212121;
+  background-color: #212121;
 }
 
 .focusmode-main {
-  flex: 1;
-  padding: 0.5rem 1rem;
-  overflow-y: auto;
+flex: 1;
+padding: 0.5rem 1rem;
+overflow-y: auto;
 }
-

@@ -86,13 +86,13 @@
   .mindmap-preview-container {
     position: relative;
     height: 160px;
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    background-color:#f1f5f9;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid #f1f5f9;
-    transition: background 0.3s ease, border-bottom 0.3s ease;
+    transition: background-color 0.3s ease, border-bottom 0.3s ease;
   }
   
   .mindmap-preview {
@@ -245,13 +245,13 @@
   }
   
   .nodes-count {
-    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    background-color: #f1f5f9;
     color: #475569;
     padding: 4px 10px;
     border-radius: 20px;
     font-weight: 500;
     border: 1px solid #e2e8f0;
-    transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
   }
   
   .created-date {
@@ -434,7 +434,7 @@ body.dark-mode .mindmap-grid-header h2{
 } 
 
 body.dark-mode .mindmap-preview-container{
-    background: linear-gradient(135deg, #383838 0%, #323232 100%);
+    background-color:#323232 ;
     border-bottom: 1px solid #2e2e2e;
 }
 
@@ -443,7 +443,7 @@ body.dark-mode .mindmap-preview-container{
   }
 
   body.dark-mode .nodes-count {
-    background: linear-gradient(135deg, #3a3a3a, #2f2f2f);
+    background-color:#323232;
     color: #d1d5db;
     border: 1px solid #3a3a3a;
   }

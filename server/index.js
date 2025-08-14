@@ -17,8 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/chat', require('./routes/chatbot')); 
 app.use('/api/tasks', require('./routes/taskRoutes')); 
-app.use('/api/mindmaps', require('./routes/mindMapRoutes')); // ✅ Add this
+app.use('/api/mindmaps', require('./routes/mindMapRoutes')); 
 app.use('/api/events', require('./routes/eventRoutes'));
+app.use('/api/notes', require('./routes/noteRoutes'));
+
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
