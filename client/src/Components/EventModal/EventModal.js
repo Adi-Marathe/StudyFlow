@@ -2,36 +2,56 @@
 import React, { useState, useEffect } from 'react';
 import './EventModal.css';
 
-const defaultColors = ['#4d2c5e', '#ff7426', '#2196F3', '#4CAF50', '#9C27B0'];
+const defaultColors = ['#7e2cc0ff', '#da6a2aff', '#2e85ccff', '#2aad2fff', '#b335c9ff'];
 
 const EventModal = ({ isOpen, onClose, onSave, onDelete, selectedEvent }) => {
   const [title, setTitle] = useState('');
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
-  const [type, setType] = useState('other');
+  // const [type, setType] = useState('other');
   const [color, setColor] = useState(defaultColors[0]);
-  const [description, setDescription] = useState('');
-  const [reminder, setReminder] = useState(true);
+  // const [description, setDescription] = useState('');
+  // const [reminder, setReminder] = useState(true);
 
   useEffect(() => {
     if (selectedEvent) {
       setTitle(selectedEvent.title || '');
       setStart(selectedEvent.start ? new Date(selectedEvent.start).toISOString().slice(0, 16) : '');
       setEnd(selectedEvent.end ? new Date(selectedEvent.end).toISOString().slice(0, 16) : '');
-      setType(selectedEvent.type || 'other');
+      // setType(selectedEvent.type || 'other');
       setColor(selectedEvent.color || defaultColors[0]);
-      setDescription(selectedEvent.description || '');
-      setReminder(selectedEvent.reminder !== false);
+      // setDescription(selectedEvent.description || '');
+      // setReminder(selectedEvent.reminder !== false);
     } else {
       setTitle('');
       setStart('');
       setEnd('');
-      setType('other');
+      // setType('other');
       setColor(defaultColors[0]);
-      setDescription('');
-      setReminder(true);
+      // setDescription('');
+      // setReminder(true);
     }
   }, [selectedEvent]);
+
+  const handleSave = async () => {
+  const eventData = { title, start, end, color };
+
+  try {
+    const res = await fetch('http://localhost:5000/api/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(eventData)
+    });
+
+    if (!res.ok) throw new Error('Failed to save event');
+    const savedEvent = await res.json();
+
+    onSave(savedEvent); // Update UI
+    onClose();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const handleSubmit = () => {
     if (!title || !start || !end) {
@@ -44,10 +64,10 @@ const EventModal = ({ isOpen, onClose, onSave, onDelete, selectedEvent }) => {
       title,
       start: new Date(start),
       end: new Date(end),
-      type,
+      // type,
       color,
-      description,
-      reminder,
+      // description,
+      // reminder,
     };
 
     onSave(event);
@@ -78,7 +98,7 @@ const EventModal = ({ isOpen, onClose, onSave, onDelete, selectedEvent }) => {
             <input type="datetime-local" value={end} onChange={(e) => setEnd(e.target.value)} />
           </div>
 
-          <div className="event-row">
+          {/* <div className="event-row">
             <label>Type:</label>
             <select value={type} onChange={(e) => setType(e.target.value)}>
               <option value="meeting">Meeting</option>
@@ -86,7 +106,7 @@ const EventModal = ({ isOpen, onClose, onSave, onDelete, selectedEvent }) => {
               <option value="reminder">Reminder</option>
               <option value="other">Other</option>
             </select>
-          </div>
+          </div> */}
 
           <div className="event-row">
             <label>Color:</label>
@@ -102,7 +122,7 @@ const EventModal = ({ isOpen, onClose, onSave, onDelete, selectedEvent }) => {
             </div>
           </div>
 
-          <textarea
+          {/* <textarea
             placeholder="Description (optional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -117,7 +137,7 @@ const EventModal = ({ isOpen, onClose, onSave, onDelete, selectedEvent }) => {
               />
               &nbsp; Reminder
             </label>
-          </div>
+          </div> */}
         </div>
 
         <div className="event-modal-actions">

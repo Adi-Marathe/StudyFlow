@@ -7,7 +7,7 @@
   margin-top: 20px;
 }
 
-.all-events-container h2 {
+.all-events-container h4 {
   margin-bottom: 1rem;
 }
 
@@ -21,7 +21,7 @@
   border-radius: 10px;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.158);
 }
 
 body.dark-mode .all-event-card {
@@ -29,13 +29,13 @@ body.dark-mode .all-event-card {
 }
 
 .event-card-header {
-  padding: 0.8rem;
+  padding: 0.6rem;
   color: #fff;
   font-weight: bold;
 }
 
 .event-card-body {
-  padding: 0.8rem;
+  padding: 0.6rem;
   font-size: 0.9rem;
   background-color: rgb(252, 244, 233);
 }

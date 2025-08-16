@@ -8,7 +8,7 @@ const AllEvents = ({ events }) => {
 
   return (
     <div className="all-events-container">
-      <h2>📋 All Upcoming Events</h2>
+      <h4>All Upcoming Events</h4>
       {sortedEvents.length === 0 ? (
         <p className="no-events">No events available.</p>
       ) : (
@@ -21,9 +21,6 @@ const AllEvents = ({ events }) => {
               <div className="event-card-body">
                 <p><strong>Date:</strong> {moment(event.start).format("MMMM Do YYYY")}</p>
                 <p><strong>Time:</strong> {moment(event.start).format("h:mm A")} - {moment(event.end).format("h:mm A")}</p>
-                {event.description && (
-                  <p><strong>Details:</strong> {event.description}</p>
-                )}
               </div>
             </div>
           ))}

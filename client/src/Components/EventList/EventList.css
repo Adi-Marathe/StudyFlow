@@ -4,11 +4,11 @@
   max-width: 500px;
   background-color: var(--bg-color, #fffefe);
   color: var(--text-color, #050c26);
-  padding: 1rem;
   border-radius: 12px;
+  padding: 1rem;
   margin-left: 1rem;
   flex-shrink: 0;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -18,15 +18,12 @@ body.dark-mode .event-list-container {
 }
 
 .event-list-container h3 {
-  margin-bottom: 0.75rem;
   font-size: 1.3rem;
-  font-weight: bold;
 }
 
 /* Horizontal scroll for events */
 .event-list.horizontal-scroll {
   display: flex;
-  gap: 1rem;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
@@ -35,7 +32,7 @@ body.dark-mode .event-list-container {
 }
 
 .event-list.horizontal-scroll::-webkit-scrollbar {
-  height: 8px;
+  height: 3px;
 }
 
 .event-list.horizontal-scroll::-webkit-scrollbar-thumb {
@@ -51,13 +48,13 @@ body.dark-mode .event-list-container {
 .event-item.full-width {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  min-height: 120px;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   border-left: 4px solid #4d2c5e;
   background: rgba(77, 44, 94, 0.05);
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   border-radius: 8px;
   position: relative;
 }
@@ -81,23 +78,12 @@ body.dark-mode .event-time {
   color: #ccc;
 }
 
-.event-description {
-  font-size: 1rem;
-  color: #444;
-  margin-top: 10px;
-  line-height: 1.5;
-}
-
-body.dark-mode .event-description {
-  color: #bbb;
-}
-
 .event-color {
   position: absolute;
   top: 14px;
   right: 12px;
-  width: 12px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
 }
 
@@ -136,9 +122,6 @@ body.dark-mode .no-events {
     font-size: 0.85rem;
   }
 
-  .event-description {
-    font-size: 0.9rem;
-  }
 }
 
 /* 📱 Extra small devices */
@@ -160,7 +143,4 @@ body.dark-mode .no-events {
     font-size: 0.8rem;
   }
 
-  .event-description {
-    font-size: 0.85rem;
-  }
 }

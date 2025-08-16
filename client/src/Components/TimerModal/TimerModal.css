@@ -1,0 +1,209 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 12, 38, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-box {
+  background-color: #fff;
+  color: #050c26;
+  width: 480px;
+  max-height: 92vh;
+  padding: 24px 50px;
+  border-radius: 18px;
+  box-shadow: 0 6px 40px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  position: relative;
+  text-align: center;
+}
+
+.dark-mode .modal-box {
+  background-color: #1e1e2f;
+  color: #fdf8ee;
+}
+
+/* Title spacing adjusted */
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0 20px; /* top margin reduced */
+  color: #4d2c5e;
+}
+
+.dark-mode .modal-title {
+  color: #c68cff;
+}
+
+.preset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 24px;
+  margin-top: 20px;
+  padding-right: 8px; /* for scrollbar */
+}
+
+/* Scrollbar styles for all scrollable lists */
+.preset-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.preset-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 6px;
+}
+
+.preset-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark-mode .preset-list::-webkit-scrollbar-thumb {
+  background-color: #777;
+}
+
+.preset-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preset-button {
+  flex: 1;
+  background-color: #7f4cdd;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.preset-button:hover {
+  background-color: #6a3cc3;
+}
+
+.dark-mode .preset-button {
+  background-color: #c68cff;
+  color: #050c26;
+}
+
+.dark-mode .preset-button:hover {
+  background-color: #b179ff;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #ff4b4b;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.add-custom-title {
+  margin: 20px 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #4d2c5e;
+}
+
+.dark-mode .add-custom-title {
+  color: #c68cff;
+}
+
+.custom-inputs {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Full-width input */
+.full-width-input {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.dark-mode .full-width-input {
+  background-color: #2d2d40;
+  color: #fdf8ee;
+  border: 1px solid #555;
+}
+
+.custom-time-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.custom-time-row input {
+  width: 130px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+}
+
+.dark-mode .custom-time-row input {
+  background-color: #2d2d40;
+  color: #fdf8ee;
+  border: 1px solid #555;
+}
+
+.save-btn,
+.cancel-btn {
+  padding: 12px 18px;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background 0.3s;
+}
+
+.save-btn {
+  background-color: #a56eff;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #8a55da;
+}
+
+.cancel-btn {
+  background-color: #3b1f49;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #2e1838;
+  color:white;
+}
+
+.dark-mode .save-btn {
+  background-color: #c68cff;
+  color: #050c26;
+}
+
+.dark-mode .save-btn:hover {
+  background-color: #b879ff;
+}

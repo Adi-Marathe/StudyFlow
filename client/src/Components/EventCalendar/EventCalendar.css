@@ -1,5 +1,4 @@
-/* EventCalendar.css */
-
+/* Wrapper & theme vars */
 .calendar-wrapper {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -11,7 +10,20 @@
 .rbc-calendar {
   background-color: var(--bg-color);
   color: var(--text-color);
-  height: 80vh;
+  height: 90vh !important; /* keep your previous height */
+}
+
+.rbc-month-view{
+  border-radius: 10px;
+}
+
+.rbc-header{
+  background-color: rgba(250, 249, 248, 0.233);
+  padding: 5px;
+}
+
+.rbc-row.rbc-month-header {
+border-radius: 10px 10px 0 0;
 }
 
 .rbc-toolbar {
@@ -23,7 +35,7 @@
 }
 
 .rbc-btn-group button {
-  background-color: #ff7426;
+  background-color: #8B7CF6;
   color: white;
   border: none;
   padding: 0.4rem 0.8rem;
@@ -67,6 +79,7 @@ body.dark-mode {
   --text-color: #fffefe;
 }
 
+/* Today & selection */
 .rbc-today {
   background-color: rgba(255, 116, 38, 0.1);
 }
@@ -81,6 +94,94 @@ body.dark-mode {
   font-size: 1.1rem;
 }
 
-.rbc-calendar {
-  height: 90vh !important; /* or use px, e.g., 800px */
+/* ---- +X more appearance (borderless, transparent) ---- */
+.rbc-show-more {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #ff7426 !important;
+  padding: 0 !important;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* In case you ever enable popup in future, make overlay visible above UI */
+.rbc-overlay {
+  z-index: 9999;
+}
+
+/* ---------- Slide-up Day Events Drawer ---------- */
+.day-events-drawer {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -60vh; /* hidden state */
+  width: min(520px, 92vw);
+  max-height: 50vh;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  padding: 12px;
+  transition: bottom 0.28s ease-in-out;
+  z-index: 10000;
+}
+
+.day-events-drawer.open {
+  bottom: 24px; /* visible state */
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.drawer-title {
+  font-weight: 700;
+}
+
+.drawer-close {
+  background: transparent;
+  border: 0;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.drawer-empty {
+  padding: 12px;
+  opacity: 0.8;
+}
+
+.drawer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: calc(50vh - 60px);
+  overflow-y: auto;
+}
+
+.drawer-item {
+  background: rgba(255, 116, 38, 0.10);
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.drawer-item-title {
+  font-weight: 600;
+  color: #ff7426;
+  margin-bottom: 4px;
+}
+
+.drawer-item-time {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+body.dark-mode .drawer-item {
+  background: rgba(255, 116, 38, 0.20);
 }

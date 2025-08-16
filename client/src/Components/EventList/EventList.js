@@ -18,7 +18,7 @@ const EventList = ({ events }) => {
 
   return (
     <div className="event-list-container">
-      <h3>📅 Today’s Events</h3>
+      <h3>Today’s Events</h3>
 
       {todayEvents.length === 0 ? (
         <p className="no-events">No events scheduled for today.</p>
@@ -31,9 +31,6 @@ const EventList = ({ events }) => {
                 {new Date(event.start).toLocaleString()} -{' '}
                 {new Date(event.end).toLocaleString()}
               </div>
-              {event.description && (
-                <div className="event-description">{event.description}</div>
-              )}
               <div
                 className="event-color"
                 style={{ backgroundColor: event.color || '#4d2c5e' }}

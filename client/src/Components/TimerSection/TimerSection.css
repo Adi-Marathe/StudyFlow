@@ -1,0 +1,176 @@
+.timer-container {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  color: #050c26;
+  border-radius: 20px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  margin: auto;
+  border: 2px solid transparent; /* important for smooth transition */
+  transition: border 0.3s ease;
+}
+
+
+.dark-mode .timer-container {
+  background-color: #2C2C2C;
+  color: #fdf8ee;
+}
+
+.timer-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.timer-tabs button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background-color: #f2e9ff;
+  color: #4d2c5e;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.timer-tabs button.active,
+.timer-tabs button:hover {
+  background-color: #4d2c5e;
+  color: #fff;
+}
+
+.dark-mode .timer-tabs button {
+  background-color: #2d2d40;
+  color: #c68cff;
+}
+
+.dark-mode .timer-tabs button.active,
+.dark-mode .timer-tabs button:hover {
+  background-color: #c68cff;
+  color: #050c26;
+}
+
+.timer-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-ring {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+
+.progress-circle {
+  transform: rotate(-90deg);
+}
+
+.bg-circle {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 12;
+}
+
+.fg-circle {
+  fill: none;
+  stroke: #ff7426;
+  stroke-linecap: round;
+  stroke-width: 15px;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.dark-mode .bg-circle {
+  stroke: #3a3a4a;
+}
+
+.dark-mode .fg-circle {
+  stroke: #ffa45c;
+}
+
+.timer-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.timer-controls {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.start-btn, .reset-btn {
+  padding: 12px 26px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.start-btn {
+  background-color: #ff7426;
+  color: #fff;
+}
+
+.start-btn:hover {
+  background-color: #e45f12;
+}
+
+.reset-btn {
+  background-color: #f2e9ff;
+  color: #4d2c5e;
+}
+
+.dark-mode .start-btn {
+  background-color: #ffa45c;
+  color: #050c26;
+}
+
+.dark-mode .start-btn:hover {
+  background-color: #ff914d;
+}
+
+.reset-btn {
+  background-color: #4d2c5e;  /* dark purple */
+  color: #ffffff;
+  padding: 12px 26px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-btn:hover {
+  background-color: #3a1f4a;  /* slightly darker purple */
+}
+
+.round-counter {
+  margin-top: 10px;
+}
+
+.current-label {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #4d2c5e;
+  text-align: center;
+}
+
+.dark-mode .current-label {
+  color: #ffa45c;
+}
+
+
+
+
