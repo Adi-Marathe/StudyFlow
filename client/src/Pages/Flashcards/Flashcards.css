@@ -22,6 +22,14 @@ body.dark-mode .flashcards-container {
   overflow-y: auto;
 }
 
+.flashcard-sets{
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  gap: 1.5rem;
+  width: 100%;
+}
+
 /* WebKit Browsers (Chrome, Safari, Edge) */
 .flashcards-main::-webkit-scrollbar {
   width: 0px;              

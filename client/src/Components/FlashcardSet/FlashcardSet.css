@@ -1,0 +1,111 @@
+.flashcard-set{
+  height: 15rem;
+  width: 25rem;
+  max-height: 30rem;
+  max-width: 40rem;
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+}
+
+.flashcard-set:hover{
+  transform: translateY(-5px);
+  transition: all 0.3s linear;
+}
+
+.set-information{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #e5e7eb;
+  padding: 0.3rem 0;
+}
+
+.set-information div{
+  background-color: #e5e7eb;
+  padding: 0.015rem 0.7rem;
+  border-radius: 10px;
+  margin-bottom: 2px;
+}
+
+.set-information p{
+  margin: 0;
+}
+
+.title-container{
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+}
+
+.title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.description-container{
+  display: flex;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.description{
+  width: 100%;
+  font-size: 1rem;
+}
+
+.edit{
+  display: flex;
+  width: 100%;
+  align-items: flex-end;
+  margin-bottom: 0.2rem;
+  gap: 1rem;
+  padding-top: 0.7rem;
+}
+
+.edit button{
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  background-color: #4d2c5e;
+  color: #ffffff;
+  padding: 0.5rem;
+  border-bottom: 3px solid #341e3f;
+}
+
+.edit button:active{
+  transform: translateY(1px);
+  border-bottom: 0px solid #4d2c5e;
+  transition: all 0.1s linear;
+}
+
+body.dark-mode .flashcard-set{
+  background-color: #2c2c2c;
+  color: #ffffff;
+}
+
+body.dark-mode .description-container{
+  border-bottom: 2px solid #393939;
+}
+
+body.dark-mode .set-information{
+  border-bottom: 2px solid #393939;
+}
+
+body.dark-mode .set-information div{
+  background-color: #1c1c1c;
+}
+
+body.dark-mode .title{
+  border-bottom: 2px solid #393939;
+}

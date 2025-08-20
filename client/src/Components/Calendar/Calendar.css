@@ -1,0 +1,64 @@
+/* Default (light mode) */
+.studyflow-calendar {
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px;
+  transition: all 0.3s ease; /* smooth background + text change */
+}
+
+/* Dark mode styles */
+body.dark-mode .studyflow-calendar {
+  background: #2c2c2c !important;
+  color: #ffffff !important;
+}
+
+/* Day cells */
+.MuiPickersDay-root {
+  transition: all 0.3s ease !important; /* smooth day color changes */
+}
+
+body.dark-mode .MuiPickersDay-root {
+  color: #fff !important;
+}
+
+body.dark-mode .MuiPickersDay-root.Mui-selected {
+  background-color: #8b5cf6 !important; /* StudyFlow purple */
+  color: #fff !important;
+  transition: all 0.3s ease !important;
+}
+
+body.dark-mode .MuiPickersDay-root:hover {
+  background-color: rgba(139, 92, 246, 0.4) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Header + navigation */
+.MuiPickersCalendarHeader-label,
+.MuiPickersArrowSwitcher-button {
+  transition: all 0.3s ease !important;
+}
+
+body.dark-mode .MuiPickersCalendarHeader-label,
+body.dark-mode .MuiPickersArrowSwitcher-button {
+  color: #ffffff !important;
+}
+
+/* Weekday labels (S M T W T F S) */
+.MuiDayCalendar-weekDayLabel {
+  color: #374151 !important; /* light mode gray */
+  transition: all 0.3s ease !important;
+}
+
+body.dark-mode .MuiDayCalendar-weekDayLabel {
+  color: #cbd5e1 !important; /* light gray in dark mode */
+}
+
+/* Days outside current month (like Aug 31 when viewing August) */
+.MuiPickersDay-dayOutsideMonth {
+  color: #9ca3af !important; /* gray for light mode */
+  transition: all 0.3s ease !important;
+}
+
+body.dark-mode .MuiPickersDay-dayOutsideMonth {
+  color: #6b7280 !important; /* darker gray in dark mode */
+}

@@ -1,0 +1,29 @@
+.MessagesPreview-Container{
+    width: 100%;
+}
+
+.MessagesPreview-title{
+    font-size: 20px;
+    font-weight: 500px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    margin-left: 3px;
+    transition: color 0.3s ease;
+}
+
+.MessagesPreview-main{
+    background-color: #fff;
+    width: 97%;
+    height:250px;
+    border-radius: 16px;
+    transition: background-color 0.3s ease;
+}
+
+
+body.dark-mode .MessagesPreview-title{
+    color: #ffffff;
+}
+
+body.dark-mode .MessagesPreview-main{
+    background-color: #2c2c2c;
+}

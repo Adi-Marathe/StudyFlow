@@ -1,16 +1,61 @@
-.dashboard-container{
-    display: flex;
-    min-height: 100vh;
-    background-color: #fdf8ee;
-    transition: background-color 0.3s ease;
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: #fdf8ee;
+  transition: background-color 0.3s ease;
 }
 
-body.dark-mode .dashboard-container{
-    background-color: #212121;
+body.dark-mode .dashboard-container {
+  background-color: #212121;
+}
+
+.dashboard-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+  /* Remove overflow: hidden; */
+  min-height: 0; /* Important for proper flex behavior */
 }
 
 .dashboard-main {
+  display: flex;
   flex: 1;
-  padding: 0.5rem 1rem;
   overflow-y: auto;
+  min-height: 0; /* Critical: allows flex children to shrink properly */
+  /* Remove the fixed height: 1200px; */
 }
+
+.d-left-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-right: 1rem;
+  min-height: 0; /* Ensures proper flex behavior */
+}
+
+.left-c-container {
+  display: flex;
+  flex: 1; /* Take remaining space after HomeHeader */
+  min-height: 0;
+}
+
+.l-left-c-container {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 60%;  /* flex-grow: 0, flex-shrink: 0, flex-basis: 70% */
+}
+
+.r-left-c-container {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 40%;  /* flex-grow: 0, flex-shrink: 0, flex-basis: 30% */
+  align-items: flex-end;
+}
+
+/* WebKit Browsers (Chrome, Safari, Edge) */
+.dashboard-main::-webkit-scrollbar {
+  width: 0px;              
+}
+
+

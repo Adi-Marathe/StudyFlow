@@ -21,6 +21,7 @@ app.use('/api/mindmaps', require('./routes/mindMapRoutes'));
 app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/notes', require('./routes/noteRoutes'));
 app.use('/api/timers', require('./routes/timerRoutes'));
+app.use('/api/flashcards', require('./routes/flashcardRoutes'));
 
 app.get('/', (req, res) => {
   res.send('API is running...');

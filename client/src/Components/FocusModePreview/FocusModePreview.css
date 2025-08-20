@@ -1,0 +1,151 @@
+.FocusModePreview-Container{
+    width: 100%;
+}
+
+.FocusModePreview-title{
+    font-size: 20px;
+    font-weight: 500px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    margin-left: 3px;
+    transition: color 0.3s ease;
+}
+
+.FocusModePreview-main{
+    background-color: #fff;
+    width: 97%;
+    height: 100px;
+    border-radius: 16px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    padding: 16px;
+}
+
+.Focus-text {
+    width: 50%;
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 600;
+     border-right: 3px solid #727272;
+     transition: color 0.3s ease;
+}
+
+.Focus-btn {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-86 {
+all: unset;
+width: 100px;
+height: 30px;
+font-size: 16px;
+background: transparent;
+border: none;
+position: relative;
+color: #f0f0f0;
+cursor: pointer;
+z-index: 1;
+padding: 10px 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+white-space: nowrap;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+margin-left: 50px;
+margin-top: 8px;
+}
+
+.button-86::after,
+.button-86::before {
+content: '';
+position: absolute;
+bottom: 0;
+right: 0;
+z-index: -99999;
+transition: all .4s;
+}
+
+.button-86::before {
+transform: translate(0%, 0%);
+width: 100%;
+height: 100%;
+background: #28282d;
+border-radius: 10px;
+}
+
+.button-86::after {
+transform: translate(10px, 10px);
+width: 35px;
+height: 35px;
+background: #ffffff15;
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border-radius: 50px;
+}
+
+.button-86:hover::before {
+transform: translate(5%, 20%);
+width: 110%;
+height: 110%;
+}
+
+.button-86:hover::after {
+border-radius: 10px;
+transform: translate(0, 0);
+width: 100%;
+height: 100%;
+}
+
+.button-86:active::after {
+transition: 0s;
+transform: translate(0, 5%);
+}
+
+body.dark-mode .FocusModePreview-title{
+    color: #ffffff;
+}
+
+body.dark-mode .FocusModePreview-main{
+    background-color: #2c2c2c;
+}
+
+body.dark-mode .Focus-text {
+    color: #ffffff;
+}
+
+body.dark-mode .button-86 {
+  color: #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .button-86::before {
+  background: #3a3a3f; /* slightly lighter than bg */
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .button-86::after {
+  background: #ffffff20; /* subtle white glow */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .button-86:hover::before {
+  background: #444449; /* brighter hover background */
+}
+
+body.dark-mode .button-86:hover::after {
+  background: #ffffff30; /* brighter overlay */
+}
+
+body.dark-mode .button-86:active::after {
+  background: #ffffff40;
+}

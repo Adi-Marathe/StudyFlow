@@ -53,7 +53,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <button onClick={() => navigate('/')} className="close-btn">✕</button>
+      <button onClick={() => navigate('/')} className="auth-close-btn">✕</button>
 
       <form className="login-box" onSubmit={handleSubmit} noValidate>
         <h2>Log in</h2>

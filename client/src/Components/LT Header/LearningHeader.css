@@ -1,0 +1,12 @@
+.Header-container{
+    display: flex;
+    width: 60%;
+    padding: 0 1rem;
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+.Header-container h2{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}

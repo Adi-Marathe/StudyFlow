@@ -1,0 +1,340 @@
+/* UpcomingActivities.css */
+.upcoming-activities {
+  width: 100%;
+  max-width: 320px;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Header */
+.activities-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.activities-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.see-all-btn {
+  background: none;
+  border: none;
+  color: #2196f3;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.see-all-btn:hover {
+  color: #1976d2;
+  text-decoration: underline;
+}
+
+/* Activities List */
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity-item {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.activity-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.activity-content {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  position: relative;
+}
+
+.activity-date {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.date-number {
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.activity-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.activity-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.activity-date-range {
+  font-size: 11px;
+  font-weight: 500;
+  color: #666666;
+}
+
+.activity-time-separator {
+  color: #999999;
+  font-size: 8px;
+  margin: 0 1px;
+}
+
+.activity-time {
+  font-size: 11px;
+  font-weight: 500;
+  color: #666666;
+}
+
+.activity-location {
+  font-size: 11px;
+  color: #777777;
+  margin: 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.activity-arrow {
+  color: #999999;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.activity-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.activity-item:hover .activity-arrow {
+  color: #666666;
+  transform: translateX(2px);
+}
+
+.activity-side-accent {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .upcoming-activities {
+    max-width: 100%;
+  }
+
+  .activities-title {
+    font-size: 16px;
+  }
+
+  .see-all-btn {
+    font-size: 12px;
+  }
+
+  .activity-content {
+    padding: 12px 14px;
+  }
+
+  .activity-date {
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+  }
+
+  .date-number {
+    font-size: 14px;
+  }
+
+  .activity-title {
+    font-size: 13px;
+  }
+
+  .activity-date-range,
+  .activity-time {
+    font-size: 10px;
+  }
+
+  .activity-location {
+    font-size: 10px;
+  }
+
+  .activity-arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .activities-header {
+    margin-bottom: 12px;
+  }
+
+  .activities-list {
+    gap: 10px;
+  }
+
+  .activity-content {
+    padding: 10px 12px;
+  }
+
+  .activity-date {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+
+  .date-number {
+    font-size: 12px;
+  }
+
+  .activity-title {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+
+  .activity-meta {
+    margin-bottom: 2px;
+    gap: 2px;
+  }
+
+  .activity-date-range,
+  .activity-time {
+    font-size: 9px;
+  }
+
+  .activity-location {
+    font-size: 9px;
+  }
+
+  .activity-arrow {
+    margin-left: 6px;
+  }
+
+  .activity-arrow svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* No Activities State */
+.no-activities {
+  text-align: center;
+  padding: 30px 16px;
+  color: #666666;
+}
+
+.no-activities-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+.no-activities h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0 0 6px 0;
+}
+
+.no-activities p {
+  font-size: 12px;
+  color: #777777;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Enhanced hover effects for better UX */
+@media (hover: hover) {
+  .activity-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .activity-item:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Smooth loading animation */
+.activity-item {
+  animation: slideInUp 0.4s ease forwards;
+}
+
+.activity-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.activity-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.activity-item:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body.dark-mode .activities-title{
+  color: #ffffff;
+}

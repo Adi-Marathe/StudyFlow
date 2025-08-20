@@ -1,0 +1,100 @@
+.container{
+    position: static;
+    background-color: #fdf8ee;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 0.2rem;
+}
+
+.SrNo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+}
+
+.term{
+    width: 50%;
+}
+
+.term input{
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid black;
+    background-color: #fdf8ee;
+}
+
+.term p{
+    margin: 0;
+}
+
+.define{
+    width: 50%;
+}
+
+.define input{
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid black;
+    background-color: #fdf8ee;
+}
+
+.define p{
+    margin: 0;
+}
+
+.options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.options button{
+    border: none;
+    background: transparent;
+    margin: 0 0.5rem;
+    font-size: 1.3rem;
+}
+
+.options button:hover{
+    color: #f02a2a;
+}
+
+body.dark-mode .container{
+    background-color: #4d2c5e;
+}
+
+body.dark-mode .define input{
+    background-color: #4d2c5e;
+    color: #fdf8ee;
+    border-bottom: 2px solid #fdf8ee;
+}
+
+body.dark-mode .term input{
+    background-color: #4d2c5e;
+    color: #fdf8ee;
+    border-bottom: 2px solid #fdf8ee;
+}
+
+body.dark-mode .options button{
+    color: #fdf8ee;
+}
+
+body.dark-mode .options button:hover{
+    color: #f02a2a;
+}

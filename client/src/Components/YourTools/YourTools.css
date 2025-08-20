@@ -1,0 +1,179 @@
+/* YourTools.css */
+.your-tools {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+}
+
+.your-tools-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  transition: color 0.3s ease;
+}
+
+.tools-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  transition: background-color 0.3s ease;
+  text-decoration: none
+}
+
+.tool-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none
+}
+
+.tool-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tool-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding-bottom: 0px;
+  color: #303030;
+}
+
+.icon-emoji {
+  font-size: 20px;
+}
+
+.tool-info {
+  flex: 1;
+}
+
+.tool-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+  margin: 0 0 4px 0;
+  text-decoration: none;
+}
+
+.tool-points {
+  font-size: 12px;
+  font-weight: 500;
+  color: #000000;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .your-tools {
+    max-width: 100%;
+    padding: 16px;
+    margin: 0 10px;
+  }
+  
+  .your-tools-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .tool-item {
+    padding: 14px 16px;
+  }
+  
+  .tool-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+  }
+  
+  .icon-emoji {
+    font-size: 20px;
+  }
+  
+  .tool-name {
+    font-size: 16px;
+  }
+  
+  .tool-points {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .your-tools {
+    padding: 12px;
+  }
+  
+  .tools-list {
+    gap: 12px;
+  }
+  
+  .tool-item {
+    padding: 12px 14px;
+  }
+  
+  .tool-icon {
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+  }
+  
+  .icon-emoji {
+    font-size: 18px;
+  }
+  
+  .tool-name {
+    font-size: 15px;
+  }
+  
+  .tool-points {
+    font-size: 11px;
+  }
+}
+
+/* Custom colors for each tool */
+.tool-item:nth-child(1) {
+  background-color: #e8f5e8;
+}
+
+.tool-item:nth-child(2) {
+  background-color: #e3f2fd;
+}
+
+.tool-item:nth-child(3) {
+  background-color: #fce4ec;
+}
+
+.tool-item:nth-child(4) {
+  background-color: #fff3e0;
+}
+
+body.dark-mode .your-tools-title {
+  color: #ffffff;
+}
+
+body.dark-mode .tools-list {
+  background-color: #2c2c2c;
+}
+
+body.dark-mode .tool-item:hover{
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6),
+            0 0 6px rgba(255, 255, 255, 0.05);
+}
