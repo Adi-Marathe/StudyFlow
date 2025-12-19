@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send,BotMessageSquare } from 'lucide-react';
+import { Send, BotMessageSquare } from 'lucide-react';
 import axios from 'axios';
 import './Aibot.css';
-import logo from '../../Assets/images/StudyFlow-logo.png'
+import logo from '../../Assets/images/StudyFlow-logo.png';
 
 const Aibot = ({ username = "Aditya" }) => {
   const [messages, setMessages] = useState([]);
@@ -10,9 +10,11 @@ const Aibot = ({ username = "Aditya" }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [showInitialState, setShowInitialState] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
+  // Auto-scroll
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -21,67 +23,82 @@ const Aibot = ({ username = "Aditya" }) => {
     scrollToBottom();
   }, [messages]);
 
+  // Remove <think>...</think> completely
+  const removeThinkTag = (text) => {
+    if (!text) return "";
+    return text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
+  };
+
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
 
     const userMessage = {
       id: Date.now(),
-      type: 'user',
-      content: inputMessage,
+      type: "user",
+      content: inputMessage.trim(),
       timestamp: new Date()
     };
 
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
-    setInputMessage('');
+    setInputMessage("");
 
+    // Hide initial screen on first message
     if (showInitialState) {
       setIsTransitioning(true);
       setTimeout(() => {
         setShowInitialState(false);
         setIsTransitioning(false);
-      }, 500);
+      }, 400);
     }
 
     setIsTyping(true);
 
+    // Prepare backend-friendly message structure
+    const chatHistory = updatedMessages.map((msg) => ({
+      role: msg.type === "user" ? "user" : "assistant",
+      content: msg.content
+    }));
+
     try {
       const payload = {
         messages: [
-          { role: 'system', content: 'You are a helpful assistant.' },
-          ...updatedMessages.map(msg => ({
-            role: msg.type === 'user' ? 'user' : 'assistant',
-            content: msg.content
-          }))
+          { role: "system", content: "You are a helpful assistant." },
+          ...chatHistory
         ]
       };
 
-      const res = await axios.post('http://localhost:5000/api/chat', payload);
-      const aiResponseText = res.data.reply;
+      const res = await axios.post("http://localhost:5000/api/chat", payload);
 
-      const aiResponse = {
+      let botReply = res.data.reply || "No response";
+
+      // Clean <think>
+      botReply = removeThinkTag(botReply);
+
+      const botMessage = {
         id: Date.now() + 1,
-        type: 'bot',
-        content: aiResponseText,
+        type: "bot",
+        content: botReply,
         timestamp: new Date()
       };
 
-      setMessages(prev => [...prev, aiResponse]);
+      setMessages((prev) => [...prev, botMessage]);
+
     } catch (err) {
-      const errorResponse = {
-        id: Date.now() + 1,
-        type: 'bot',
-        content: 'AI API Error: ' + (err.response?.data?.message || err.message),
+      const errorMessage = {
+        id: Date.now() + 2,
+        type: "bot",
+        content: "Error: " + (err.response?.data?.message || err.message),
         timestamp: new Date()
       };
-      setMessages(prev => [...prev, errorResponse]);
-    } finally {
-      setIsTyping(false);
+      setMessages((prev) => [...prev, errorMessage]);
     }
+
+    setIsTyping(false);
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }
@@ -93,16 +110,15 @@ const Aibot = ({ username = "Aditya" }) => {
     if (hour < 17) return "Good Afternoon";
     return "Good Evening";
   };
-   
-  const removeThinkTag = (text) => {
-    if (!text) return '';
-    return text.replace(/<\s*think\s*>[\s\S]*?<\s*\/\s*think\s*>/gi, '').trim();
-  };
 
   return (
     <div className="ai-chatbot">
-      <div className={`initial-state ${isTransitioning ? 'fade-out' : ''}`} 
-           style={{ display: showInitialState ? 'flex' : 'none' }}>
+
+      {/* Initial greeting screen */}
+      <div
+        className={`initial-state ${isTransitioning ? "fade-out" : ""}`}
+        style={{ display: showInitialState ? "flex" : "none" }}
+      >
         <div className="animation-container"></div>
         <div className="greeting-text">
           <h2>{getGreeting()}, {username}</h2>
@@ -110,51 +126,63 @@ const Aibot = ({ username = "Aditya" }) => {
         </div>
       </div>
 
-      <div className={`chat-container ${!showInitialState ? 'fade-in' : ''}`}>
+      {/* Chat messages */}
+      <div className={`chat-container ${!showInitialState ? "fade-in" : ""}`}>
         <div className="messages-container">
+
           {messages.map((message) => (
             <div key={message.id} className={`message-wrapper ${message.type}`}>
               <div className="message-content">
+
+                {/* Avatar */}
                 <div className="avatar">
-                  {message.type === 'user' ? (
-                    <div className="user-avatar">{username.charAt(0).toUpperCase()}</div>
+                  {message.type === "user" ? (
+                    <div className="user-avatar">
+                      {username.charAt(0).toUpperCase()}
+                    </div>
                   ) : (
                     <div className="bot-avatar">
-                      <img src={logo} alt="logo" height={40}/>
+                      <img src={logo} alt="logo" height={40} />
                     </div>
                   )}
                 </div>
+
+                {/* Message box */}
                 <div className="message-bubble">
                   <div className="message-text">
-                    {message.type === 'bot' ? removeThinkTag(message.content) : message.content}
+                    {message.type === "bot"
+                      ? removeThinkTag(message.content)
+                      : message.content}
                   </div>
                 </div>
+
               </div>
             </div>
           ))}
-  
+
+          {/* Typing animation */}
           {isTyping && (
             <div className="message-wrapper bot">
               <div className="message-content">
                 <div className="avatar">
                   <div className="bot-avatar">
-                     <img src={logo} alt="logo" width={20} height={20} />
+                    <img src={logo} alt="logo" width={20} height={20} />
                   </div>
                 </div>
                 <div className="message-bubble typing-bubble">
                   <div className="typing-indicator">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                   </div>
                 </div>
               </div>
             </div>
           )}
-          <div ref={messagesEndRef} />
+
+          <div ref={messagesEndRef}></div>
         </div>
       </div>
 
+      {/* Input area */}
       <div className="input-container">
         <div className="input-wrapper">
           <input
@@ -175,6 +203,7 @@ const Aibot = ({ username = "Aditya" }) => {
           </button>
         </div>
       </div>
+
     </div>
   );
 };

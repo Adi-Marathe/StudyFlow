@@ -1,42 +1,45 @@
-// routes/chat.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const axios = require('axios');
+const Groq = require("groq-sdk");
 
-router.post('/', async (req, res) => {
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
+
+router.post("/", async (req, res) => {
   try {
     const { messages } = req.body;
 
     if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: 'Invalid or missing messages array' });
+      return res.status(400).json({ error: "Invalid messages array" });
     }
 
-    const response = await axios.post(
-      'https://api.groq.com/openai/v1/chat/completions',
-      {
-        model: 'deepseek-r1-distill-llama-70b', 
-        messages
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.GROK_API_KEY}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
+    // Create completion
+    const completion = await groq.chat.completions.create({
+      model: "openai/gpt-oss-120b",  // or any Groq model
+      messages,
+      temperature: 1,
+      max_completion_tokens: 8192,
+      top_p: 1,
+      stream: false, // Frontend not streaming
+      reasoning_effort: "medium",
+    });
+
+    const reply = completion.choices?.[0]?.message?.content || "No response.";
 
     res.json({
       success: true,
-      reply: response.data.choices[0].message.content,
-      full: response.data
+      reply,
+      full: completion,
     });
+
   } catch (error) {
-    console.error("Grok API error:", error.response?.data || error.message);
+    console.error("Groq API error:", error);
 
     res.status(500).json({
       success: false,
-      message: "AI API request failed",
-      details: error.response?.data || error.message
+      message: "Groq API request failed",
+      details: error.response?.data || error.message,
     });
   }
 });
