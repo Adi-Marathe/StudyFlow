@@ -163,7 +163,7 @@ const Navbar = ( ) => {
       </div>
 
       {/* Overlay to close dropdowns when clicking outside */}
-      {/* {(showProfileDropdown || showNotifications) && (
+      {(showProfileDropdown || showNotifications) && (
         <div
           className="overlay"
           onClick={() => {
@@ -171,7 +171,7 @@ const Navbar = ( ) => {
             setShowNotifications(false);
           }}
         />
-      )} */}
+      )}
     </nav>
   );
 };

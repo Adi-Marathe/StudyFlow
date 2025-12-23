@@ -10,7 +10,7 @@ const MindMapGrid = ({ mindMaps, loading, onCardClick, onDeleteMindMap }) => {
     e.stopPropagation(); // Prevent card click when delete is clicked
     onDeleteMindMap(mindMapId);
   };
-
+ 
   const renderMindMapPreview = (mindMap) => {
     // Handle both legacy data structure and new backend structure
     const nodes = mindMap.nodes || [];

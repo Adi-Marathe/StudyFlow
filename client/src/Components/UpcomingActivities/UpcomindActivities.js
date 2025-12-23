@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './UpcomingActivities.css';
 
 const UpcomingActivities = ({ maxEvents = 4 }) => {
@@ -96,6 +97,12 @@ const UpcomingActivities = ({ maxEvents = 4 }) => {
     return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
+  const navigate = useNavigate();
+  
+    const handleClick = () => {
+      navigate('/eventscheduler');
+    };
+
   return (
     <div className="upcoming-activities">
       <div className="activities-header">
@@ -105,7 +112,7 @@ const UpcomingActivities = ({ maxEvents = 4 }) => {
         </button>
       </div>
       
-      <div className="activities-list">
+      <div className="activities-list" onClick={handleClick}>
         {activities.length > 0 ? (
           activities.map((activity) => (
             <div 
