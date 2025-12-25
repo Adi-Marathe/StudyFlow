@@ -20,6 +20,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is required'],
     minlength: 8,
+  },
+  role: {
+    type: String,
+    enum: ['Student', 'Teacher', 'Professional'],
+    default: 'Student'  // Default value, not required at signup
+  },
+  bio: {
+    type: String,
+    maxlength: 150,
+    default: ''  // Empty by default, users add it later
   }
 }, { timestamps: true });
 

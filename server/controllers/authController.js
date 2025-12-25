@@ -53,10 +53,41 @@ exports.login = async (req, res) => {
 
 exports.getMe = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("name email");
+    const user = await User.findById(req.user.id).select("-password");
     if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const { name, email, role, bio } = req.body;
+    
+    // Check if email is being changed and if it's already taken
+    if (email) {
+      const existingUser = await User.findOne({ 
+        email, 
+        _id: { $ne: req.user.id } 
+      });
+      if (existingUser) {
+        return res.status(400).json({ message: 'Email already in use' });
+      }
+    }
+    
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      { name, email, role, bio },
+      { new: true, runValidators: true }
+    ).select('-password');
+    
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
