@@ -20,9 +20,6 @@ const AddTaskModal = ({ isOpen, onClose, onTaskAdded }) => {
     if (name === 'description') setCharCount(value.length);
   };
 
-  // Choose ONE normalization approach based on how your board groups tasks:
-
-  // A) If your board expects human-readable statuses ("To Do", "In Progress", "Done")
   const normalizeStatusForBoard = (status) => {
     const s = String(status || '').trim().toLowerCase();
     if (s === 'to do' || s === 'todo') return 'To Do';
@@ -30,15 +27,6 @@ const AddTaskModal = ({ isOpen, onClose, onTaskAdded }) => {
     if (s === 'completed' || s === 'done') return 'Done';
     return 'To Do';
   };
-
-  // B) If your board expects lowercase keys ("todo", "progress", "done"), use this instead:
-  // const normalizeStatusForBoard = (status) => {
-  //   const s = String(status || '').trim().toLowerCase();
-  //   if (s === 'to do' || s === 'todo') return 'todo';
-  //   if (s === 'in progress' || s === 'progress') return 'progress';
-  //   if (s === 'completed' || s === 'done') return 'done';
-  //   return 'todo';
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

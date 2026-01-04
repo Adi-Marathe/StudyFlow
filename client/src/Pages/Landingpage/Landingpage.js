@@ -206,8 +206,8 @@ function Landingpage(){
                 <Row className="gy-4">
                 {/* Brand / About blurb */}
                 <Col md={4} lg={3}>
-                    <h5 className="brand-title mb-2 study"><img src={logo} alt="StudyFlow" className="logo" /> Study</h5>
-                    <h5 className="brand-title mb-2 flow">Flow</h5>
+                    <h5 className="brand-title mb-2 studyy"><img src={logo} alt="StudyFlow" className="logo" /> Study</h5>
+                    <h5 className="brand-title mb-2 floww">Flow</h5>
                     <p className="small">
                     The all-in-one digital workspace that helps students focus, learn, and collaborate with AI-powered productivity tools.
                     </p>

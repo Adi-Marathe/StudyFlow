@@ -14,7 +14,7 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
   // Celebration: “pop pearls” style
   const fireConfetti = () => {
     confetti({
-      particleCount: 120,
+      particleCount: 200,
       spread: 70,
       startVelocity: 45,
       gravity: 0.9,

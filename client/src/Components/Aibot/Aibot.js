@@ -4,24 +4,59 @@ import axios from 'axios';
 import './Aibot.css';
 import logo from '../../Assets/images/StudyFlow-logo.png';
 
-const Aibot = ({ username = "Aditya" }) => {
+
+const Aibot = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showInitialState, setShowInitialState] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+
+
+  // Fetch user data
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:5000/api/auth/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        
+        setUserData(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+
+    // Listen for profile updates
+    const handleProfileUpdate = () => {
+      fetchUserData();
+    };
+
+    window.addEventListener('profileUpdated', handleProfileUpdate);
+
+    return () => {
+      window.removeEventListener('profileUpdated', handleProfileUpdate);
+    };
+  }, []);
+
 
   // Auto-scroll
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
 
   // Remove <think>...</think> completely
   const removeThinkTag = (text) => {
@@ -29,8 +64,10 @@ const Aibot = ({ username = "Aditya" }) => {
     return text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
   };
 
+
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
+
 
     const userMessage = {
       id: Date.now(),
@@ -39,9 +76,11 @@ const Aibot = ({ username = "Aditya" }) => {
       timestamp: new Date()
     };
 
+
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInputMessage("");
+
 
     // Hide initial screen on first message
     if (showInitialState) {
@@ -52,13 +91,16 @@ const Aibot = ({ username = "Aditya" }) => {
       }, 400);
     }
 
+
     setIsTyping(true);
+
 
     // Prepare backend-friendly message structure
     const chatHistory = updatedMessages.map((msg) => ({
       role: msg.type === "user" ? "user" : "assistant",
       content: msg.content
     }));
+
 
     try {
       const payload = {
@@ -68,12 +110,16 @@ const Aibot = ({ username = "Aditya" }) => {
         ]
       };
 
+
       const res = await axios.post("http://localhost:5000/api/chat", payload);
+
 
       let botReply = res.data.reply || "No response";
 
+
       // Clean <think>
       botReply = removeThinkTag(botReply);
+
 
       const botMessage = {
         id: Date.now() + 1,
@@ -82,7 +128,9 @@ const Aibot = ({ username = "Aditya" }) => {
         timestamp: new Date()
       };
 
+
       setMessages((prev) => [...prev, botMessage]);
+
 
     } catch (err) {
       const errorMessage = {
@@ -94,8 +142,10 @@ const Aibot = ({ username = "Aditya" }) => {
       setMessages((prev) => [...prev, errorMessage]);
     }
 
+
     setIsTyping(false);
   };
+
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -104,6 +154,7 @@ const Aibot = ({ username = "Aditya" }) => {
     }
   };
 
+
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return "Good Morning";
@@ -111,8 +162,16 @@ const Aibot = ({ username = "Aditya" }) => {
     return "Good Evening";
   };
 
+  // Extract first name from full name
+  const getFirstName = () => {
+    if (!userData?.name) return "User";
+    return userData.name.split(' ')[0];
+  };
+
+
   return (
     <div className="ai-chatbot">
+
 
       {/* Initial greeting screen */}
       <div
@@ -121,24 +180,27 @@ const Aibot = ({ username = "Aditya" }) => {
       >
         <div className="animation-container"></div>
         <div className="greeting-text">
-          <h2>{getGreeting()}, {username}</h2>
+          <h2>{getGreeting()}, {getFirstName()}</h2>
           <p>How Can I <span className="assist-text">Assist You Today?</span></p>
         </div>
       </div>
+
 
       {/* Chat messages */}
       <div className={`chat-container ${!showInitialState ? "fade-in" : ""}`}>
         <div className="messages-container">
 
+
           {messages.map((message) => (
             <div key={message.id} className={`message-wrapper ${message.type}`}>
               <div className="message-content">
+
 
                 {/* Avatar */}
                 <div className="avatar">
                   {message.type === "user" ? (
                     <div className="user-avatar">
-                      {username.charAt(0).toUpperCase()}
+                      {getFirstName().charAt(0).toUpperCase()}
                     </div>
                   ) : (
                     <div className="bot-avatar">
@@ -146,6 +208,7 @@ const Aibot = ({ username = "Aditya" }) => {
                     </div>
                   )}
                 </div>
+
 
                 {/* Message box */}
                 <div className="message-bubble">
@@ -156,9 +219,11 @@ const Aibot = ({ username = "Aditya" }) => {
                   </div>
                 </div>
 
+
               </div>
             </div>
           ))}
+
 
           {/* Typing animation */}
           {isTyping && (
@@ -178,9 +243,11 @@ const Aibot = ({ username = "Aditya" }) => {
             </div>
           )}
 
+
           <div ref={messagesEndRef}></div>
         </div>
       </div>
+
 
       {/* Input area */}
       <div className="input-container">
@@ -204,8 +271,10 @@ const Aibot = ({ username = "Aditya" }) => {
         </div>
       </div>
 
+
     </div>
   );
 };
+
 
 export default Aibot;
