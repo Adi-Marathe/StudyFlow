@@ -11,6 +11,7 @@ exports.createTask = async (req, res) => {
     }
 
     const newTask = new Task({
+      user: req.user.id, // Get from auth middleware
       title,
       description,
       status: status || 'To Do'
@@ -25,31 +26,39 @@ exports.createTask = async (req, res) => {
 
 // Get all tasks controller
 exports.getAllTasks = async (req, res) => {
-    try {
-      const tasks = await Task.find(); // Fetch all tasks from DB
-      res.status(200).json(tasks);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
+  try {
+    const tasks = await Task.find({ user: req.user.id }); // Filter by user
+    res.status(200).json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // Update an existing task by ID
 exports.updateTask = async (req, res) => {
-    try {
-      const updatedTask = await Task.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true } // return the updated task
-      );
-  
-      if (!updatedTask) {
-        return res.status(404).json({ error: 'Task not found' });
-      }
-  
-      res.json({ message: 'Task updated successfully', task: updatedTask });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+  try {
+    // Find task and verify ownership
+    const task = await Task.findById(req.params.id);
+    
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
     }
+
+    // Check if task belongs to user
+    if (task.user.toString() !== req.user.id) {
+      return res.status(403).json({ error: 'Not authorized to update this task' });
+    }
+
+    const updatedTask = await Task.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true } // return the updated task
+    );
+
+    res.json({ message: 'Task updated successfully', task: updatedTask });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // DELETE /api/tasks/:id
@@ -57,17 +66,19 @@ exports.deleteTask = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Validate id format if using Mongo
-    // if (!mongoose.isValidObjectId(id)) return res.status(400).json({ error: 'Invalid id' });
+    // Find task and verify ownership
+    const task = await Task.findById(id);
 
-    const deleted = await Task.findByIdAndDelete(id);
-    if (!deleted) {
+    if (!task) {
       return res.status(404).json({ error: 'Task not found' });
     }
-    // Option A: 204 No Content
-    // return res.status(204).send();
 
-    // Option B: 200 OK with payload
+    // Check if task belongs to user
+    if (task.user.toString() !== req.user.id) {
+      return res.status(403).json({ error: 'Not authorized to delete this task' });
+    }
+
+    await Task.findByIdAndDelete(id);
     return res.status(200).json({ success: true, id });
   } catch (err) {
     console.error('Delete task error:', err);
