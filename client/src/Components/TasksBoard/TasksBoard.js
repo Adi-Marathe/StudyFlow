@@ -11,10 +11,9 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
-  // Celebration: “pop pearls” style
   const fireConfetti = () => {
     confetti({
-      particleCount: 200,
+      particleCount: 120,
       spread: 70,
       startVelocity: 45,
       gravity: 0.9,
@@ -36,7 +35,6 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
     }, 150);
   };
 
-  // Normalize to display labels used across the app
   const normalizeStatus = (status) => {
     const s = String(status || '').trim().toLowerCase();
     if (s === 'to do' || s === 'todo') return 'To Do';
@@ -52,24 +50,30 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
     status: normalizeStatus(raw.status)
   });
 
-  // Column id -> display status
   const columnIdToStatus = {
     todo: 'To Do',
     inprogress: 'In Progress',
     done: 'Done'
   };
 
-  // Fetch once on mount
+  // 🔐 FETCH TASKS (TOKEN ADDED)
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/tasks/all');
+        const token = localStorage.getItem('token');
+
+        const res = await fetch('http://localhost:5000/api/tasks/all', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
         const data = await res.json();
 
         const grouped = { todo: [], inprogress: [], done: [] };
         data.forEach((raw) => {
           const t = mapTask(raw);
-          if (!t.id) return; // defensive
+          if (!t.id) return;
           if (t.status === 'To Do') grouped.todo.push(t);
           else if (t.status === 'In Progress') grouped.inprogress.push(t);
           else if (t.status === 'Done') grouped.done.push(t);
@@ -84,7 +88,6 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
     fetchTasks();
   }, []);
 
-  // Emit counts to parent whenever board tasks change
   useEffect(() => {
     const counts = {
       total: tasks.todo.length + tasks.inprogress.length + tasks.done.length,
@@ -97,18 +100,17 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
     }
   }, [tasks, onCountsChange]);
 
-  // If parent passes a freshly created task, append it instantly
   useEffect(() => {
     if (!newTask) return;
     const t = mapTask(newTask);
     if (!t.id) return;
 
     setTasks((prev) => {
-      // prevent duplicates if same task pushed again
       const exists =
         prev.todo.some(x => x.id === t.id) ||
         prev.inprogress.some(x => x.id === t.id) ||
         prev.done.some(x => x.id === t.id);
+
       if (exists) return prev;
 
       const updated = { ...prev };
@@ -119,24 +121,25 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
     });
   }, [newTask]);
 
-  // Upsert task in correct column (after edit/server response)
   const upsertTask = (taskLike) => {
     const t = mapTask(taskLike);
     if (!t.id) return;
+
     setTasks((prev) => {
       const updated = {
-        todo: prev.todo.filter((x) => x.id !== t.id),
-        inprogress: prev.inprogress.filter((x) => x.id !== t.id),
-        done: prev.done.filter((x) => x.id !== t.id)
+        todo: prev.todo.filter(x => x.id !== t.id),
+        inprogress: prev.inprogress.filter(x => x.id !== t.id),
+        done: prev.done.filter(x => x.id !== t.id)
       };
-      if (t.status === 'To Do') updated.todo = [...updated.todo, t];
-      else if (t.status === 'In Progress') updated.inprogress = [...updated.inprogress, t];
-      else if (t.status === 'Done') updated.done = [...updated.done, t];
+
+      if (t.status === 'To Do') updated.todo.push(t);
+      else if (t.status === 'In Progress') updated.inprogress.push(t);
+      else if (t.status === 'Done') updated.done.push(t);
+
       return updated;
     });
   };
 
-  // Drag & Drop
   const handleDragStart = (e, task, columnId) => {
     setDraggedTask(task);
     setDraggedFrom(columnId);
@@ -148,6 +151,7 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
     e.dataTransfer.dropEffect = 'move';
   };
 
+  // 🔐 DRAG UPDATE (TOKEN ADDED)
   const handleDrop = async (e, targetColumnId) => {
     e.preventDefault();
     if (!draggedTask || !draggedFrom || draggedFrom === targetColumnId) {
@@ -156,46 +160,37 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
       return;
     }
 
-    const newStatus = columnIdToStatus[targetColumnId] || 'To Do';
+    const newStatus = columnIdToStatus[targetColumnId];
     const moved = { ...draggedTask, status: newStatus };
-
-    // Snapshot for rollback
     const snapshot = JSON.parse(JSON.stringify(tasks));
 
-    // Optimistic UI update
     setTasks((prev) => {
       const updated = { ...prev };
-      updated[draggedFrom] = updated[draggedFrom].filter((t) => t.id !== draggedTask.id);
+      updated[draggedFrom] = updated[draggedFrom].filter(t => t.id !== draggedTask.id);
       updated[targetColumnId] = [...updated[targetColumnId], moved];
       return updated;
     });
 
     try {
+      const token = localStorage.getItem('token');
+
       const res = await fetch(`http://localhost:5000/api/tasks/${draggedTask.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
         body: JSON.stringify({ status: newStatus })
       });
 
-      let data = {};
-      try { data = await res.json(); } catch (_) {}
+      const data = await res.json();
+      if (!res.ok) throw new Error();
 
-      if (!res.ok) {
-        throw new Error(data.error || `Failed to update status (HTTP ${res.status})`);
-      }
+      upsertTask(data.task || data);
 
-      const serverTask = data.task || data;
-      if (serverTask && (serverTask._id || serverTask.id)) {
-        upsertTask(serverTask);
-      }
-
-      // Celebrate completion
-      if (newStatus === 'Done') {
-        fireConfetti();
-      }
+      if (newStatus === 'Done') fireConfetti();
     } catch (err) {
-      console.error('Drag status update failed:', err);
-      // Rollback UI
+      console.error('Drag update failed:', err);
       setTasks(snapshot);
     } finally {
       setDraggedTask(null);
@@ -208,12 +203,11 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
     setDraggedFrom(null);
   };
 
-  // Edit
   const handleEditClick = (taskId) => {
     const taskObj =
-      tasks.todo.find((t) => t.id === taskId) ||
-      tasks.inprogress.find((t) => t.id === taskId) ||
-      tasks.done.find((t) => t.id === taskId);
+      tasks.todo.find(t => t.id === taskId) ||
+      tasks.inprogress.find(t => t.id === taskId) ||
+      tasks.done.find(t => t.id === taskId);
 
     if (taskObj) {
       setSelectedTask(taskObj);
@@ -230,7 +224,7 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
     setTasks(prev => ({
       todo: prev.todo.filter(t => t.id !== id),
       inprogress: prev.inprogress.filter(t => t.id !== id),
-      done: prev.done.filter(t => t.id !== id),
+      done: prev.done.filter(t => t.id !== id)
     }));
   };
 
@@ -247,7 +241,7 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
       </div>
 
       <div className="board-columns">
-        {columns.map((column) => (
+        {columns.map(column => (
           <div
             key={column.id}
             className="column"
@@ -272,7 +266,7 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
                   <span className="empty-text">No tasks</span>
                 </div>
               ) : (
-                tasks[column.id].map((task) => (
+                tasks[column.id].map(task => (
                   <div
                     key={task.id}
                     className={`task-card ${draggedTask?.id === task.id ? 'dragging' : ''}`}

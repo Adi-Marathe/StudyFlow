@@ -31,7 +31,7 @@ const EditTaskModal = ({ isOpen, onClose, task, onTaskUpdated, onTaskDeleted }) 
     if (name === 'description') setCharCount(value.length);
   };
 
-  // Normalize to "To Do", "In Progress", "Done"
+  // Normalize status
   const normalizeStatus = (status) => {
     const s = String(status || '').trim().toLowerCase();
     if (s === 'to do' || s === 'todo') return 'To Do';
@@ -44,11 +44,18 @@ const EditTaskModal = ({ isOpen, onClose, task, onTaskUpdated, onTaskDeleted }) 
     e.preventDefault();
 
     if (!task || !task.id) {
-      toast.error('❌ Task ID is missing.');
+      toast.error('Task ID is missing');
       return;
     }
+
     if (!formData.title.trim()) {
       toast.error('Title is required');
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('You are not logged in');
       return;
     }
 
@@ -63,7 +70,10 @@ const EditTaskModal = ({ isOpen, onClose, task, onTaskUpdated, onTaskDeleted }) 
 
       const res = await fetch(`http://localhost:5000/api/tasks/${task.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(payload)
       });
 
@@ -72,20 +82,20 @@ const EditTaskModal = ({ isOpen, onClose, task, onTaskUpdated, onTaskDeleted }) 
         throw new Error(data.error || 'Failed to update task');
       }
 
-      // Map response back to consistent shape
-      const serverTask = data.task || data;
+      const serverTask = data.task;
+
       const mappedUpdated = {
-        id: serverTask._id || serverTask.id || task.id,
-        title: serverTask.title ?? payload.title,
-        description: serverTask.description ?? serverTask.desc ?? payload.description ?? '',
-        status: normalizeStatus(serverTask.status ?? payload.status)
+        id: serverTask._id,
+        title: serverTask.title,
+        description: serverTask.description,
+        status: normalizeStatus(serverTask.status)
       };
 
-      onTaskUpdated?.(mappedUpdated);
+      onTaskUpdated(mappedUpdated);
       toast.success('Task updated successfully!');
       onClose();
     } catch (err) {
-      toast.error(`${err.message}`);
+      toast.error(err.message || 'Update failed');
     } finally {
       setLoading(false);
     }
@@ -93,38 +103,39 @@ const EditTaskModal = ({ isOpen, onClose, task, onTaskUpdated, onTaskDeleted }) 
 
   const handleDelete = async () => {
     if (!task || !task.id) {
-      toast.error('Task ID is missing.');
+      toast.error('Task ID is missing');
       return;
     }
 
     const confirmed = window.confirm('Are you sure you want to delete this task?');
     if (!confirmed) return;
 
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('You are not logged in');
+      return;
+    }
+
     setLoading(true);
+
     try {
       const res = await fetch(`http://localhost:5000/api/tasks/${task.id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
 
-      // Some backends return 204 with no JSON; handle both cases safely
-      let data = {};
-      try {
-        data = await res.json();
-      } catch (_) {
-        // ignore parse error on empty body
-      }
-
+      const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error || 'Failed to delete task');
       }
 
-      // Notify parent/board to remove task immediately
-      onTaskDeleted?.(task.id);
-
+      onTaskDeleted(task.id);
       toast.success('Task deleted');
       onClose();
     } catch (err) {
-      toast.error(`${err.message}`);
+      toast.error(err.message || 'Delete failed');
     } finally {
       setLoading(false);
     }
@@ -156,7 +167,6 @@ const EditTaskModal = ({ isOpen, onClose, task, onTaskUpdated, onTaskDeleted }) 
               name="title"
               value={formData.title}
               onChange={handleInputChange}
-              placeholder="Enter task title"
               className="form-input"
               required
             />
@@ -168,7 +178,6 @@ const EditTaskModal = ({ isOpen, onClose, task, onTaskUpdated, onTaskDeleted }) 
               name="description"
               value={formData.description}
               onChange={handleInputChange}
-              placeholder="Enter task description (max 200 characters)"
               className="form-textarea"
               maxLength={200}
               rows={4}
