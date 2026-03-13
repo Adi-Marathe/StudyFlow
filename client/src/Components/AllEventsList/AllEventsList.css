@@ -1,0 +1,120 @@
+.all-events {
+  margin-top: 40px;
+  padding: 24px;
+  background: var(--card-bg);
+  border-radius: 20px;
+}
+
+.all-events h3 {
+  margin-bottom: 16px;
+}
+
+/* Tabs */
+.events-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.events-tabs button {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.events-tabs button.active {
+  background: #ff7426;
+  color: #fff;
+}
+
+/* Grid */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* Card */
+.event-card {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(186, 163, 223, 0.9),
+    #4d2c5d
+  );
+  padding: 16px;
+  border-radius: 1px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.dark .event-card {
+  background: linear-gradient(
+    135deg,
+    #1b1f3b,
+    #22265a
+  );
+}
+
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Past events style */
+.event-card.past {
+  opacity: 0.6;
+}
+
+/* Color strip */
+.color-strip {
+  width: 6px;
+  height: 100%;
+  border-radius: 6px;
+  margin-right: 14px;
+}
+
+/* Content */
+.event-content h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.event-content p {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Date badge */
+.date-badge {
+  margin-left: auto;
+  text-align: center;
+  background: var(--card-bg);
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+
+.date-badge span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.date-badge small {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* Empty */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}

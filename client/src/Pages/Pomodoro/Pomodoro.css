@@ -22,8 +22,53 @@ body.dark-mode .pomodoro-container {
   overflow-y: auto;
 }
 
-/* WebKit Browsers (Chrome, Safari, Edge) */
+/* scrollbar hide */
 .pomodoro-main::-webkit-scrollbar {
-  width: 0px;              
+  width: 0;
 }
 
+/* 🔥 TOP ROW LAYOUT (IMPORTANT FIX) */
+.top-row {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  align-items: flex-start; /* ❗ stretch hata diya */
+}
+
+/* LEFT : WELCOME BANNER */
+.welcome-left {
+  flex: 1.5;
+  min-width: 0;
+}
+
+/* RIGHT : PRESET TIMERS (EXTERNAL BOX) */
+.preset-right {
+  flex: 1;
+  min-width: 0;
+
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+
+  /* ✅ HEIGHT CONTROL */
+  height: auto;
+  max-height: 320px;   /* 👈 yahin se size control */
+
+  overflow: hidden;
+}
+
+/* DARK MODE */
+body.dark-mode .preset-right {
+  background-color: #2b2b2b;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .top-row {
+    flex-direction: column;
+  }
+
+  .preset-right {
+    max-height: none;
+  }
+}

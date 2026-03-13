@@ -1,176 +1,233 @@
 .timer-container {
-  text-align: center;
-  padding: 30px;
-  background-color: #fff;
-  color: #050c26;
-  border-radius: 20px;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
-  max-width: 700px;
+  max-width: 1500px;
+  min-height: 420px;
   margin: auto;
-  border: 2px solid transparent; /* important for smooth transition */
-  transition: border 0.3s ease;
-}
-
-
-.dark-mode .timer-container {
-  background-color: #2C2C2C;
-  color: #fdf8ee;
-}
-
-.timer-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.timer-tabs button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 12px;
-  background-color: #f2e9ff;
-  color: #4d2c5e;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.timer-tabs button.active,
-.timer-tabs button:hover {
-  background-color: #4d2c5e;
-  color: #fff;
-}
-
-.dark-mode .timer-tabs button {
-  background-color: #2d2d40;
-  color: #c68cff;
-}
-
-.dark-mode .timer-tabs button.active,
-.dark-mode .timer-tabs button:hover {
-  background-color: #c68cff;
-  color: #050c26;
-}
-
-.timer-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.progress-ring {
+  padding-bottom: 48px;
+  padding-top: 10px;
+  text-align: center;
+  color: #050C26;
+  border-radius: 22px;
   position: relative;
-  width: 260px;
-  height: 260px;
+  overflow: hidden;
+
+  /* ✨ GLASS EFFECT */
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.12);
 }
 
-.progress-circle {
-  transform: rotate(-90deg);
+/* 🔖 TIMER HEADING (Preset Label) */
+.preset-label {
+  font-size: 1.6rem;
+  font-weight: 700;
+  /* margin-bottom: 20px; */
+  text-align: center;
+  color: #4D2C5E;
+  letter-spacing: 0.5px;
+  position: relative;
 }
 
-.bg-circle {
-  fill: none;
-  stroke: #ddd;
-  stroke-width: 12;
+/* underline accent */
+.preset-label::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #FF7426;
+  margin: 3px auto 0;
+  border-radius: 10px;
 }
 
-.fg-circle {
-  fill: none;
-  stroke: #ff7426;
-  stroke-linecap: round;
-  stroke-width: 15px;
-  transition: stroke-dashoffset 1s linear;
+/* 🌙 DARK MODE */
+.dark-mode .preset-label {
+  color: #FDF8EE;
 }
 
-.dark-mode .bg-circle {
-  stroke: #3a3a4a;
+.dark-mode .preset-label::after {
+  background: #FF7426;
 }
 
-.dark-mode .fg-circle {
-  stroke: #ffa45c;
+
+/* 🌊 WATER */
+.water-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(255,116,38,0.4),
+    rgba(255,116,38,0.15)
+  );
+  transition: height 1s linear;
+  z-index: 0;
+}
+
+/* 🌊 WAVES */
+.wave {
+  position: absolute;
+  top: -18px;
+  width: 200%;
+  height: 40px;
+  background: rgba(255,255,255,0.35);
+  border-radius: 100%;
+}
+
+.wave1 {
+  animation: waveMove 8s linear infinite;
+}
+
+.wave2 {
+  opacity: 0.5;
+  animation: waveMove 12s linear infinite reverse;
+}
+
+@keyframes waveMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Keep content above */
+.timer-container > *:not(.water-fill) {
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔥 LAST 10 SEC PULSE */
+.timer-container.danger {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 rgba(255,116,38,0.6); }
+  50% { box-shadow: 0 0 35px rgba(255,116,38,0.9); }
+  100% { box-shadow: 0 0 0 rgba(255,116,38,0.6); }
 }
 
 .timer-display {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 48px;
-  font-weight: bold;
+  font-size: 4.2rem;
+  font-weight: 700;
+  margin: 25px 0 30px;
 }
 
-.timer-controls {
-  margin-top: 30px;
+/* Buttons & tabs (unchanged logic) */
+.timer-tabs {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  margin-top: 50px;
 }
 
-.start-btn, .reset-btn {
-  padding: 12px 26px;
-  font-size: 16px;
-  font-weight: 600;
+.timer-tabs button {
+  padding: 8px 20px;
+  border-radius: 50px;
   border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+  background: #F2E9FF;
+  color: #4D2C5E;
+  font-weight: 600;
 }
 
-.start-btn {
-  background-color: #ff7426;
+.timer-tabs button.active {
+  background: #4D2C5E;
   color: #fff;
 }
 
-.start-btn:hover {
-  background-color: #e45f12;
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
-.reset-btn {
-  background-color: #f2e9ff;
-  color: #4d2c5e;
-}
-
-.dark-mode .start-btn {
-  background-color: #ffa45c;
-  color: #050c26;
-}
-
-.dark-mode .start-btn:hover {
-  background-color: #ff914d;
-}
-
-.reset-btn {
-  background-color: #4d2c5e;  /* dark purple */
-  color: #ffffff;
-  padding: 12px 26px;
-  font-size: 16px;
-  font-weight: 600;
+.primary-btn {
+  background: #FF7426;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 50px;
   border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
 }
 
-.reset-btn:hover {
-  background-color: #3a1f4a;  /* slightly darker purple */
+.secondary-btn {
+  background: #4D2C5E;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
 }
 
 .round-counter {
-  margin-top: 10px;
+  margin-top: 16px;
+  opacity: 0.75;
 }
 
-.current-label {
-  font-size: 1.4rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #4d2c5e;
-  text-align: center;
+/* 🌙 DARK MODE FIX */
+.dark-mode .timer-container {
+  background: rgba(44, 44, 44, 0.95); /* #2c2c2c glass */
+  color: #FDF8EE;
+  backdrop-filter: blur(14px);
 }
 
-.dark-mode .current-label {
-  color: #ffa45c;
+/* 🌙 Dark mode water color */
+.dark-mode .water-fill {
+  background: linear-gradient(
+    to top,
+    rgba(255,164,92,0.45),
+    rgba(255,164,92,0.2)
+  );
 }
 
+/* 🌙 Dark mode wave */
+.dark-mode .wave {
+  background: rgba(255,255,255,0.15);
+}
 
+/* 🌈 MODE BASED MOOD */
+.timer-container.focus {
+  border: 2px solid rgba(77,44,94,0.4);
+}
 
+.timer-container.short {
+  border: 2px solid rgba(76,175,80,0.5);
+}
 
+.timer-container.long {
+  border: 2px solid rgba(33,150,243,0.5);
+}
+
+/* 🌊 WATER COLOR PER MODE */
+.timer-container.focus .water-fill {
+  background: linear-gradient(to top, rgba(255,116,38,0.4), rgba(255,116,38,0.15));
+}
+
+.timer-container.short .water-fill {
+  background: linear-gradient(to top, rgba(76,175,80,0.45), rgba(76,175,80,0.15));
+}
+
+.timer-container.long .water-fill {
+  background: linear-gradient(to top, rgba(33,150,243,0.45), rgba(33,150,243,0.15));
+}
+
+/* 💬 SESSION FEEDBACK */
+.session-feedback {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 12px 0 6px;
+  animation: fadeSlide 0.4s ease;
+  color: #FF7426;
+}
+
+.dark-mode .session-feedback {
+  color: #FFA45C;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

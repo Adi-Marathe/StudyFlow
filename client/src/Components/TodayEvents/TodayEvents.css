@@ -1,0 +1,126 @@
+/* ===============================
+   Wrapper (title outside card)
+================================ */
+.today-events-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title outside the card */
+.today-events-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  padding-left: 4px;
+}
+
+/* ===============================
+   Card (MATCH WelcomeBanner)
+================================ */
+.today-events-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  height: 150px; /* 🔥 SAME AS WelcomeBanner HEIGHT */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===============================
+   Scrollable list (ONE EVENT VIEW)
+================================ */
+.today-events-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 6px;
+}
+
+/* Scrollbar */
+.today-events-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.today-events-list::-webkit-scrollbar-thumb {
+  background: rgba(161, 160, 159, 0.6);
+  border-radius: 6px;
+}
+
+/* ===============================
+   Single Event Card
+================================ */
+.today-event-box {
+  min-height: 72px; /* 🔥 ensures only ONE fits */
+  background: #fff3ec60;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  gap: 10px;
+  position: relative;
+}
+
+/* Ongoing badge */
+/* .today-event-box.ongoing::after {
+  content: "ONGOING";
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #ff7426;
+} */
+
+/* Dot */
+.event-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+
+/* Text */
+.event-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.event-time {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ===============================
+   Empty state
+================================ */
+.no-events {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* ===============================
+   Dark mode
+================================ */
+body.dark-mode .today-events-card {
+  background: #252525;
+}
+
+body.dark-mode .today-event-box {
+  background: #2a2a2a;
+}
+
+body.dark-mode .today-events-title {
+  color: #ffffff;
+}

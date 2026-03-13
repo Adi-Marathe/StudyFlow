@@ -1,31 +1,43 @@
-const TimerPreset = require('../models/TimerPreset');
+const TimerPreset = require("../models/TimerPreset");
 
-// ✅ Create new preset
+// ➕ CREATE preset (DB me save)
 exports.createPreset = async (req, res) => {
   try {
-    const newPreset = new TimerPreset(req.body);
-    const saved = await newPreset.save();
-    res.status(201).json(saved);
+    const { label, focusTime, shortBreak, longBreak } = req.body;
+
+    if (!label || !focusTime || !shortBreak || !longBreak) {
+      return res.status(400).json({ message: "All fields required" });
+    }
+
+    const preset = new TimerPreset({
+      label,
+      focusTime,
+      shortBreak,
+      longBreak,
+    });
+
+    const savedPreset = await preset.save();
+    res.status(201).json(savedPreset);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
-// ✅ Get all presets
+// 📥 GET all presets (refresh ke baad bhi dikhe)
 exports.getPresets = async (req, res) => {
   try {
-    const presets = await TimerPreset.find();
+    const presets = await TimerPreset.find().sort({ createdAt: -1 });
     res.json(presets);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-// ✅ Delete preset by ID
+// ❌ DELETE preset
 exports.deletePreset = async (req, res) => {
   try {
     await TimerPreset.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Preset deleted' });
+    res.json({ success: true });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

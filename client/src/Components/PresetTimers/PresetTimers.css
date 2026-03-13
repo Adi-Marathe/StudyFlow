@@ -1,0 +1,108 @@
+/* INNER PRESET LIST */
+.preset-box {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+
+  max-height: 150px;   /* 👈 andar wali list height */
+  overflow-y: auto;
+}
+
+/* heading */
+.preset-box h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* preset row */
+.preset-card {
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* text */
+.preset-card p {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* delete button */
+.preset-card button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* ================= DARK MODE ================= */
+body.dark-mode .preset-box h3 {
+  color: #ffffff;
+}
+
+body.dark-mode .preset-card {
+  background: #3f3f46;
+  color: #cfcfcf;
+}
+
+body.dark-mode .preset-card:hover {
+  background: #3a3a55;
+}
+
+body.dark-mode .preset-card p {
+  color: #cfcfcf;
+}
+
+body.dark-mode .preset-card button {
+  color: #8b8888;
+}
+
+/* ================= LIGHT MODE ================= */
+body:not(.dark-mode) .preset-box h3 {
+  color: #050c26;
+}
+
+body:not(.dark-mode) .preset-card {
+  background: #f1f1f1;
+  color: #2f2f46;
+}
+
+body:not(.dark-mode) .preset-card:hover {
+  background: #e4e4e4;
+}
+
+body:not(.dark-mode) .preset-card p {
+  color: #050c26;
+}
+
+body:not(.dark-mode) .preset-card button {
+  color: #000000; 
+}
+
+
+/* SCROLLBAR */
+.preset-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* DARK MODE SCROLLBAR */
+body.dark-mode .preset-box::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 10px;
+}
+
+/* LIGHT MODE SCROLLBAR */
+body:not(.dark-mode) .preset-box::-webkit-scrollbar-thumb {
+  background: #a09999;  /* box background ke saath match */
+  border-radius: 10px;
+}

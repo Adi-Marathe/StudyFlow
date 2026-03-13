@@ -1,11 +1,28 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const TimerPresetSchema = new mongoose.Schema({
-  label: { type: String, required: true },
-  focus: { type: Number, required: true },
-  short: { type: Number, required: true },
-  long: { type: Number, required: true },
-  userId: { type: String } // optional: add if you're using auth
-}, { timestamps: true });
+const TimerPresetSchema = new mongoose.Schema(
+  {
+    label: {
+      type: String,
+      required: true,
+    },
+    focusTime: {
+      type: Number,
+      required: true,
+    },
+    shortBreak: {
+      type: Number,
+      required: true,
+    },
+    longBreak: {
+      type: Number,
+      required: true,
+    },
+    userId: {
+      type: String, // future login ke liye
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('TimerPreset', TimerPresetSchema);
+module.exports = mongoose.model("TimerPreset", TimerPresetSchema);

@@ -1,103 +1,159 @@
-.event-modal-overlay {
+.sf-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(5, 12, 38, 0.45);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 999;
-  backdrop-filter: blur(5px);
 }
 
-.event-modal-box {
-  background: var(--bg-color, #fff);
-  color: var(--text-color, #000);
-  padding: 24px;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.event-modal-box h2 {
-  text-align: center;
-  margin-bottom: 8px;
-  font-size: 1.5rem;
-}
-
-.event-form input,
-.event-form select,
-.event-form textarea {
+.sf-modal {
+  background: #fffefe;
+  padding: 22px;
+  border-radius: 18px;
   width: 100%;
-  padding: 10px;
+  max-width: 420px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  animation: fadeUp 0.25s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sf-modal h3 {
+  color: #4d2c5e;
+  margin-bottom: 14px;
+}
+
+.sf-modal label {
+  display: block;
+  margin: 10px 0 4px;
+  font-size: 14px;
+  color: #4d2c5e;
+}
+
+.sf-modal input,
+.sf-modal select {
+  width: 100%;
+  padding: 9px 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  margin-top: 4px;
+  margin-bottom: 10px;
 }
 
-.event-form textarea {
-  resize: vertical;
-  min-height: 60px;
-}
-
-.event-row {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 8px;
-}
-
-.color-palette {
+.sf-modal-actions {
   display: flex;
   gap: 10px;
-  margin-top: 4px;
+  justify-content: flex-end;
+  margin-top: 14px;
 }
 
-.color-circle {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: 0.3s ease;
-}
-
-.color-circle.selected {
-  border: 2px solid #333;
-  transform: scale(1.1);
-}
-
-.event-modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  gap: 10px;
-}
-
-.event-modal-actions button {
-  flex: 1;
-  padding: 10px 12px;
-  border-radius: 8px;
+/* Buttons */
+.btn-primary {
+  background: #ff7426;
+  color: #fff;
   border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 14px;
-  transition: all 0.2s ease;
 }
 
-.event-modal-actions .cancel {
-  background-color: #ccc;
+.btn-secondary {
+  background: #fdf8ee;
+  color: #4d2c5e;
+  border: 1px solid #4d2c5e;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.event-modal-actions .delete {
-  background-color: #d9534f;
-  color: white;
+.btn-danger {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.event-modal-actions .save {
-  background-color: #ff7426;
-  color: white;
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-danger:hover {
+  opacity: 0.9;
 }
+
+/* ============================= */
+/* 🌙 EVENT MODAL – GRAY DARK MODE */
+/* ============================= */
+
+body.dark-mode .sf-modal-overlay {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+body.dark-mode .sf-modal {
+  background: #252525;
+  color: #f1f1f1;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+}
+
+/* Title */
+body.dark-mode .sf-modal h3 {
+  color: #ff7426;
+}
+
+/* Labels */
+body.dark-mode .sf-modal label {
+  color: #dcdcdc;
+}
+
+/* Inputs & Select */
+body.dark-mode .sf-modal input,
+body.dark-mode .sf-modal select {
+  background: #2a2a2a;
+  color: #f1f1f1;
+  border: 1px solid #3a3a3a;
+}
+
+body.dark-mode .sf-modal input::placeholder {
+  color: #9e9e9e;
+}
+
+/* Color Picker */
+body.dark-mode .sf-modal input[type="color"] {
+  background: none;
+  border: none;
+}
+
+/* Buttons */
+body.dark-mode .btn-secondary {
+  background: #3a3a3a;
+  color: #f1f1f1;
+  border: 1px solid #4a4a4a;
+}
+
+body.dark-mode .btn-primary {
+  background: #ff7426;
+  color: #fff;
+}
+
+body.dark-mode .btn-danger {
+  background: #c62828;
+  color: #fff;
+}
+
+/* Hover Effects */
+body.dark-mode .btn-primary:hover,
+body.dark-mode .btn-secondary:hover,
+body.dark-mode .btn-danger:hover {
+  opacity: 0.9;
+}
+

@@ -1,187 +1,64 @@
-/* Wrapper & theme vars */
-.calendar-wrapper {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
-  padding: 1rem;
-  border-radius: 10px;
-}
-
-.rbc-calendar {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  height: 90vh !important; /* keep your previous height */
-}
-
-.rbc-month-view{
-  border-radius: 10px;
-}
-
-.rbc-header{
-  background-color: rgba(250, 249, 248, 0.233);
-  padding: 5px;
-}
-
-.rbc-row.rbc-month-header {
-border-radius: 10px 10px 0 0;
-}
-
-.rbc-toolbar {
-  background-color: transparent;
-  padding: 1rem;
-  display: flex !important;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.rbc-btn-group button {
-  background-color: #8B7CF6;
-  color: white;
-  border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.5rem;
-  margin-right: 0.5rem;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.rbc-toolbar button {
-  visibility: visible !important;
-}
-
-.rbc-btn-group button:hover {
-  background-color: #e05e1f;
-}
-
-.rbc-event {
-  padding: 4px;
-  font-size: 0.85rem;
-  border-radius: 4px;
-  color: white;
-  border: none;
-}
-
-.rbc-event-content {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Light Theme */
-:root {
-  --bg-color: #fffefe;
-  --text-color: #050c26;
-}
-
-/* Dark Theme */
-body.dark-mode {
-  --bg-color: #2d2d2e;
-  --text-color: #fffefe;
-}
-
-/* Today & selection */
-.rbc-today {
-  background-color: rgba(255, 116, 38, 0.1);
-}
-
-.rbc-selected-cell {
-  background-color: rgba(255, 116, 38, 0.2) !important;
-}
-
-.rbc-toolbar-label {
-  font-weight: bold;
-  color: var(--text-color);
-  font-size: 1.1rem;
-}
-
-/* ---- +X more appearance (borderless, transparent) ---- */
-.rbc-show-more {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  color: #ff7426 !important;
-  padding: 0 !important;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-/* In case you ever enable popup in future, make overlay visible above UI */
-.rbc-overlay {
-  z-index: 9999;
-}
-
-/* ---------- Slide-up Day Events Drawer ---------- */
-.day-events-drawer {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -60vh; /* hidden state */
-  width: min(520px, 92vw);
-  max-height: 50vh;
-  background: var(--bg-color);
-  color: var(--text-color);
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-  padding: 12px;
-  transition: bottom 0.28s ease-in-out;
-  z-index: 10000;
-}
-
-.day-events-drawer.open {
-  bottom: 24px; /* visible state */
-}
-
-.drawer-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.drawer-title {
-  font-weight: 700;
-}
-
-.drawer-close {
-  background: transparent;
-  border: 0;
-  color: var(--text-color);
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.drawer-empty {
-  padding: 12px;
-  opacity: 0.8;
-}
-
-.drawer-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: calc(50vh - 60px);
-  overflow-y: auto;
-}
-
-.drawer-item {
-  background: rgba(255, 116, 38, 0.10);
-  padding: 10px 12px;
+/* Default (light mode) */
+.studyflow-calendar {
+  background: #fff;
   border-radius: 12px;
-  margin-bottom: 8px;
+  padding: 8px;
+  transition: all 0.3s ease; /* smooth background + text change */
 }
 
-.drawer-item-title {
-  font-weight: 600;
-  color: #ff7426;
-  margin-bottom: 4px;
+/* Dark mode styles */
+body.dark-mode .studyflow-calendar {
+  background: #2c2c2c !important;
+  color: #ffffff !important;
 }
 
-.drawer-item-time {
-  font-size: 0.9rem;
-  opacity: 0.9;
+/* Day cells */
+.MuiPickersDay-root {
+  transition: all 0.3s ease !important; /* smooth day color changes */
 }
 
-body.dark-mode .drawer-item {
-  background: rgba(255, 116, 38, 0.20);
+body.dark-mode .MuiPickersDay-root {
+  color: #fff !important;
+}
+
+body.dark-mode .MuiPickersDay-root.Mui-selected {
+  background-color: #8b5cf6 !important; /* StudyFlow purple */
+  color: #fff !important;
+  transition: all 0.3s ease !important;
+}
+
+body.dark-mode .MuiPickersDay-root:hover {
+  background-color: rgba(139, 92, 246, 0.4) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Header + navigation */
+.MuiPickersCalendarHeader-label,
+.MuiPickersArrowSwitcher-button {
+  transition: all 0.3s ease !important;
+}
+
+body.dark-mode .MuiPickersCalendarHeader-label,
+body.dark-mode .MuiPickersArrowSwitcher-button {
+  color: #ffffff !important;
+}
+
+/* Weekday labels (S M T W T F S) */
+.MuiDayCalendar-weekDayLabel {
+  color: #374151 !important; /* light mode gray */
+  transition: all 0.3s ease !important;
+}
+
+body.dark-mode .MuiDayCalendar-weekDayLabel {
+  color: #cbd5e1 !important; /* light gray in dark mode */
+}
+
+/* Days outside current month (like Aug 31 when viewing August) */
+.MuiPickersDay-dayOutsideMonth {
+  color: #9ca3af !important; /* gray for light mode */
+  transition: all 0.3s ease !important;
+}
+
+body.dark-mode .MuiPickersDay-dayOutsideMonth {
+  color: #6b7280 !important; /* darker gray in dark mode */
 }

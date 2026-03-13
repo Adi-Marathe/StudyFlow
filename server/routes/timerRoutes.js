@@ -1,18 +1,14 @@
-const express = require('express');
-const router = express.Router();
+const express = require("express");
 const {
   createPreset,
   getPresets,
-  deletePreset
-} = require('../controllers/timerController');
+  deletePreset,
+} = require("../controllers/timerController");
 
-// POST /api/timers
-router.post('/', createPreset);
+const router = express.Router();
 
-// GET /api/timers
-router.get('/', getPresets);
-
-// DELETE /api/timers/:id
-router.delete('/:id', deletePreset);
+router.post("/", createPreset);   // save
+router.get("/", getPresets);      // fetch
+router.delete("/:id", deletePreset); // delete
 
 module.exports = router;

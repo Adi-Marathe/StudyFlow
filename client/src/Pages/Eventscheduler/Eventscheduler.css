@@ -17,30 +17,529 @@ body.dark-mode .eventscheduler-container {
   overflow: hidden;
 }
 
+.eventscheduler-container {
+  display: flex;
+  height: 100vh;
+  background-color: #fdf8ee;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .eventscheduler-container {
+  background-color: #050c26;
+}
+
+.eventscheduler-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 1rem;
+  overflow: hidden;
+}
+
 .eventscheduler-main {
   flex: 1;
   overflow-y: auto;
 }
 
+/* Hide scrollbar */
+.eventscheduler-main::-webkit-scrollbar {
+  width: 0;
+}
+
+/* ============================= */
+/* 📅 CALENDAR WRAPPER */
+/* ============================= */
+
+.sf-calendar-wrapper {
+  background: #fffefe;
+  padding: 14px;
+  border-radius: 18px;
+  margin-top: 10px;
+  height: 70vh;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+body.dark-mode .sf-calendar-wrapper {
+  background: #0e173a;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.sf-calendar {
+  height: 100%;
+}
+
+/* ============================= */
+/* 📝 EVENT PANEL (INLINE MODAL) */
+/* ============================= */
+
+.sf-event-panel {
+  margin-top: 16px;
+  background: #fffefe;
+  padding: 16px;
+  border-radius: 16px;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-mode .sf-event-panel {
+  background: #0e173a;
+}
+
+.sf-event-panel h3 {
+  color: #4d2c5e;
+  margin-bottom: 10px;
+}
+
+body.dark-mode .sf-event-panel h3 {
+  color: #ff7426;
+}
+
+.sf-event-panel input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+body.dark-mode .sf-event-panel input {
+  background: #050c26;
+  color: #fff;
+  border: 1px solid #2a3470;
+}
+
+.sf-panel-actions {
+  margin-top: 12px;
+}
+
+/* ============================= */
+/* 🔘 BUTTONS */
+/* ============================= */
+
+.btn-primary {
+  background: #ff7426;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: #4d2c5e;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ============================= */
+/* 📆 REACT BIG CALENDAR – LIGHT */
+/* ============================= */
+
+.rbc-toolbar button {
+  background: #4d2c5e;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.rbc-toolbar button:hover {
+  background: #ff7426;
+}
+
+.rbc-today {
+  background: #fdf0e6;
+}
+
+/* ============================= */
+/* 🌙 REACT BIG CALENDAR – DARK */
+/* ============================= */
+
+body.dark-mode .rbc-calendar {
+  background-color: #050c26;
+  color: #fdf8ee;
+}
+
+/* Header */
+body.dark-mode .rbc-header {
+  background: #0e173a;
+  color: #fdf8ee;
+  border-bottom: 1px solid #1f2a55;
+  padding: 8px 0;
+  font-weight: 500;
+}
+
+/* Time gutter */
+body.dark-mode .rbc-time-gutter,
+body.dark-mode .rbc-time-header-gutter {
+  background: #0e173a;
+  color: #bfc3ff;
+  border-right: 1px solid #1f2a55;
+}
+
+/* Views */
+body.dark-mode .rbc-month-view,
+body.dark-mode .rbc-time-view,
+body.dark-mode .rbc-agenda-view {
+  border: 1px solid #1f2a55;
+}
+
+/* Day cells */
+body.dark-mode .rbc-day-bg {
+  background: #050c26;
+}
+
+body.dark-mode .rbc-off-range-bg {
+  background: #0b1233;
+}
+
+/* Today */
+body.dark-mode .rbc-today {
+  background: rgba(255, 116, 38, 0.15);
+}
+
+/* Time slots */
+body.dark-mode .rbc-timeslot-group {
+  border-bottom: 1px solid #1f2a55;
+}
+
+/* Toolbar */
+body.dark-mode .rbc-toolbar {
+  background: #0e173a;
+  padding: 10px;
+  border-radius: 14px;
+}
+
+body.dark-mode .rbc-toolbar-label {
+  color: #ff7426;
+  font-weight: 600;
+}
+
+/* Toolbar buttons */
+body.dark-mode .rbc-toolbar button {
+  background: transparent;
+  color: #fdf8ee;
+  border: 1px solid #2a3470;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+body.dark-mode .rbc-toolbar button:hover,
+body.dark-mode .rbc-toolbar button.rbc-active {
+  background: #ff7426;
+  color: #fff;
+  border-color: #ff7426;
+}
+
+/* Events */
+body.dark-mode .rbc-event {
+  border-radius: 10px;
+  padding: 4px 6px;
+  font-size: 13px;
+  border: none;
+  color: #fff;
+}
+
+/* Agenda */
+body.dark-mode .rbc-agenda-view table {
+  background: #050c26;
+  color: #fdf8ee;
+}
+
+body.dark-mode .rbc-agenda-view th {
+  background: #0e173a;
+  color: #ff7426;
+}
+
+body.dark-mode .rbc-agenda-view td {
+  border-bottom: 1px solid #1f2a55;
+}
+
+/* Popup */
+body.dark-mode .rbc-overlay {
+  background: #0e173a;
+  border-radius: 12px;
+  border: 1px solid #2a3470;
+  color: #fdf8ee;
+  overflow: hidden;
+}
+
+.eventscheduler-main {
+  flex: 1;
+  overflow-y:auto;
+}/* Calendar Wrapper */
+.sf-calendar-wrapper {
+  background: #fffefe;
+  padding: 12px;
+  border-radius: 16px;
+  margin-top: 10px;
+  height: 75vh;
+}
+
+/* Calendar height fix */
+.sf-calendar {
+  height: 100%;
+}
+
+/* Add Event Panel (custom – not popup) */
+.sf-event-panel {
+  margin-top: 16px;
+  background: #fffefe;
+  padding: 16px;
+  border-radius: 14px;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.sf-event-panel h3 {
+  color: #4d2c5e;
+  margin-bottom: 10px;
+}
+
+.sf-event-panel input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.sf-panel-actions {
+  margin-top: 12px;
+}
+
+/* Buttons */
+.btn-primary {
+  background: #ff7426;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: #4d2c5e;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* React Big Calendar theme tweaks */
+.rbc-toolbar button {
+  background: #4d2c5e;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.rbc-toolbar button:hover {
+  background: #ff7426;
+}
+
+.rbc-today {
+  background: #fdf0e6;
+}
+
+
 /* WebKit Browsers (Chrome, Safari, Edge) */
 .eventscheduler-main::-webkit-scrollbar {
   width: 0px;
 }
+.btn-danger {
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-left: 10px;
+  cursor: pointer;
+}
 
-.welcome-events-wrapper {
+/* ============================= */
+/* 🌙 GRAY DARK MODE – EVENT SCHEDULER */
+/* ============================= */
+
+body.dark-mode .eventscheduler-container {
+  background-color: #1e1e1e;
+}
+
+/* Calendar wrapper */
+body.dark-mode .sf-calendar-wrapper {
+  background: #252525;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Event panel */
+body.dark-mode .sf-event-panel {
+  background: #252525;
+}
+
+body.dark-mode .sf-event-panel h3 {
+  color: #ff7426;
+}
+
+body.dark-mode .sf-event-panel input,
+body.dark-mode .sf-event-panel select {
+  background: #2a2a2a;
+  color: #f1f1f1;
+  border: 1px solid #3a3a3a;
+}
+
+/* ============================= */
+/* 📆 REACT BIG CALENDAR – GRAY DARK */
+/* ============================= */
+
+body.dark-mode .rbc-calendar {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+}
+
+/* Headers */
+body.dark-mode .rbc-header {
+  background: #2c2c2c;
+  color: #f1f1f1;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+/* Time gutter */
+body.dark-mode .rbc-time-gutter,
+body.dark-mode .rbc-time-header-gutter {
+  background: #2c2c2c;
+  color: #b5b5b5;
+  border-right: 1px solid #3a3a3a;
+}
+
+/* Views */
+body.dark-mode .rbc-month-view,
+body.dark-mode .rbc-time-view,
+body.dark-mode .rbc-agenda-view {
+  border: 1px solid #3a3a3a;
+}
+
+/* Day cells */
+body.dark-mode .rbc-day-bg {
+  background: #1e1e1e;
+}
+
+body.dark-mode .rbc-off-range-bg {
+  background: #232323;
+}
+
+/* Today */
+body.dark-mode .rbc-today {
+  background: rgba(255, 116, 38, 0.15);
+}
+
+/* Time slots */
+body.dark-mode .rbc-timeslot-group {
+  border-bottom: 1px solid #3a3a3a;
+}
+
+/* Toolbar */
+body.dark-mode .rbc-toolbar {
+  background: #252525;
+  padding: 10px;
+  border-radius: 14px;
+}
+
+body.dark-mode .rbc-toolbar-label {
+  color: #ff7426;
+  font-weight: 600;
+}
+
+/* Toolbar buttons */
+body.dark-mode .rbc-toolbar button {
+  background: transparent;
+  color: #f1f1f1;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+body.dark-mode .rbc-toolbar button:hover,
+body.dark-mode .rbc-toolbar button.rbc-active {
+  background: #ff7426;
+  color: #fff;
+  border-color: #ff7426;
+}
+
+/* Events */
+body.dark-mode .rbc-event {
+  border-radius: 10px;
+  padding: 4px 6px;
+  font-size: 13px;
+  border: none;
+  color: #fff;
+}
+
+/* Agenda */
+body.dark-mode .rbc-agenda-view table {
+  background: #1e1e1e;
+  color: #f1f1f1;
+}
+
+body.dark-mode .rbc-agenda-view th {
+  background: #2c2c2c;
+  color: #ff7426;
+}
+
+body.dark-mode .rbc-agenda-view td {
+  border-bottom: 1px solid #3a3a3a;
+}
+
+/* Popup */
+body.dark-mode .rbc-overlay {
+  background: #252525;
+  border-radius: 12px;
+  border: 1px solid #3a3a3a;
+  color: #f1f1f1;
+}
+
+/* ============================= */
+/* 🟣 TOP DASHBOARD LAYOUT */
+/* ============================= */
+
+.sf-top-section {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  align-items: stretch;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.welcome-banner-section {
+.sf-welcome-wrapper {
+  flex: 2;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sf-today-events-wrapper {
   flex: 1;
-  min-width: 500px;
+  min-width: 280px;
 }
 
-.event-list{
-  display : flex;
+.sf-welcome-wrapper,
+.sf-today-events-wrapper {
+  display: flex;
+  height: 100%;
 }
+
+/* Mobile */
+@media (max-width: 900px) {
+  .sf-top-section {
+    flex-direction: column;
+  }
+}
+
