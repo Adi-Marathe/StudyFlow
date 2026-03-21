@@ -12,7 +12,6 @@ import {
   Brain, 
   StickyNote, 
   MessageCircle, 
-  LogOut,
   ChevronDown,
   ChevronRight
 } from 'lucide-react';

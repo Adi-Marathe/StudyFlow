@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col} from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
-import logo from '../../Assets/images/StudyFlow-logo.png';
+import llogo from '../../Assets/images/StudyFlow-logo.png';
 import '../Landingpage/Landingpage.css';
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
@@ -38,7 +38,7 @@ function Landingpage(){
             <Navbar.Brand href="#home" >
                 <img
                 alt="StudyFlow"
-                src={logo}
+                src={llogo}
                 height="50"
                 className="d-inline-block align-top"
                 />{' '}
@@ -206,8 +206,8 @@ function Landingpage(){
                 <Row className="gy-4">
                 {/* Brand / About blurb */}
                 <Col md={4} lg={3}>
-                    <h5 className="brand-title mb-2 studyy"><img src={logo} alt="StudyFlow" className="logo" /> Study</h5>
-                    <h5 className="brand-title mb-2 floww">Flow</h5>
+                    <h5 className="brand-title mb-2 studyy"><img src={llogo} alt="StudyFlow" className="llogo" /> Study</h5>
+                    <h5 className="brand-title mb-2 flow">Flow</h5>
                     <p className="small">
                     The all-in-one digital workspace that helps students focus, learn, and collaborate with AI-powered productivity tools.
                     </p>
