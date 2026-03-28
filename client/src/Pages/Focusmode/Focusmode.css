@@ -1,16 +1,59 @@
-.focusmode-container{
+.flashcard-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #fdf8ee;
   transition: background-color 0.3s ease;
 }
 
-body.dark-mode .focusmode-container{
+body.dark-mode .flashcard-container {
   background-color: #212121;
 }
 
-.focusmode-main {
-flex: 1;
-padding: 0.5rem 1rem;
-overflow-y: auto;
+.flashcard-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+  overflow: hidden;
+}
+
+.flashcard-main {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* WebKit Browsers (Chrome, Safari, Edge) */
+.flashcard-main::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* ── Top row: banner + quote side by side ── */
+.sf-top-row {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  margin-bottom: 0;
+}
+
+.sf-welcome-header {
+  flex: 0 0 62%;
+}
+
+.sf-quote-panel {
+  flex: 1;
+  max-height: 180px;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 860px) {
+  .sf-top-row {
+    flex-direction: column;
+  }
+  .sf-welcome-header {
+    flex: none;
+    width: 100%;
+  }
+  .sf-quote-panel {
+    min-height: 140px;
+  }
 }

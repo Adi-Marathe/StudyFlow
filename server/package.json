@@ -18,6 +18,8 @@
     "groq-sdk": "^0.37.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.4",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^8.0.3",
     "sarvamai": "^0.1.6-a6"
   },
   "devDependencies": {

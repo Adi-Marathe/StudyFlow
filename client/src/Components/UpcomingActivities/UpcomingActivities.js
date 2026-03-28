@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './UpcomingActivities.css';
+
+const API_URL = 'http://localhost:5000/api/events/upcoming';
 
 const UpcomingActivities = ({ maxEvents = 4 }) => {
   const [activities, setActivities] = useState([]);
 
-  // Color schemes for different events
+  // Color schemes for fallback (when event has no color)
   const colorSchemes = [
     { bgColor: '#e3f2fd', dateColor: '#1976d2' },
     { bgColor: '#fce4ec', dateColor: '#e91e63' },
@@ -21,87 +24,92 @@ const UpcomingActivities = ({ maxEvents = 4 }) => {
     fetchUpcomingEvents();
   }, []);
 
-  const fetchUpcomingEvents = () => {
+  const fetchUpcomingEvents = async () => {
     try {
-      const storedEvents = localStorage.getItem("events");
-      if (storedEvents) {
-        const events = JSON.parse(storedEvents);
-        
-        // Filter for upcoming events (future events only)
-        const now = new Date();
-        const upcomingEvents = events
-          .filter(event => new Date(event.start) > now)
-          .sort((a, b) => new Date(a.start) - new Date(b.start))
-          .slice(0, maxEvents);
+      const token = localStorage.getItem('token');
+      if (!token) return;
 
-        // Transform events to activities format
-        const transformedActivities = upcomingEvents.map((event, index) => {
-          const startDate = new Date(event.start);
-          const endDate = new Date(event.end);
-          const colorScheme = colorSchemes[index % colorSchemes.length];
+      const res = await axios.get(API_URL, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-          return {
-            id: event.id,
-            date: startDate.getDate(),
-            title: event.title,
-            dateRange: formatDateRange(startDate, endDate),
-            time: formatTimeRange(startDate, endDate),
-            location: event.location || event.description || 'No location specified',
-            bgColor: colorScheme.bgColor,
-            dateColor: colorScheme.dateColor,
-            originalEvent: event
-          };
-        });
+      const now = new Date();
+      const upcomingEvents = res.data
+        .filter(event => new Date(event.start) > now)
+        .sort((a, b) => new Date(a.start) - new Date(b.start))
+        .slice(0, maxEvents);
 
-        setActivities(transformedActivities);
-      }
+      const transformedActivities = upcomingEvents.map((event, index) => {
+        const startDate = new Date(event.start);
+        const endDate   = new Date(event.end);
+
+        // Use event's own saved color; fall back to color scheme
+        const fallback   = colorSchemes[index % colorSchemes.length];
+        const dateColor  = event.color || fallback.dateColor;
+
+        // Derive a light bg tint from the event color
+        const bgColor    = event.color
+          ? hexToLightBg(event.color)
+          : fallback.bgColor;
+
+        return {
+          id:           event._id || event.id,
+          date:         startDate.getDate(),
+          title:        event.title,
+          dateRange:    formatDateRange(startDate, endDate),
+          time:         formatTimeRange(startDate, endDate),
+          location:     event.location || event.description || 'No location specified',
+          bgColor,
+          dateColor,
+          originalEvent: event
+        };
+      });
+
+      setActivities(transformedActivities);
     } catch (error) {
       console.error('Error fetching events:', error);
       setActivities([]);
     }
   };
 
+  // Convert hex color → very light tinted background
+  const hexToLightBg = (hex) => {
+    try {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, 0.12)`;
+    } catch {
+      return '#f3e5f5';
+    }
+  };
+
   const formatDateRange = (start, end) => {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     const startStr = start.toLocaleDateString('en-US', options);
-    
-    // If same day, show only start date
-    if (start.toDateString() === end.toDateString()) {
-      return startStr;
-    }
-    
-    // If different days, show range
-    const endStr = end.toLocaleDateString('en-US', options);
-    return `${startStr} - ${endStr}`;
+    if (start.toDateString() === end.toDateString()) return startStr;
+    return `${startStr} - ${end.toLocaleDateString('en-US', options)}`;
   };
 
   const formatTimeRange = (start, end) => {
-    const formatTime = (date) => {
-      return date.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
+    const formatTime = (date) =>
+      date.toLocaleTimeString('en-US', {
+        hour: 'numeric', minute: '2-digit', hour12: true
       });
-    };
-
     return `${formatTime(start)} - ${formatTime(end)}`;
   };
 
-  // Refresh events when component receives focus (optional)
+  // Refresh on window focus
   useEffect(() => {
-    const handleFocus = () => {
-      fetchUpcomingEvents();
-    };
-
-    window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
+    window.addEventListener('focus', fetchUpcomingEvents);
+    return () => window.removeEventListener('focus', fetchUpcomingEvents);
   }, []);
 
   const navigate = useNavigate();
-  
-    const handleClick = () => {
-      navigate('/eventscheduler');
-    };
+
+  const handleClick = () => {
+    navigate('/eventscheduler');
+  };
 
   return (
     <div className="upcoming-activities">
@@ -111,24 +119,24 @@ const UpcomingActivities = ({ maxEvents = 4 }) => {
           See all
         </button>
       </div>
-      
+
       <div className="activities-list" onClick={handleClick}>
         {activities.length > 0 ? (
           activities.map((activity) => (
-            <div 
-              key={activity.id} 
+            <div
+              key={activity.id}
               className="activity-item"
               style={{ backgroundColor: activity.bgColor }}
               onClick={() => handleActivityClick(activity)}
             >
               <div className="activity-content">
-                <div 
+                <div
                   className="activity-date"
                   style={{ backgroundColor: activity.dateColor }}
                 >
                   <span className="date-number">{activity.date}</span>
                 </div>
-                
+
                 <div className="activity-details">
                   <h3 className="activity-title">{activity.title}</h3>
                   <div className="activity-meta">
@@ -138,22 +146,19 @@ const UpcomingActivities = ({ maxEvents = 4 }) => {
                   </div>
                   <p className="activity-location">{activity.location}</p>
                 </div>
-                
+
                 <div className="activity-arrow">
-                  <svg 
-                    width="20" 
-                    height="20" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2"
-                  >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="2">
                     <path d="M9 18l6-6-6-6"/>
                   </svg>
                 </div>
               </div>
-              
-              <div className="activity-side-accent" style={{ backgroundColor: activity.dateColor }}></div>
+
+              <div
+                className="activity-side-accent"
+                style={{ backgroundColor: activity.dateColor }}
+              />
             </div>
           ))
         ) : (
@@ -167,11 +172,8 @@ const UpcomingActivities = ({ maxEvents = 4 }) => {
     </div>
   );
 
-  // Handle activity click (optional - you can customize this)
   function handleActivityClick(activity) {
-    console.log('Activity clicked:', activity.originalEvent);
-    // You can add navigation or modal opening logic here
-    // For example, navigate to event details or open edit modal
+    navigate('/eventscheduler');
   }
 };
 

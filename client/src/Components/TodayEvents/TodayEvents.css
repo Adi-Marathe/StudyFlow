@@ -1,126 +1,275 @@
-/* ===============================
-   Wrapper (title outside card)
-================================ */
-.today-events-wrapper {
+/* ============================================
+   TODAY EVENTS COMPONENT
+   Light : card #fff on page #fdf8ee
+   Dark  : card #2c2c2c on page #212121
+   Accent: #4d2c5e | #ff7426
+============================================ */
+
+/* ── WRAPPER ── */
+.te-wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 6px;
+  margin-top: 0px;
+  max-height: 50px;
 }
 
-/* Title outside the card */
-.today-events-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--text-primary);
-  padding-left: 4px;
+/* ── HEADER ── */
+.te-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2px;
 }
 
-/* ===============================
-   Card (MATCH WelcomeBanner)
-================================ */
-.today-events-card {
+.te-header-left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.te-header-icon {
+  color: #4d2c5e;
+}
+
+body.dark-mode .te-header-icon {
+  color: #ff7426;
+}
+
+.te-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: #1c1c1c;
+  transition: color 0.3s ease;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+body.dark-mode .te-title {
+  color: #fff;
+}
+
+/* Event count badge */
+.te-badge {
+  background: #4d2c5e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 8px;
+  line-height: 1.6;
+}
+
+body.dark-mode .te-badge {
+  background: #ff7426;
+}
+
+/* ── CARD ── */
+.te-card {
   background: #ffffff;
   border-radius: 16px;
-  padding: 16px;
-  height: 150px; /* 🔥 SAME AS WelcomeBanner HEIGHT */
+  padding: 12px;
+  flex: 1;
+  min-height: 150px;
+  max-height: 220px;
   display: flex;
   flex-direction: column;
+  margin-top: 0px;
 }
 
-/* ===============================
-   Scrollable list (ONE EVENT VIEW)
-================================ */
-.today-events-list {
+body.dark-mode .te-card {
+  background: #2c2c2c;
+}
+
+/* ── SCROLLABLE LIST ── */
+.te-list {
   flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-right: 6px;
+  gap: 8px;
+  padding-right: 4px;
 }
 
-/* Scrollbar */
-.today-events-list::-webkit-scrollbar {
-  width: 5px;
+.te-list::-webkit-scrollbar {
+  width: 4px;
 }
 
-.today-events-list::-webkit-scrollbar-thumb {
-  background: rgba(161, 160, 159, 0.6);
-  border-radius: 6px;
+.te-list::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-/* ===============================
-   Single Event Card
-================================ */
-.today-event-box {
-  min-height: 72px; /* 🔥 ensures only ONE fits */
-  background: #fff3ec60;
-  border-radius: 12px;
-  padding: 12px;
+.te-list::-webkit-scrollbar-thumb {
+  background: #d1c4e0;
+  border-radius: 999px;
+}
+
+body.dark-mode .te-list::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+}
+
+/* ── SINGLE EVENT ROW ── */
+.te-event {
   display: flex;
+  align-items: stretch;
   gap: 10px;
-  position: relative;
+  background: #faf8fc;
+  border-radius: 10px;
+  padding: 10px 12px;
+  border: 1px solid #ede8f5;
+  transition: background 0.15s ease;
+  flex-shrink: 0;
 }
 
-/* Ongoing badge */
-/* .today-event-box.ongoing::after {
-  content: "ONGOING";
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 10px;
-  font-weight: 600;
-  color: #ff7426;
-} */
-
-/* Dot */
-.event-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-top: 6px;
+.te-event:hover {
+  background: #f3edfb;
 }
 
-/* Text */
-.event-info {
+body.dark-mode .te-event {
+  background: #333333;
+  border-color: #3f3f3f;
+}
+
+body.dark-mode .te-event:hover {
+  background: #3a3a3a;
+}
+
+/* Status variants */
+.te-event--ongoing {
+  background: #fff8f4;
+  border-color: #ffd5b8;
+}
+
+body.dark-mode .te-event--ongoing {
+  background: #2e1f14;
+  border-color: #5a3520;
+}
+
+.te-event--done {
+  opacity: 0.55;
+}
+
+/* ── LEFT COLOR BAR ── */
+.te-bar {
+  width: 3px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  align-self: stretch;
+  min-height: 100%;
+}
+
+/* ── CONTENT ── */
+.te-content {
   display: flex;
   flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
 }
 
-.event-name {
-  font-size: 14px;
+.te-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.te-name {
+  font-size: 13.5px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #1e1e1e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.event-time {
-  font-size: 12px;
-  color: var(--text-muted);
+body.dark-mode .te-name {
+  color: #f1f1f1;
 }
 
-/* ===============================
-   Empty state
-================================ */
-.no-events {
-  font-size: 14px;
-  color: var(--text-muted);
-  text-align: center;
-  margin-top: auto;
-  margin-bottom: auto;
+/* ── STATUS PILLS ── */
+.te-pill {
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
 }
 
-/* ===============================
-   Dark mode
-================================ */
-body.dark-mode .today-events-card {
-  background: #252525;
+.te-pill--ongoing {
+  background: #fff0e6;
+  color: #ff7426;
+  border: 1px solid #ffd5b8;
 }
 
-body.dark-mode .today-event-box {
+body.dark-mode .te-pill--ongoing {
+  background: #3b2010;
+  color: #ff7426;
+  border-color: #5a3520;
+}
+
+.te-pill--done {
+  background: #f0f0f0;
+  color: #888;
+  border: 1px solid #e0e0e0;
+}
+
+body.dark-mode .te-pill--done {
   background: #2a2a2a;
+  color: #666;
+  border-color: #3a3a3a;
 }
 
-body.dark-mode .today-events-title {
-  color: #ffffff;
+/* ── TIME ROW ── */
+.te-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: #888;
+}
+
+body.dark-mode .te-time {
+  color: #fff;
+}
+
+/* ── LOCATION ── */
+.te-location {
+  font-size: 11px;
+  color: #a0a0a0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+body.dark-mode .te-location {
+  color: #fff;
+}
+
+/* ── EMPTY STATE ── */
+.te-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #b0b0b0;
+}
+
+body.dark-mode .te-empty {
+  color: #555;
+}
+
+.te-empty-icon {
+  color: #d8cce8;
+}
+
+body.dark-mode .te-empty-icon {
+  color: #3a3a3a;
 }

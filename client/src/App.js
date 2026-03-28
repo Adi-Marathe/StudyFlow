@@ -12,7 +12,7 @@ import Mindmaps from './Pages/Mindmaps/Mindmaps';
 import MindMapEditor from './Components/MindMapEditor/MindMapEditor';
 import Flashcards from './Pages/Flashcards/Flashcards';
 import Pomodoro from './Pages/Pomodoro/Pomodoro';
-import Messages from './Pages/Messages/Messages';
+// import Messages from './Pages/Messages/Messages';
 import Taskmanager from './Pages/Taskmanager/Taskmanager';
 import Focusmode from './Pages/Focusmode/Focusmode';
 import Notes from './Pages/Notes/Notes';
@@ -46,7 +46,7 @@ function App() {
           <Route path="/pomodoro" element={<Pomodoro/>}/>
           <Route path="/taskmanager" element={<Taskmanager/>}/>
           <Route path="/notes" element={<Notes/>}/>
-          <Route path="/messages" element={<Messages/>}/>
+          {/* <Route path="/messages" element={<Messages/>}/> */}
         </Routes>
         
       </BrowserRouter>

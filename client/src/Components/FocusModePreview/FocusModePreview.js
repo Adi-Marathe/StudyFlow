@@ -1,6 +1,8 @@
 import './FocusModePreview.css';
+import { useNavigate } from 'react-router-dom';
 
 function FocusModePreview(){
+    const navigate = useNavigate();
     return(
         <>
         <div className='FocusModePreview-Container'>
@@ -11,7 +13,7 @@ function FocusModePreview(){
                 </div>
                 <div classname='Focus-btn'>
                     <div>
-                        <button class="button-86" role="button">Focusmode</button>
+                        <button class="button-86" role="button" onClick={() => navigate('/focusmode')} >Focusmode</button>
                     </div>            
                 </div>
             </div>

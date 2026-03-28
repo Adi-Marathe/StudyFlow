@@ -11,7 +11,7 @@ import {
   CreditCard, 
   Brain, 
   StickyNote, 
-  MessageCircle, 
+  // MessageCircle, 
   ChevronDown,
   ChevronRight
 } from 'lucide-react';
@@ -137,11 +137,11 @@ const Sidebar = () => {
           )}
         </div>
 
-        {/* Messages - Fixed structure */}
+        {/* Messages - Fixed structure
         <NavLink to='/messages' className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
           <MessageCircle size={20} />
           <span>Messages</span>
-        </NavLink>
+        </NavLink> */}
       </nav>
 
       {/* Sign Out */}

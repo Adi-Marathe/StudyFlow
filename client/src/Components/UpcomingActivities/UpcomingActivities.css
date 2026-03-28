@@ -338,3 +338,11 @@
 body.dark-mode .activities-title{
   color: #ffffff;
 }
+
+body.dark-mode .activities-header{
+  color: #ffffff;
+}
+
+body.dark-mode .activity-title{
+  color: #ffffff;
+}

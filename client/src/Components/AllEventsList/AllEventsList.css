@@ -1,120 +1,440 @@
-.all-events {
-  margin-top: 40px;
-  padding: 24px;
-  background: var(--card-bg);
-  border-radius: 20px;
+/* ============================================
+   ALL EVENTS LIST
+   Light : section #fff, cards #faf8fc
+   Dark  : section #2c2c2c, cards #333
+   Accent: #4d2c5e | #ff7426
+============================================ */
+
+/* ── WRAPPER — transparent, no bg ── */
+.ael-wrapper {
+  background: transparent;
+  margin-top: 20px;
 }
 
-.all-events h3 {
-  margin-bottom: 16px;
-}
-
-/* Tabs */
-.events-tabs {
+/* ── FLOATING HEADER (outside card, like Mind Maps heading) ── */
+.ael-header {
   display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 0 2px;
 }
 
-.events-tabs button {
-  padding: 8px 18px;
+.ael-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ael-header-icon {
+  color: #4d2c5e;
+}
+
+body.dark-mode .ael-header-icon {
+  color: #ff7426;
+}
+
+.ael-title {
+  font-size: 20px;
+    font-weight: 500;
+    color: #1c1c1c;
+     margin: 0px;
+    margin-left: 5px;  
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .ael-title {
+  color: #f1f1f1;
+}
+
+.ael-total {
+  font-size: 12px;
+  color: #aaa;
+  font-weight: 500;
+}
+
+body.dark-mode .ael-total {
+  color: #666;
+}
+
+/* ── INNER CARD — holds tabs + grid ── */
+.ael-card-section {
+  background: #ffffff;
   border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
+  padding: 20px 22px;
 }
 
-.events-tabs button.active {
-  background: #ff7426;
+body.dark-mode .ael-card-section {
+  background: #2c2c2c;
+}
+
+/* ── TABS ── */
+.ael-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.ael-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid #e8e0f0;
+  background: transparent;
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.ael-tab:hover {
+  border-color: #4d2c5e;
+  color: #4d2c5e;
+}
+
+.ael-tab--active {
+  background: #4d2c5e;
+  border-color: #4d2c5e;
   color: #fff;
 }
 
-/* Grid */
-.events-grid {
+.ael-tab--active:hover {
+  color: #fff;
+}
+
+body.dark-mode .ael-tab {
+  border-color: #3a3a3a;
+  color: #888;
+}
+
+body.dark-mode .ael-tab:hover {
+  border-color: #ff7426;
+  color: #ff7426;
+}
+
+body.dark-mode .ael-tab--active {
+  background: #ff7426;
+  border-color: #ff7426;
+  color: #fff;
+}
+
+body.dark-mode .ael-tab--active:hover {
+  color: #fff;
+}
+
+/* Tab count pill */
+.ael-tab-count {
+  background: #ede8f5;
+  color: #4d2c5e;
+  font-size: 10.5px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 1px 7px;
+  line-height: 1.6;
+  transition: all 0.18s ease;
+}
+
+.ael-tab-count--active {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+body.dark-mode .ael-tab-count {
+  background: #383838;
+  color: #aaa;
+}
+
+body.dark-mode .ael-tab-count--active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* ── GRID ── */
+.ael-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
 }
 
-/* Card */
-.event-card {
-  display: flex;
-  align-items: center;
-  background: linear-gradient(
-    135deg,
-    rgba(186, 163, 223, 0.9),
-    #4d2c5d
-  );
-  padding: 16px;
-  border-radius: 1px;
+/* ── CARD ── */
+.ael-card {
+  background: #faf8fc;
+  border: 1px solid #ede8f5;
+  border-radius: 14px;
+  overflow: hidden;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-.dark .event-card {
-  background: linear-gradient(
-    135deg,
-    #1b1f3b,
-    #22265a
-  );
+  transition: transform 0.18s ease, border-color 0.18s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-
-.event-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+.ael-card:hover {
+  transform: translateY(-3px);
+  border-color: #c9b8e0;
 }
 
-/* Past events style */
-.event-card.past {
+body.dark-mode .ael-card {
+  background: #333333;
+  border-color: #3f3f3f;
+}
+
+body.dark-mode .ael-card:hover {
+  border-color: #555;
+  transform: translateY(-3px);
+}
+
+/* Past card */
+.ael-card--past {
   opacity: 0.6;
 }
 
-/* Color strip */
-.color-strip {
-  width: 6px;
-  height: 100%;
-  border-radius: 6px;
-  margin-right: 14px;
+/* Live card */
+.ael-card--live {
+  border-color: #ffd5b8;
+  background: #fff8f4;
 }
 
-/* Content */
-.event-content h4 {
-  margin: 0;
-  font-size: 1rem;
+body.dark-mode .ael-card--live {
+  border-color: #5a3520;
+  background: #2e1f14;
 }
 
-.event-content p {
-  margin-top: 6px;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
+/* ── TOP COLOR BAR ── */
+.ael-card-bar {
+  height: 4px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* ── CARD BODY ── */
+.ael-card-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+/* ── CARD TOP ROW (date badge + pills) ── */
+.ael-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 4px;
 }
 
 /* Date badge */
-.date-badge {
-  margin-left: auto;
-  text-align: center;
-  background: var(--card-bg);
-  padding: 8px 10px;
-  border-radius: 12px;
+.ael-date-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ede8f5;
+  border-radius: 8px;
+  padding: 5px 10px;
+  line-height: 1.2;
+  min-width: 42px;
 }
 
-.date-badge span {
-  font-size: 1.2rem;
-  font-weight: bold;
+body.dark-mode .ael-date-badge {
+  background: #3f3f3f;
 }
 
-.date-badge small {
-  font-size: 0.7rem;
-  color: var(--text-secondary);
+.ael-date-day {
+  font-size: 17px;
+  font-weight: 700;
+  color: #4d2c5e;
 }
 
-/* Empty */
-.empty-state {
-  text-align: center;
-  padding: 40px;
-  color: var(--text-secondary);
+body.dark-mode .ael-date-day {
+  color: #d1c4e0;
+}
+
+.ael-date-mon {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #9a80ad;
+  letter-spacing: 0.5px;
+}
+
+body.dark-mode .ael-date-mon {
+  color: #777;
+}
+
+/* ── PILLS + EDIT BTN ── */
+.ael-card-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ael-pill {
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 3px 9px;
+  letter-spacing: 0.3px;
+}
+
+.ael-pill--live {
+  background: #fff0e6;
+  color: #ff7426;
+  border: 1px solid #ffd5b8;
+}
+
+body.dark-mode .ael-pill--live {
+  background: #3b2010;
+  color: #ff7426;
+  border-color: #5a3520;
+}
+
+.ael-pill--past {
+  background: #f0f0f0;
+  color: #888;
+  border: 1px solid #e0e0e0;
+}
+
+body.dark-mode .ael-pill--past {
+  background: #2a2a2a;
+  color: #666;
+  border-color: #3a3a3a;
+}
+
+/* Edit button */
+.ael-edit-btn {
+  background: none;
+  border: 1px solid #e0d8f0;
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+  color: #9a80ad;
+  display: flex;
+  align-items: center;
+  transition: all 0.15s ease;
+}
+
+.ael-edit-btn:hover {
+  background: #4d2c5e;
+  border-color: #4d2c5e;
+  color: #fff;
+}
+
+body.dark-mode .ael-edit-btn {
+  border-color: #484848;
+  color: #666;
+}
+
+body.dark-mode .ael-edit-btn:hover {
+  background: #ff7426;
+  border-color: #ff7426;
+  color: #fff;
+}
+
+/* ── TITLE ── */
+.ael-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e1e1e;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body.dark-mode .ael-card-title {
+  color: #f1f1f1;
+}
+
+/* ── DESCRIPTION ── */
+.ael-card-desc {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+body.dark-mode .ael-card-desc {
+  color: #666;
+}
+
+/* ── META (time / location) ── */
+.ael-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: #888;
+}
+
+.ael-card-meta svg {
+  flex-shrink: 0;
+  color: #b0a0c0;
+}
+
+body.dark-mode .ael-card-meta {
+  color: #666;
+}
+
+body.dark-mode .ael-card-meta svg {
+  color: #555;
+}
+
+.ael-card-meta--location span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── EMPTY STATE ── */
+.ael-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 56px 20px;
+  color: #b0b0b0;
+  font-size: 14px;
+}
+
+.ael-empty-icon {
+  color: #d8cce8;
+}
+
+body.dark-mode .ael-empty {
+  color: #555;
+}
+
+body.dark-mode .ael-empty-icon {
+  color: #3a3a3a;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .ael-wrapper {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .ael-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ael-tabs {
+    gap: 6px;
+  }
+
+  .ael-tab {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
 }

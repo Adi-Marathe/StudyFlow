@@ -1,28 +1,52 @@
 .container{
     position: static;
-    background-color: #fdf8ee;
+    background-color: white;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    gap: 1rem;
     padding: 0.5rem 1rem;
     border-radius: 20px;
-    margin-bottom: 0.2rem;
+    margin: 0.5rem 1rem !important;
+    overflow: auto;
+    max-width: 97% !important;
+    gap: 0.2rem;
+    transition: box-shadow 0.2s ease;
 }
 
-.SrNo{
+.card-dragging{
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.2);
+}
+
+.card-navbar{
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 0 0.5rem;
-    font-size: 1.2rem;
-    font-weight: 500;
+    justify-content: space-between;
+}
+
+.index{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 2em;
+    font-weight: 700;
+    background-color: #4d2c5e;
+    border-radius: 50%;
+    color: white;
+}
+
+.card-options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .main{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1;
     gap: 1rem;
 }
 
@@ -35,7 +59,8 @@
     border: none;
     outline: none;
     border-bottom: 2px solid black;
-    background-color: #fdf8ee;
+    background-color: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .term p{
@@ -51,50 +76,115 @@
     border: none;
     outline: none;
     border-bottom: 2px solid black;
-    background-color: #fdf8ee;
+    background-color: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.term input.card-input-invalid,
+.define input.card-input-invalid{
+    border-bottom-color: #e33b3b !important;
+    box-shadow: 0 1px 0 rgba(227, 59, 59, 0.25);
+}
+
+.card-input-shake-a{
+    animation: cardInputShakeA 0.28s ease;
+}
+
+.card-input-shake-b{
+    animation: cardInputShakeB 0.28s ease;
+}
+
+@keyframes cardInputShakeA{
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes cardInputShakeB{
+    0% { transform: translateX(0); }
+    25% { transform: translateX(3px); }
+    50% { transform: translateX(-3px); }
+    75% { transform: translateX(2px); }
+    100% { transform: translateX(0); }
 }
 
 .define p{
     margin: 0;
 }
 
-.options{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.options button{
+.card-drag,
+.card-delete{
     border: none;
-    background: transparent;
-    margin: 0 0.5rem;
-    font-size: 1.3rem;
+    background-color: #f3f4f6;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #4d2c5e !important;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.options button:hover{
-    color: #f02a2a;
+.card-drag{
+    cursor: grab;
+}
+
+.card-drag:active{
+    cursor: grabbing;
+}
+
+.card-drag:hover{
+    background-color: #e2e8f0;
+    transform: scale(1.05);
+}
+
+.card-delete:hover{
+    background-color: #fee2e2;
+    color: #e02020 !important;
 }
 
 body.dark-mode .container{
-    background-color: #4d2c5e;
+    background-color: #3a3b3d;
 }
 
 body.dark-mode .define input{
-    background-color: #4d2c5e;
-    color: #fdf8ee;
-    border-bottom: 2px solid #fdf8ee;
+    background-color: #3a3b3d;
+    color: white;
+    border-bottom: 2px solid white;
 }
 
 body.dark-mode .term input{
-    background-color: #4d2c5e;
-    color: #fdf8ee;
-    border-bottom: 2px solid #fdf8ee;
+    background-color: #3a3b3a;
+    color: white;
+    border-bottom: 2px solid white;
 }
 
-body.dark-mode .options button{
-    color: #fdf8ee;
+body.dark-mode .term input.card-input-invalid,
+body.dark-mode .define input.card-input-invalid{
+    border-bottom-color: #ff7a7a !important;
+    box-shadow: 0 1px 0 rgba(255, 122, 122, 0.35);
 }
 
-body.dark-mode .options button:hover{
+body.dark-mode .card-delete{
+    color: white;
+    background-color: #4b5563;
+}
+
+body.dark-mode .card-delete:hover{
     color: #f02a2a;
+    background-color: #5b2323;
+}
+
+body.dark-mode .card-drag{
+    color: white;
+    background-color: #4b5563;
+}
+
+body.dark-mode .card-drag:hover{
+    background-color: #6b7280;
 }

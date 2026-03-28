@@ -1,64 +1,508 @@
-/* Default (light mode) */
-.studyflow-calendar {
-  background: #fff;
-  border-radius: 12px;
-  padding: 8px;
-  transition: all 0.3s ease; /* smooth background + text change */
+/* ============================================= */
+/* 🗓  EVENTCALENDAR  — MINIMAL LIGHT & DARK     */
+/* Light  : page #fdf8ee  → calendar #fff        */
+/* Dark   : page #212121  → calendar #2c2c2c     */
+/* ============================================= */
+
+/* ─────────────────────────────────────────────
+   WRAPPER
+───────────────────────────────────────────── */
+
+.sf-calendar-wrapper {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 19px;
+  margin-top: 0px;
+  height: 80vh;
+  min-height: 420px;
 }
 
-/* Dark mode styles */
-body.dark-mode .studyflow-calendar {
-  background: #2c2c2c !important;
-  color: #ffffff !important;
+body.dark-mode .sf-calendar-wrapper {
+  background: #2c2c2c;
 }
 
-/* Day cells */
-.MuiPickersDay-root {
-  transition: all 0.3s ease !important; /* smooth day color changes */
+/* ─────────────────────────────────────────────
+   BASE CALENDAR
+───────────────────────────────────────────── */
+
+.rbc-calendar {
+  font-family: inherit;
+  background: transparent;
+  color: #1e1e1e;
 }
 
-body.dark-mode .MuiPickersDay-root {
+body.dark-mode .rbc-calendar {
+  background: transparent;
+  color: #f1f1f1;
+}
+
+/* ─────────────────────────────────────────────
+   TOOLBAR
+───────────────────────────────────────────── */
+
+.rbc-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  padding: 0 0 12px 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+body.dark-mode .rbc-toolbar {
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.rbc-toolbar-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e1e1e;
+}
+
+body.dark-mode .rbc-toolbar-label {
+  color: #f1f1f1;
+}
+
+/* Nav buttons: Today, < > */
+.rbc-toolbar button {
+  background: transparent;
+  color: #1e1e1e;
+  border: 1px solid #d8d8d8;
+  border-radius: 6px;
+  padding: 5px 14px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.rbc-toolbar button:hover {
+  background: #f5f5f5;
+  border-color: #b8b8b8;
+}
+
+.rbc-toolbar button.rbc-active {
+  background: #4d2c5e;
+  color: #fff;
+  border-color: #4d2c5e;
+}
+
+body.dark-mode .rbc-toolbar button {
+  background: transparent;
+  color: #d0d0d0;
+  border: 1px solid #444;
+}
+
+body.dark-mode .rbc-toolbar button:hover {
+  background: #383838;
+  border-color: #555;
+}
+
+body.dark-mode .rbc-toolbar button.rbc-active {
+  background: #ff7426;
+  color: #fff;
+  border-color: #ff7426;
+}
+
+/* ─────────────────────────────────────────────
+   MONTH VIEW — HEADER ROW (MON, TUE…)
+───────────────────────────────────────────── */
+
+.rbc-month-view {
+  border: 1px solid #e8e8e8;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+body.dark-mode .rbc-month-view {
+  border: 1px solid #3a3a3a;
+}
+
+.rbc-header {
+  background: transparent;
+  color: #888888;
+  padding: 10px 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border-bottom: 1px solid #e8e8e8 !important;
+}
+
+body.dark-mode .rbc-header {
+  color: #666666;
+  border-bottom: 1px solid #3a3a3a !important;
+}
+
+.rbc-header + .rbc-header {
+  border-left: 1px solid #e8e8e8;
+}
+
+body.dark-mode .rbc-header + .rbc-header {
+  border-left: 1px solid #3a3a3a;
+}
+
+/* ─────────────────────────────────────────────
+   MONTH VIEW — DAY CELLS
+───────────────────────────────────────────── */
+
+.rbc-day-bg {
+  background: #ffffff;
+}
+
+body.dark-mode .rbc-day-bg {
+  background: #2c2c2c;
+}
+
+.rbc-off-range-bg {
+  background: #fafafa;
+}
+
+body.dark-mode .rbc-off-range-bg {
+  background: #282828;
+}
+
+.rbc-today {
+  background: #ede5f6 !important; /* soft purple tint — pops on #fff, distinct from page #fdf8ee */
+}
+
+body.dark-mode .rbc-today {
+  background: #3a2a2a !important; /* warm dark tint — pops on #2c2c2c, echoes the orange accent */
+}
+
+.rbc-month-row {
+  border-top: 1px solid #e8e8e8;
+}
+
+body.dark-mode .rbc-month-row {
+  border-top: 1px solid #3a3a3a;
+}
+
+/* Day number */
+.rbc-date-cell {
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  color: #1e1e1e;
+  font-weight: 400;
+  text-align: right;
+}
+
+body.dark-mode .rbc-date-cell {
+  color: #b0b0b0;
+}
+
+/* Today date — filled circle like screenshot */
+.rbc-date-cell.rbc-now > a,
+.rbc-date-cell.rbc-now > button {
+  background: #4d2c5e;
+  color: #fff;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+body.dark-mode .rbc-date-cell.rbc-now > a,
+body.dark-mode .rbc-date-cell.rbc-now > button {
+  background: #ff7426;
+}
+
+.rbc-off-range .rbc-date-cell,
+.rbc-off-range .rbc-date-cell > a {
+  color: #c8c8c8;
+}
+
+body.dark-mode .rbc-off-range .rbc-date-cell,
+body.dark-mode .rbc-off-range .rbc-date-cell > a {
+  color: #484848;
+}
+
+/* Vertical column borders */
+.rbc-day-bg + .rbc-day-bg {
+  border-left: 1px solid #e8e8e8;
+}
+
+body.dark-mode .rbc-day-bg + .rbc-day-bg {
+  border-left: 1px solid #3a3a3a;
+}
+
+/* ─────────────────────────────────────────────
+   TIME VIEW
+───────────────────────────────────────────── */
+
+.rbc-time-view {
+  border: 1px solid #e8e8e8;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+body.dark-mode .rbc-time-view {
+  border: 1px solid #3a3a3a;
+}
+
+.rbc-time-header-gutter,
+.rbc-time-gutter {
+  background: #ffffff;
+  color: #888888;
+  font-size: 0.72rem;
+  font-weight: 500;
+  border-right: 1px solid #e8e8e8;
+}
+
+body.dark-mode .rbc-time-header-gutter,
+body.dark-mode .rbc-time-gutter {
+  background: #2c2c2c;
+  color: #666666;
+  border-right: 1px solid #3a3a3a;
+}
+
+.rbc-timeslot-group {
+  border-bottom: 1px solid #f0f0f0;
+  min-height: 40px;
+}
+
+body.dark-mode .rbc-timeslot-group {
+  border-bottom: 1px solid #333333;
+}
+
+.rbc-time-slot {
+  color: #aaaaaa;
+  font-size: 0.72rem;
+}
+
+body.dark-mode .rbc-time-slot {
+  color: #555555;
+}
+
+.rbc-current-time-indicator {
+  background: #ff7426;
+  height: 2px;
+}
+
+/* ─────────────────────────────────────────────
+   EVENTS
+───────────────────────────────────────────── */
+
+.rbc-event {
+  border-radius: 6px !important;
+  padding: 2px 8px !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  border: none !important;
   color: #fff !important;
+  transition: opacity 0.15s ease;
 }
 
-body.dark-mode .MuiPickersDay-root.Mui-selected {
-  background-color: #8b5cf6 !important; /* StudyFlow purple */
-  color: #fff !important;
-  transition: all 0.3s ease !important;
+.rbc-event:hover {
+  opacity: 0.85;
 }
 
-body.dark-mode .MuiPickersDay-root:hover {
-  background-color: rgba(139, 92, 246, 0.4) !important;
-  transition: all 0.3s ease !important;
+.rbc-event.rbc-selected {
+  outline: 2px solid #ff7426 !important;
+  outline-offset: 2px;
 }
 
-/* Header + navigation */
-.MuiPickersCalendarHeader-label,
-.MuiPickersArrowSwitcher-button {
-  transition: all 0.3s ease !important;
+.rbc-event-label {
+  font-size: 0.7rem;
+  opacity: 0.85;
 }
 
-body.dark-mode .MuiPickersCalendarHeader-label,
-body.dark-mode .MuiPickersArrowSwitcher-button {
-  color: #ffffff !important;
+/* ─────────────────────────────────────────────
+   AGENDA VIEW
+───────────────────────────────────────────── */
+
+.rbc-agenda-view {
+  border: 1px solid #e8e8e8;
+  border-radius: 0;
+  overflow: hidden;
 }
 
-/* Weekday labels (S M T W T F S) */
-.MuiDayCalendar-weekDayLabel {
-  color: #374151 !important; /* light mode gray */
-  transition: all 0.3s ease !important;
+body.dark-mode .rbc-agenda-view {
+  border: 1px solid #3a3a3a;
 }
 
-body.dark-mode .MuiDayCalendar-weekDayLabel {
-  color: #cbd5e1 !important; /* light gray in dark mode */
+.rbc-agenda-view table {
+  background: #ffffff;
+  color: #1e1e1e;
+  width: 100%;
 }
 
-/* Days outside current month (like Aug 31 when viewing August) */
-.MuiPickersDay-dayOutsideMonth {
-  color: #9ca3af !important; /* gray for light mode */
-  transition: all 0.3s ease !important;
+body.dark-mode .rbc-agenda-view table {
+  background: #2c2c2c;
+  color: #f1f1f1;
 }
 
-body.dark-mode .MuiPickersDay-dayOutsideMonth {
-  color: #6b7280 !important; /* darker gray in dark mode */
+.rbc-agenda-view th {
+  background: #fafafa;
+  color: #888888;
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+body.dark-mode .rbc-agenda-view th {
+  background: #282828;
+  color: #666666;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.rbc-agenda-view td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.82rem;
+}
+
+body.dark-mode .rbc-agenda-view td {
+  border-bottom: 1px solid #333333;
+}
+
+.rbc-agenda-date-cell,
+.rbc-agenda-time-cell {
+  color: #1e1e1e;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+body.dark-mode .rbc-agenda-date-cell,
+body.dark-mode .rbc-agenda-time-cell {
+  color: #aaaaaa;
+}
+
+.rbc-agenda-empty {
+  text-align: center;
+  padding: 40px;
+  color: #aaaaaa;
+  font-size: 0.88rem;
+}
+
+/* ─────────────────────────────────────────────
+   POPUP OVERLAY
+───────────────────────────────────────────── */
+
+.rbc-overlay {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 100;
+}
+
+body.dark-mode .rbc-overlay {
+  background: #2c2c2c;
+  border: 1px solid #3a3a3a;
+  color: #f1f1f1;
+}
+
+.rbc-overlay-header {
+  background: #fafafa;
+  color: #1e1e1e;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+body.dark-mode .rbc-overlay-header {
+  background: #282828;
+  color: #f1f1f1;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+/* ─────────────────────────────────────────────
+   SHOW MORE
+───────────────────────────────────────────── */
+
+.rbc-show-more {
+  color: #4d2c5e;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 6px;
+  background: transparent;
+}
+
+.rbc-show-more:hover {
+  color: #ff7426;
+  text-decoration: underline;
+}
+
+body.dark-mode .rbc-show-more {
+  color: #ff7426;
+}
+
+body.dark-mode .rbc-show-more:hover {
+  color: #f1f1f1;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .sf-calendar-wrapper {
+    padding: 10px;
+    height: 65vh;
+    border-radius: 12px;
+  }
+
+  .rbc-toolbar {
+    padding-bottom: 10px;
+    gap: 6px;
+  }
+
+  .rbc-toolbar-label {
+    font-size: 0.9rem;
+  }
+
+  .rbc-toolbar button {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+
+  .rbc-header {
+    font-size: 0.65rem;
+    padding: 7px 2px;
+  }
+
+  .rbc-date-cell {
+    font-size: 0.72rem;
+    padding: 4px 6px;
+  }
+
+  .rbc-event {
+    font-size: 0.7rem !important;
+    padding: 2px 4px !important;
+  }
+
+  .rbc-agenda-view th,
+  .rbc-agenda-view td {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sf-calendar-wrapper {
+    height: 58vh;
+    padding: 8px;
+    border-radius: 10px;
+  }
+
+  .rbc-toolbar button {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+
+  .rbc-toolbar-label {
+    font-size: 0.82rem;
+  }
 }

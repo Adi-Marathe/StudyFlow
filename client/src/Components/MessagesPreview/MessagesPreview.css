@@ -1,29 +1,111 @@
-.MessagesPreview-Container{
+.MessagesPreview-Container {
     width: 100%;
 }
 
-.MessagesPreview-title{
+.MessagesPreview-title {
     font-size: 20px;
-    font-weight: 500px;
+    font-weight: 500;
     margin-bottom: 12px;
     margin-top: 12px;
     margin-left: 3px;
     transition: color 0.3s ease;
 }
 
-.MessagesPreview-main{
+.MessagesPreview-main {
     background-color: #fff;
     width: 97%;
-    height:250px;
+    height: 250px;
     border-radius: 16px;
     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
 }
 
+/* Quote Styles */
+.quote-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    animation: fadeIn 0.6s ease;
+}
 
-body.dark-mode .MessagesPreview-title{
+.quote-mark {
+    font-size: 64px;
+    line-height: 0.5;
+    color: #7C6FCD;
+    font-family: Georgia, serif;
+    opacity: 0.4;
+    align-self: flex-start;
+}
+
+.quote-text {
+    font-size: 15px;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 440px;
+    font-style: italic;
+}
+
+.quote-author {
+    font-size: 13px;
+    font-weight: 500;
+    color: #7C6FCD;
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+/* Loading dots */
+.quote-loading {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.quote-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #7C6FCD;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+.quote-dot:nth-child(2) { animation-delay: 0.2s; }
+.quote-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dark mode */
+body.dark-mode .MessagesPreview-title {
     color: #ffffff;
 }
 
-body.dark-mode .MessagesPreview-main{
+body.dark-mode .MessagesPreview-main {
     background-color: #2c2c2c;
+}
+
+body.dark-mode .quote-text {
+    color: #e0e0e0;
+}
+
+body.dark-mode .quote-mark {
+    color: #9f94e8;
+}
+
+body.dark-mode .quote-author {
+    color: #9f94e8;
 }

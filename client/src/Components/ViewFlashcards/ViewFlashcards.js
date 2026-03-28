@@ -11,21 +11,25 @@ function ViewFlashcards({ isOpen, isClose, setData, onNeedFetch }) {
   const [flipped, setFlipped] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState([]);
-  const [setSlideDirection] = useState("");
+  const [slideDirection, setSlideDirection] = useState("");
 
   useEffect(() => {
   if (!isOpen) return;
 
   const handleKeyDown = (e) => {
       if (e.key === "ArrowLeft") {
+        if (cards.length === 0) return;
         setFlipped(false);
-        setIndex((prev) => (prev - 1 + cards.length) % cards.length);
+        setIndex((prev) => Math.max(prev - 1, 0));
       } else if (e.key === "ArrowRight") {
+        if (cards.length === 0) return;
         setFlipped(false);
-        setIndex((prev) => (prev + 1) % cards.length);
+        setIndex((prev) => Math.min(prev + 1, cards.length - 1));
       } else if (e.key === " ") {
         e.preventDefault(); // stop page from scrolling
         setFlipped((prev) => !prev);
+      } else if (e.key === "Escape") {
+        isClose(); // 🔥 ESC closes viewer
       }
     };
 
@@ -77,22 +81,26 @@ function ViewFlashcards({ isOpen, isClose, setData, onNeedFetch }) {
   }, [setData, onNeedFetch]);
 
   const currentCard = useMemo(() => cards[index] || null, [cards, index]);
+  const headerProgress = cards.length > 0 ? ((index + 1) / cards.length) * 100 : 0;
 
   if (!isOpen) return null;
 
   return (
     <div className="vf-overlay">
       <div className="vf-modal">
-        <div className="vf-header">
+        <div
+          className="vf-header"
+          style={{ "--vf-header-progress": `${headerProgress}%` }}
+        >
           <button className="vf-close-btn" onClick={isClose}>
             <FontAwesomeIcon icon={faChevronLeft} /> Back
           </button>
           <h3>{setData?.title || "Flashcards"}</h3>
           {cards.length > 0 && (
             <div className="vf-card-no">
-              <span>
-                {index + 1} / {cards.length}
-              </span>
+              <span className="vf-card-current">{index + 1}</span>
+              <span className="vf-card-separator">/</span>
+              <span className="vf-card-total">{cards.length}</span>
             </div>
           )}
 
@@ -110,10 +118,10 @@ function ViewFlashcards({ isOpen, isClose, setData, onNeedFetch }) {
           ) : (
             <div className={`vf-flashcard ${flipped ? "flipped" : ""}`} onClick={() => setFlipped(!flipped)}>
               <div className="front">
-                <p>{currentCard?.question}</p>
+                <p>{currentCard?.question || "No question added."}</p>
               </div>
               <div className="back">
-                <p>{currentCard?.answer}</p>
+                <p>{currentCard?.answer || "No answer added."}</p>
               </div>
             </div>
           )}

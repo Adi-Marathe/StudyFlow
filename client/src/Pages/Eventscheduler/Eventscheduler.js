@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import axios from "axios";
-
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
@@ -13,221 +10,199 @@ import WelcomeBanner from "../../Components/WelcomeBanner/WelcomeBanner";
 import TodayEvents from "../../Components/TodayEvents/TodayEvents";
 import AllEventsList from "../../Components/AllEventsList/AllEventsList";
 import EventModal from "../../Components/EventModal/EventModal";
+import EventCalendar from "../../Components/EventCalendar/EventCalendar";
 
 import "./Eventscheduler.css";
 
-const localizer = momentLocalizer(moment);
-const DragAndDropCalendar = withDragAndDrop(Calendar);
+/* ─────────────────────────────────────────
+   CONFIG
+───────────────────────────────────────── */
+const API_URL = "http://localhost:5000/api/events";
 
+const EMPTY_FORM = {
+  id: null,
+  title: "",
+  description: "",
+  location: "",
+  start: null,
+  end: null,
+  color: "#ff7426",
+  reminder: 15,
+};
+
+/* Returns axios auth header or null if no token */
+const getAuthHeader = () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    toast.error("You are not logged in");
+    return null;
+  }
+  return { Authorization: `Bearer ${token}` };
+};
+
+/* Map raw backend event → component-ready shape */
+const parseEvent = (ev) => ({
+  ...ev,
+  id: ev._id,
+  start: new Date(ev.start),
+  end: new Date(ev.end),
+});
+
+/* ─────────────────────────────────────────
+   COMPONENT
+───────────────────────────────────────── */
 const Eventscheduler = () => {
+  const [events,    setEvents]    = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [events, setEvents] = useState([]);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit,    setIsEdit]    = useState(false);
+  const [form,      setForm]      = useState(EMPTY_FORM);
 
-  const [form, setForm] = useState({
-    id: null,
-    title: "",
-    start: null,
-    end: null,
-    color: "#ff7426",
-    reminder: 15,
-  });
-
-  const API_URL = "http://localhost:5000/api/events"; // backend URL
-
-  /* 🔔 Notification Permission */
+  /* 🔔 Notification permission */
   useEffect(() => {
-    if ("Notification" in window) {
-      Notification.requestPermission();
-    }
+    if ("Notification" in window) Notification.requestPermission();
   }, []);
 
-  /* 📦 Load Events from backend */
+  /* 📦 Load all events on mount */
   useEffect(() => {
     const fetchEvents = async () => {
+      const headers = getAuthHeader();
+      if (!headers) return;
       try {
-        const res = await axios.get(API_URL);
-        const parsed = res.data.map((ev) => ({
-          ...ev,
-          start: new Date(ev.start),
-          end: new Date(ev.end),
-          id: ev._id, // MongoDB id
-        }));
-        setEvents(parsed);
+        const res = await axios.get(API_URL, { headers });
+        setEvents(res.data.map(parseEvent));
       } catch (err) {
         console.error("Failed to load events:", err);
+        toast.error(err.response?.data?.error || "Failed to load events");
       }
     };
     fetchEvents();
   }, []);
 
-  /* ➕ ADD EVENT MODAL */
+  /* ─── Open ADD modal (from button or calendar slot click) ─── */
   const openAddModal = (startDate = new Date(), endDate = null) => {
     const start = startDate instanceof Date ? startDate : new Date(startDate);
-    const end =
-      endDate instanceof Date
-        ? endDate
-        : new Date(start.getTime() + 60 * 60 * 1000);
+    const end   = endDate instanceof Date
+      ? endDate
+      : new Date(start.getTime() + 60 * 60 * 1000); // default +1 hr
 
     setIsEdit(false);
-    setForm({
-      id: null,
-      title: "",
-      start,
-      end,
-      color: "#ff7426",
-      reminder: 15,
-    });
+    setForm({ ...EMPTY_FORM, start, end });
     setShowModal(true);
   };
 
-  /* 💾 SAVE / UPDATE EVENT */
-  const saveEvent = async () => {
-    if (!form.title || !form.start || !form.end) return;
-
-    const updatedEvent = {
-      title: form.title,
-      start: form.start,
-      end: form.end,
-      color: form.color,
-      reminder: form.reminder,
-    };
-
-    try {
-      if (isEdit) {
-        // Update existing event
-        const res = await axios.put(`${API_URL}/${form.id}`, updatedEvent);
-        setEvents((prev) =>
-  prev.map((ev) =>
-    ev.id === form.id
-      ? {
-          ...res.data,
-          id: res.data._id,
-          start: new Date(res.data.start),
-          end: new Date(res.data.end),
-        }
-      : ev
-  )
-);
-
-      } else {
-        // Create new event
-        const res = await axios.post(API_URL, updatedEvent);
-        setEvents((prev) => [
-  ...prev,
-  {
-    ...res.data,
-    id: res.data._id,
-    start: new Date(res.data.start),
-    end: new Date(res.data.end),
-  },
-]);
-
-
-      }
-
-      scheduleReminder(updatedEvent);
-      setShowModal(false);
-    } catch (err) {
-      console.error("Error saving event:", err);
-      alert("Failed to save event. Please try again.");
-    }
-  };
-
-  /* 🗑 DELETE EVENT */
-  const deleteEvent = async () => {
-    try {
-      await axios.delete(`${API_URL}/${form.id}`);
-      setEvents((prev) => prev.filter((ev) => ev.id !== form.id));
-      setShowModal(false);
-    } catch (err) {
-      console.error("Error deleting event:", err);
-      alert("Failed to delete event.");
-    }
-  };
-
-  /* 📅 TODAY EVENTS */
-  const todaysEvents = events.filter((ev) =>
-    moment(ev.start).isSame(moment(), "day")
-  );
-
-  /* ✏ EDIT EVENT */
+  /* ─── Open EDIT modal (from calendar event click or AllEventsList) ─── */
   const onSelectEvent = (event) => {
     setIsEdit(true);
     setForm({
       ...event,
       start: new Date(event.start),
-      end: new Date(event.end),
+      end:   new Date(event.end),
     });
     setShowModal(true);
   };
 
-  /* 🔄 DRAG & DROP */
-  const onEventDrop = async ({ event, start, end }) => {
-    const updated = {
-      title: event.title,
-      start: new Date(start),
-      end: new Date(end),
-      color: event.color,
-      reminder: event.reminder,
+  /* ─── SAVE (create or update) ─── */
+  const saveEvent = async () => {
+    const headers = getAuthHeader();
+    if (!headers) return;
+
+    const payload = {
+      title:       form.title,
+      description: form.description  || "",
+      location:    form.location     || "",
+      start:       form.start,
+      end:         form.end,
+      color:       form.color,
+      reminder:    form.reminder,
     };
 
     try {
-      const res = await axios.put(`${API_URL}/${event.id}`, updated);
-     setEvents((prev) =>
-  prev.map((ev) =>
-    ev.id === event.id
-      ? {
-          ...res.data,
-          id: res.data._id,
-          start: new Date(res.data.start),
-          end: new Date(res.data.end),
-        }
-      : ev
-  )
-);
+      if (isEdit) {
+        const res = await axios.put(`${API_URL}/${form.id}`, payload, { headers });
+        const updated = parseEvent(res.data);
+        setEvents((prev) => prev.map((ev) => (ev.id === form.id ? updated : ev)));
+      } else {
+        const res = await axios.post(API_URL, payload, { headers });
+        setEvents((prev) => [...prev, parseEvent(res.data)]);
+      }
 
-      scheduleReminder(updated);
+      scheduleReminder({ ...payload, title: form.title });
+      setShowModal(false);
     } catch (err) {
-      console.error("Error updating event:", err);
-      alert("Failed to update event.");
+      console.error("Error saving event:", err);
+      toast.error(err.response?.data?.error || "Failed to save event");
     }
   };
 
-  /* 🎨 Event Style */
-  const eventStyleGetter = (event) => ({
-    style: {
-      backgroundColor: event.color || "#ff7426",
-      borderRadius: "8px",
-      color: "#fff",
-      border: "none",
-    },
-  });
+  /* ─── DELETE ─── */
+  const deleteEvent = async () => {
+    const headers = getAuthHeader();
+    if (!headers) return;
 
-  /* ⏰ REMINDER */
+    try {
+      await axios.delete(`${API_URL}/${form.id}`, { headers });
+      setEvents((prev) => prev.filter((ev) => ev.id !== form.id));
+      setShowModal(false);
+    } catch (err) {
+      console.error("Error deleting event:", err);
+      toast.error(err.response?.data?.error || "Failed to delete event");
+    }
+  };
+
+  /* ─── DRAG & DROP reschedule ─── */
+  const onEventDrop = async ({ event, start, end }) => {
+    const headers = getAuthHeader();
+    if (!headers) return;
+
+    const payload = {
+      title:       event.title,
+      description: event.description || "",
+      location:    event.location    || "",
+      start:       new Date(start),
+      end:         new Date(end),
+      color:       event.color,
+      reminder:    event.reminder,
+    };
+
+    try {
+      const res = await axios.put(`${API_URL}/${event.id}`, payload, { headers });
+      const updated = parseEvent(res.data);
+      setEvents((prev) => prev.map((ev) => (ev.id === event.id ? updated : ev)));
+      scheduleReminder({ ...payload, title: event.title });
+    } catch (err) {
+      console.error("Error rescheduling event:", err);
+      toast.error(err.response?.data?.error || "Failed to reschedule event");
+    }
+  };
+
+  /* ─── Local reminder scheduler ─── */
   const scheduleReminder = (event) => {
     if (!event.reminder || event.reminder === 0) return;
-
-    const reminderTime =
-      new Date(event.start).getTime() - event.reminder * 60000;
-    const delay = reminderTime - Date.now();
+    const delay = new Date(event.start).getTime() - event.reminder * 60000 - Date.now();
     if (delay <= 0) return;
 
     setTimeout(() => {
-      const stored =
-        JSON.parse(localStorage.getItem("sf_notifications")) || [];
+      const stored = JSON.parse(localStorage.getItem("sf_notifications")) || [];
       stored.unshift({
-        id: Date.now(),
-        title: "Event Reminder",
+        id:      Date.now(),
+        title:   "Event Reminder",
         message: `${event.title} is starting soon`,
-        time: new Date().toISOString(),
-        read: false,
+        time:    new Date().toISOString(),
+        read:    false,
       });
       localStorage.setItem("sf_notifications", JSON.stringify(stored));
       window.dispatchEvent(new Event("sf-notification"));
     }, delay);
   };
 
+  /* ─── Today filter (for TodayEvents panel) ─── */
+  const todaysEvents = events.filter((ev) =>
+    moment(ev.start).isSame(moment(), "day")
+  );
+
+  /* ─────────────────────────────────────────
+     RENDER
+  ───────────────────────────────────────── */
   return (
     <div className="eventscheduler-container">
       <Sidebar />
@@ -236,7 +211,8 @@ const Eventscheduler = () => {
         <Navbar />
 
         <main className="eventscheduler-main">
-          {/* TOP */}
+
+          {/* ── TOP BANNER + TODAY EVENTS ── */}
           <div className="sf-top-section">
             <div className="sf-welcome-wrapper">
               <WelcomeBanner
@@ -247,33 +223,23 @@ const Eventscheduler = () => {
                 onButtonClick={() => openAddModal(new Date())}
               />
             </div>
-
             <div className="sf-today-events-wrapper">
               <TodayEvents events={todaysEvents} />
             </div>
           </div>
 
-          {/* CALENDAR */}
-          <div className="sf-calendar-wrapper">
-            <DragAndDropCalendar
-              localizer={localizer}
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-              selectable
-              onSelectSlot={({ start, end }) => openAddModal(start, end)}
-              onSelectEvent={onSelectEvent}
-              onEventDrop={onEventDrop}
-              resizable
-              eventPropGetter={eventStyleGetter}
-              style={{ height: 500 }}
-            />
-          </div>
+          {/* ── CALENDAR ── */}
+          <EventCalendar
+            events={events}
+            onSelectSlot={openAddModal}
+            onSelectEvent={onSelectEvent}
+            onEventDrop={onEventDrop}
+          />
 
-          {/* ALL EVENTS */}
+          {/* ── ALL EVENTS GRID ── */}
           <AllEventsList events={events} onEdit={onSelectEvent} />
 
-          {/* MODAL */}
+          {/* ── MODAL ── */}
           <EventModal
             show={showModal}
             isEdit={isEdit}
@@ -283,6 +249,7 @@ const Eventscheduler = () => {
             onDelete={deleteEvent}
             onClose={() => setShowModal(false)}
           />
+
         </main>
       </div>
     </div>

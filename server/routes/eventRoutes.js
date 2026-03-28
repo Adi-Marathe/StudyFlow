@@ -1,39 +1,30 @@
 // routes/eventRoutes.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Event = require('../models/Event');
+const protect = require("../middleware/authMiddleware");
 
-// Get all events
-router.get('/', async (req, res) => {
-  try {
-    const events = await Event.find();
-    res.json(events);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+const {
+  getEvents,
+  getEventById,
+  createEvent,
+  updateEvent,
+  deleteEvent,
+  getTodayEvents,
+  getUpcomingEvents,
+} = require("../controllers/eventController");
 
-// Add new event
-router.post('/', async (req, res) => {
-  try {
-    const event = new Event(req.body);
-    await event.save();
-    res.status(201).json(event);
-  } catch (err) {
-    console.error('❌ Error saving event:', err);
-    res.status(500).json({ error: err.message });
-  }
-});
+/* All routes are protected — user must be logged in */
+router.use(protect);
 
+/* ─── Specific routes first (before :id param routes) ─── */
+router.get("/today",    getTodayEvents);
+router.get("/upcoming", getUpcomingEvents);
 
-// Delete event
-router.delete('/:id', async (req, res) => {
-  try {
-    await Event.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Event deleted' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+/* ─── Base CRUD ─── */
+router.get("/",        getEvents);
+router.post("/",       createEvent);
+router.get("/:id",     getEventById);
+router.put("/:id",     updateEvent);
+router.delete("/:id",  deleteEvent);
 
 module.exports = router;

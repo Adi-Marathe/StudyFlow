@@ -13,7 +13,7 @@ function Chatbot() {
         <div className="chatbot-content-wrapper">
           <Navbar />
           <main className="chatbot-main">
-            <div>
+            <div className="aibot-component">
                 <Aibot />
             </div>
           </main>

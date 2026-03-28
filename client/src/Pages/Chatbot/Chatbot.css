@@ -20,6 +20,12 @@ body.dark-mode .chatbot-container {
 .chatbot-main {
   flex: 1;
   overflow-y: auto;
+  height: 100% ;
+}
+
+.aibot-component {
+  width: 100%;
+  height: 100%;
 }
 
 /* WebKit Browsers (Chrome, Safari, Edge) */

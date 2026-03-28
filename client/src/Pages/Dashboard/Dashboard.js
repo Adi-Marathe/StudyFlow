@@ -11,7 +11,7 @@ import ChatbotPreview from '../../Components/ChatbotPreview/ChatbotPreview';
 import FocusModePreview from '../../Components/FocusModePreview/FocusModePreview';
 import MessagesPreview from '../../Components/MessagesPreview/MessagesPreview';
 import YourTools from '../../Components/YourTools/YourTools';
-import UpcomingActivities from '../../Components/UpcomingActivities/UpcomindActivities';
+import UpcomingActivities from '../../Components/UpcomingActivities/UpcomingActivities';
 
 
 function Dashboard(){
