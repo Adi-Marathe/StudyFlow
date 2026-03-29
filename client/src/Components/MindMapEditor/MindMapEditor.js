@@ -21,7 +21,7 @@ import logo from '../../Assets/images/StudyFlow-logo.png'
 const colors = ["#701ad9", "#ff6f61", "#ffa500", "#4caf50", "#2196f3", "#9c27b0"];
 
 // API Configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || '${process.env.REACT_APP_API_URL || 'http://localhost:5000'}';
 
 // MEMOIZED CUSTOM NODE - This is crucial for performance
 const CustomNode = memo(({ data, id, selected }) => {

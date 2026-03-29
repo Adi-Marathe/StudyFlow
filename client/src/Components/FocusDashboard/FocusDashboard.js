@@ -29,9 +29,9 @@ function FocusDashboard({ onStartSession, refreshKey }) {
     const authHeaders = { Authorization: `Bearer ${token}` };
     try {
       const [statsRes, trendRes, tasksRes] = await Promise.all([
-        fetch('http://localhost:5000/api/focus/stats', { headers: authHeaders }),
-        fetch('http://localhost:5000/api/focus/productivity-trend', { headers: authHeaders }),
-        fetch('http://localhost:5000/api/tasks/all', { headers: authHeaders }),
+        fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/focus/stats', { headers: authHeaders }),
+        fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/focus/productivity-trend', { headers: authHeaders }),
+        fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/tasks/all', { headers: authHeaders }),
       ]);
       const [statsData, trendResult, tasksData] = await Promise.all([
         statsRes.json(),

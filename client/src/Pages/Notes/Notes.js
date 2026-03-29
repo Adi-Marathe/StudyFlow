@@ -28,7 +28,7 @@ function Notes() {
   const handleDeleteNote = (noteId) => {
     if (!window.confirm('Are you sure you want to delete this note?')) return;
 
-    fetch(`http://localhost:5000/api/notes/${noteId}`, {
+    fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/notes/${noteId}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     })
@@ -61,7 +61,7 @@ function Notes() {
     if (!token) return;
 
     setLoadingNotes(true);
-    fetch('http://localhost:5000/api/notes', {
+    fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/notes', {
       headers: { 'Authorization': `Bearer ${token}` }
     })
       .then(res => res.json())

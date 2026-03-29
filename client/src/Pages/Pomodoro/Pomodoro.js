@@ -20,7 +20,7 @@ function Pomodoro() {
 
   const fetchPresets = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/timers");
+      const res = await axios.get("${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/timers");
       setPresetTimers(res.data);
     } catch (err) {
       console.error("Error fetching presets", err);
@@ -31,7 +31,7 @@ function Pomodoro() {
   const handleApplyTimer = async (newTimer) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/timers",
+        "${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/timers",
         newTimer
       );
 
@@ -46,7 +46,7 @@ function Pomodoro() {
   // 🔥 STEP 3: DELETE FROM DATABASE
   const handleDeletePreset = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/timers/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/timers/${id}`);
       setPresetTimers((prev) => prev.filter((p) => p._id !== id));
     } catch (err) {
       console.error("Error deleting preset", err);

@@ -43,7 +43,7 @@ function Dashboard(){
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/api/auth/me", {
+        const response = await axios.get("${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/auth/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserData(response.data);
@@ -61,7 +61,7 @@ function Dashboard(){
       try {
         const token = localStorage.getItem('token');
 
-        const res = await fetch('http://localhost:5000/api/tasks/all', {
+        const res = await fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/tasks/all', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

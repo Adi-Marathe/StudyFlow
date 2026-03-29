@@ -19,7 +19,7 @@ import {
 import "./NoteEditor.css";
 import { toast } from "react-toastify";
 
-const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_BASE = process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || 'http://localhost:5000'}";
 
 const NoteEditor = ({ noteId, onClose, onSave, userToken }) => {
   const [fileName, setFileName] = useState("");

@@ -28,7 +28,7 @@ function Flashcards() {
       setIsLoading(true);
       setHasFetched(false);
 
-      const res = await fetch('http://localhost:5000/api/flashcards', {
+      const res = await fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/flashcards', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -73,7 +73,7 @@ function Flashcards() {
   // Delete flashcard set (confirmed)
   const handleDeleteFlashcardSet = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/flashcards/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/flashcards/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -134,7 +134,7 @@ function Flashcards() {
 
   const fetchSetById = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/flashcards/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/flashcards/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       if (!res.ok) throw new Error('Failed to fetch set');
