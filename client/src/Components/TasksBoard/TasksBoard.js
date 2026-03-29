@@ -62,7 +62,7 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
       try {
         const token = localStorage.getItem('token');
 
-        const res = await fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/tasks/all', {
+        const res = await fetch('https://studyflow-xh1t.onrender.com/api/tasks/all', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -174,7 +174,7 @@ const TasksBoard = ({ newTask, onCountsChange }) => {
     try {
       const token = localStorage.getItem('token');
 
-      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/tasks/${draggedTask.id}`, {
+      const res = await fetch(`https://studyflow-xh1t.onrender.com/api/tasks/${draggedTask.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

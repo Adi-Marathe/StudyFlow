@@ -68,7 +68,7 @@ const EditTaskModal = ({ isOpen, onClose, task, onTaskUpdated, onTaskDeleted }) 
         status: normalizeStatus(formData.status)
       };
 
-      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/tasks/${task.id}`, {
+      const res = await fetch(`https://studyflow-xh1t.onrender.com/api/tasks/${task.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const EditTaskModal = ({ isOpen, onClose, task, onTaskUpdated, onTaskDeleted }) 
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/tasks/${task.id}`, {
+      const res = await fetch(`https://studyflow-xh1t.onrender.com/api/tasks/${task.id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

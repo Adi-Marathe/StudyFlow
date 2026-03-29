@@ -74,7 +74,7 @@ const EditProfileModal = ({ isOpen, onClose, userName, onSave }) => {
         setLoading(true);
         try {
           const token = localStorage.getItem("token");
-          const response = await axios.get("${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/auth/me", {
+          const response = await axios.get("https://studyflow-xh1t.onrender.com/api/auth/me", {
             headers: { Authorization: `Bearer ${token}` },
           });
           
@@ -105,7 +105,7 @@ const EditProfileModal = ({ isOpen, onClose, userName, onSave }) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      await axios.put("${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/auth/profile", formData, {
+      await axios.put("https://studyflow-xh1t.onrender.com/api/auth/profile", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       onSave(formData.name);
@@ -257,7 +257,7 @@ const Navbar = () => {
       }
 
       try {
-        const response = await axios.get("${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/auth/me", {
+        const response = await axios.get("https://studyflow-xh1t.onrender.com/api/auth/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserName(response.data.name);
@@ -287,7 +287,7 @@ const Navbar = () => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/auth/me", {
+        const response = await axios.get("https://studyflow-xh1t.onrender.com/api/auth/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserRole(response.data.role || "Student");

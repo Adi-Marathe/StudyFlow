@@ -27,7 +27,7 @@ function Mindmaps() {
       console.log('Making API request to backend...');
   
       // ✅ Use full URL instead of relative path
-      const response = await fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/mindmaps', {
+      const response = await fetch('https://studyflow-xh1t.onrender.com/api/mindmaps', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -101,7 +101,7 @@ function Mindmaps() {
       }
   
       // ✅ Fix: Use full backend URL instead of relative path
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/mindmaps/${mindMapId}`, {
+      const response = await fetch(`https://studyflow-xh1t.onrender.com/api/mindmaps/${mindMapId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

@@ -99,7 +99,7 @@ function CreateFlashcard({ isOpen, isClose, onSave }) {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/flashcards', {
+      const res = await fetch('https://studyflow-xh1t.onrender.com/api/flashcards', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -49,7 +49,7 @@ function FocusSession({ focusIntent, taskId, taskTitle, onExit, onSessionComplet
 
   const createSession = useCallback(async () => {
     try {
-      const res = await fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/focus', {
+      const res = await fetch('https://studyflow-xh1t.onrender.com/api/focus', {
         method: 'POST',
         headers: getHeaders(),
         body: JSON.stringify({
@@ -103,7 +103,7 @@ function FocusSession({ focusIntent, taskId, taskTitle, onExit, onSessionComplet
   const completeOnBackend = useCallback(async (status = 'completed') => {
     if (!sessionIdRef.current) return;
     try {
-      await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/focus/${sessionIdRef.current}/complete`, {
+      await fetch(`https://studyflow-xh1t.onrender.com/api/focus/${sessionIdRef.current}/complete`, {
         method: 'PATCH',
         headers: getHeaders(),
         body: JSON.stringify({ actualDuration: getElapsed(), status }),
@@ -181,7 +181,7 @@ function FocusSession({ focusIntent, taskId, taskTitle, onExit, onSessionComplet
     clearInterval(timerRef.current);
     if (phase === 'focus' && sessionIdRef.current) {
       try {
-        await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/focus/${sessionIdRef.current}/abandon`, {
+        await fetch(`https://studyflow-xh1t.onrender.com/api/focus/${sessionIdRef.current}/abandon`, {
           method: 'PATCH',
           headers: getHeaders(),
           body: JSON.stringify({ actualDuration: getElapsed() }),

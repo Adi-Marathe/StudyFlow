@@ -46,7 +46,7 @@ const AddTaskModal = ({ isOpen, onClose, onTaskAdded }) => {
     setLoading(true);
 
     try {
-      const res = await fetch('${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/tasks/addtask', {
+      const res = await fetch('https://studyflow-xh1t.onrender.com/api/tasks/addtask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -66,7 +66,7 @@ const getGreeting = () => {
    AXIOS INSTANCE  ── single base URL + timeout for all requests
 ───────────────────────────────────────────────────────────── */
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || '${process.env.REACT_APP_API_URL || 'http://localhost:5000'}',
+  baseURL: process.env.REACT_APP_API_URL || 'https://studyflow-xh1t.onrender.com',
   timeout: 90000, // OpenRouter free models can take up to 60 s
 });
 

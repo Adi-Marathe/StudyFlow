@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './UpcomingActivities.css';
 
-const API_URL = '${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/events/upcoming';
+const API_URL = 'https://studyflow-xh1t.onrender.com/api/events/upcoming';
 
 const UpcomingActivities = ({ maxEvents = 4 }) => {
   const [activities, setActivities] = useState([]);
