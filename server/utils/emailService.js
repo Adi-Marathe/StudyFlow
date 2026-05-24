@@ -177,4 +177,91 @@ const sendReminderEmail = async ({ toEmail, toName, event }) => {
   console.log(`📧 Reminder sent → ${toEmail} for "${event.title}"`);
 };
 
-module.exports = { sendReminderEmail, verifyEmailService };
+module.exports = { sendReminderEmail, verifyEmailService, sendPasswordResetEmail };
+
+/* ─────────────────────────────────────────
+   sendPasswordResetEmail
+───────────────────────────────────────── */
+async function sendPasswordResetEmail({ toEmail, toName, otp }) {
+  const transporter = createTransporter();
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+    <body style="margin:0;padding:0;background:#f4f4f8;font-family:'Segoe UI',sans-serif;">
+      <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f8;padding:32px 0;">
+        <tr><td align="center">
+          <table width="540" cellpadding="0" cellspacing="0"
+            style="background:#fff;border-radius:16px;overflow:hidden;max-width:540px;">
+
+            <!-- HEADER -->
+            <tr>
+              <td style="background:linear-gradient(135deg,#4d2c5e,#7b4fa3);
+                          padding:28px 32px;text-align:center;">
+                <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700;">🔐 Password Reset</h1>
+                <p style="margin:6px 0 0;color:rgba(255,255,255,0.8);font-size:14px;">
+                  Use the code below to reset your password
+                </p>
+              </td>
+            </tr>
+
+            <!-- BODY -->
+            <tr>
+              <td style="padding:28px 32px;">
+                <p style="margin:0 0 20px;color:#333;font-size:15px;">
+                  Hi <strong>${toName || "there"}</strong> 👋
+                </p>
+
+                <p style="margin:0 0 8px;color:#555;font-size:14px;">
+                  We received a request to reset your StudyFlow password. Enter this code to continue:
+                </p>
+
+                <!-- OTP Box -->
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td align="center" style="padding:24px 0;">
+                      <div style="display:inline-block;background:#faf8fc;border:2px dashed #7b4fa3;
+                                  border-radius:12px;padding:16px 32px;letter-spacing:12px;
+                                  font-size:36px;font-weight:800;color:#4d2c5e;">
+                        ${otp}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <p style="margin:0 0 6px;color:#888;font-size:13px;line-height:1.6;">
+                  ⏳ This code expires in <strong>10 minutes</strong>.
+                </p>
+                <p style="margin:0;color:#888;font-size:13px;line-height:1.6;">
+                  If you didn't request this, you can safely ignore this email — your password will remain unchanged.
+                </p>
+              </td>
+            </tr>
+
+            <!-- FOOTER -->
+            <tr>
+              <td style="background:#f9f7fc;padding:16px 32px;text-align:center;
+                          border-top:1px solid #ede8f5;">
+                <p style="margin:0;color:#aaa;font-size:12px;">
+                  StudyFlow · Never share this code with anyone.
+                </p>
+              </td>
+            </tr>
+
+          </table>
+        </td></tr>
+      </table>
+    </body>
+    </html>
+  `;
+
+  await transporter.sendMail({
+    from:    `"StudyFlow" <${process.env.EMAIL_USER}>`,
+    to:      toEmail,
+    subject: `🔐 Your StudyFlow password reset code: ${otp}`,
+    html,
+  });
+
+  console.log(`📧 Password reset OTP sent → ${toEmail}`);
+}

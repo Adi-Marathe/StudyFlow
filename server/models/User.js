@@ -30,7 +30,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     maxlength: 150,
     default: ''  // Empty by default, users add it later
-  }
+  },
+  resetOtp: { type: String, default: null },
+  resetOtpExpiry: { type: Date, default: null },
+  resetToken: { type: String, default: null }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);

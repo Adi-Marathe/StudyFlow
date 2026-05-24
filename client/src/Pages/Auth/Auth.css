@@ -200,4 +200,185 @@ body.dark-mode .login-box input:focus{
   .auth-close-btn {
     font-size: 20px;
   }
+
+  .fp-otp-input {
+    width: 40px !important;
+    height: 48px !important;
+    font-size: 20px !important;
+  }
+
+  .fp-otp-container {
+    gap: 6px !important;
+  }
+
+  .fp-step-indicator {
+    top: 72px !important;
+  }
+}
+
+/* ─── Forgot Password Styles ─── */
+
+/* Step indicator */
+.fp-step-indicator {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  z-index: 10;
+}
+
+.fp-step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e3e6ea;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.fp-step-dot.active {
+  background: #4d2c5e;
+  color: #fff;
+}
+
+.fp-step-dot.done {
+  background: #27ae60;
+  color: #fff;
+}
+
+.fp-step-line {
+  width: 40px;
+  height: 3px;
+  background: #e3e6ea;
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.fp-step-line.active {
+  background: #4d2c5e;
+}
+
+/* Subtitle text */
+.fp-subtitle {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* OTP input boxes */
+.fp-otp-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.fp-otp-input {
+  width: 48px;
+  height: 56px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  border: 2px solid #e3e6ea;
+  border-radius: 12px;
+  background: #f9fafb;
+  outline: none;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+  color: #333;
+  caret-color: #4d2c5e;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.fp-otp-input:focus {
+  border-color: #4d2c5e;
+  transform: scale(1.05);
+  box-shadow: 0 0 0 3px rgba(77, 44, 94, 0.12);
+}
+
+.fp-otp-input.error {
+  border-color: #e53935;
+}
+
+/* Resend text */
+.fp-resend-text {
+  color: #777;
+  font-size: 14px;
+  margin-top: 14px;
+}
+
+.fp-countdown {
+  color: #aaa;
+  font-weight: 600;
+}
+
+/* Forgot link on login page */
+.fp-forgot-link {
+  display: block;
+  text-align: right;
+  margin-bottom: 8px;
+  margin-top: -4px;
+}
+
+/* Disabled button state */
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ─── Forgot Password Dark Mode ─── */
+body.dark-mode .fp-step-dot {
+  background: #444;
+  color: #888;
+}
+
+body.dark-mode .fp-step-dot.active {
+  background: #ff7426;
+  color: #fff;
+}
+
+body.dark-mode .fp-step-dot.done {
+  background: #27ae60;
+}
+
+body.dark-mode .fp-step-line {
+  background: #444;
+}
+
+body.dark-mode .fp-step-line.active {
+  background: #ff7426;
+}
+
+body.dark-mode .fp-subtitle {
+  color: #aaa;
+}
+
+body.dark-mode .fp-otp-input {
+  background: #333;
+  border-color: #555;
+  color: #fff;
+  caret-color: #ff7426;
+}
+
+body.dark-mode .fp-otp-input:focus {
+  border-color: #ff7426;
+  box-shadow: 0 0 0 3px rgba(255, 116, 38, 0.15);
+}
+
+body.dark-mode .fp-resend-text {
+  color: #aaa;
+}
+
+body.dark-mode .fp-countdown {
+  color: #666;
 }
