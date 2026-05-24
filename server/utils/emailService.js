@@ -1,50 +1,17 @@
 // utils/emailService.js
-const nodemailer = require("nodemailer");
+const axios = require('axios');
 
-/*
-  Transporter is created LAZILY (inside the function) so that
-  process.env values are guaranteed to be loaded by dotenv before
-  nodemailer reads them. Creating it at module-load time can race
-  against dotenv.config() in index.js.
-*/
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // true for 465, false for 587
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-  });
-};
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrNxLSyuAqBuIOaij930Ax4EVgdboS91ExmEMvN1HYq7mYOyfUTzOksfRxWwmaXYuzkQ/exec';
 
-/* ─── Verify connection (call this AFTER dotenv.config()) ─── */
+/* ─── Verify connection ─── */
 const verifyEmailService = () => {
-  const transporter = createTransporter();
-  transporter.verify((err) => {
-    if (err) {
-      console.error("❌ Email transporter error:", err.message);
-      console.error(
-        "   → Check EMAIL_USER and EMAIL_PASS in your .env file\n" +
-        "   → Make sure you're using a Gmail App Password, not your account password\n" +
-        "   → Generate one at: https://myaccount.google.com/apppasswords"
-      );
-    } else {
-      console.log(`✅ Email service ready (${process.env.EMAIL_USER})`);
-    }
-  });
+  console.log(`✅ Email service ready (Using Google Apps Script API via HTTPS)`);
 };
 
 /* ─────────────────────────────────────────
    sendReminderEmail
 ───────────────────────────────────────── */
 const sendReminderEmail = async ({ toEmail, toName, event }) => {
-  const transporter = createTransporter();
-
   const startTime = new Date(event.start).toLocaleString("en-US", {
     weekday: "long",
     year:    "numeric",
@@ -172,24 +139,22 @@ const sendReminderEmail = async ({ toEmail, toName, event }) => {
     </html>
   `;
 
-  await transporter.sendMail({
-    from:    `"StudyFlow" <${process.env.EMAIL_USER}>`,
-    to:      toEmail,
-    subject: `⏰ Reminder: "${event.title}" starts in ${reminderLabel}`,
-    html,
-  });
-
-  console.log(`📧 Reminder sent → ${toEmail} for "${event.title}"`);
+  try {
+    await axios.post(GOOGLE_SCRIPT_URL, {
+      to: toEmail,
+      subject: \`⏰ Reminder: "\${event.title}" starts in \${reminderLabel}\`,
+      htmlBody: html
+    });
+    console.log(\`📧 Reminder sent → \${toEmail} for "\${event.title}"\`);
+  } catch (error) {
+    console.error('❌ Failed to send reminder email:', error.message);
+  }
 };
-
-module.exports = { sendReminderEmail, verifyEmailService, sendPasswordResetEmail };
 
 /* ─────────────────────────────────────────
    sendPasswordResetEmail
 ───────────────────────────────────────── */
 async function sendPasswordResetEmail({ toEmail, toName, otp }) {
-  const transporter = createTransporter();
-
   const html = `
     <!DOCTYPE html>
     <html>
@@ -261,12 +226,17 @@ async function sendPasswordResetEmail({ toEmail, toName, otp }) {
     </html>
   `;
 
-  await transporter.sendMail({
-    from:    `"StudyFlow" <${process.env.EMAIL_USER}>`,
-    to:      toEmail,
-    subject: `🔐 Your StudyFlow password reset code: ${otp}`,
-    html,
-  });
-
-  console.log(`📧 Password reset OTP sent → ${toEmail}`);
+  try {
+    await axios.post(GOOGLE_SCRIPT_URL, {
+      to: toEmail,
+      subject: \`🔐 Your StudyFlow password reset code: \${otp}\`,
+      htmlBody: html
+    });
+    console.log(\`📧 Password reset OTP sent → \${toEmail}\`);
+  } catch (error) {
+    console.error('❌ Failed to send password reset email:', error.message);
+    throw error; // Re-throw so authController catches it
+  }
 }
+
+module.exports = { sendReminderEmail, verifyEmailService, sendPasswordResetEmail };

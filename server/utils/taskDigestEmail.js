@@ -1,14 +1,7 @@
 // utils/taskDigestEmail.js
-const nodemailer = require("nodemailer");
+const axios = require('axios');
 
-const createTransporter = () =>
-  nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrNxLSyuAqBuIOaij930Ax4EVgdboS91ExmEMvN1HYq7mYOyfUTzOksfRxWwmaXYuzkQ/exec';
 
 /*
   Sends a task summary digest email to one user.
@@ -16,7 +9,6 @@ const createTransporter = () =>
   tasks = full array of task objects (for the detail list)
 */
 const sendTaskDigestEmail = async ({ toEmail, toName, stats, tasks }) => {
-  const transporter = createTransporter();
 
   const now = new Date().toLocaleString("en-US", {
     weekday: "long",
@@ -284,14 +276,16 @@ const sendTaskDigestEmail = async ({ toEmail, toName, stats, tasks }) => {
     </html>
   `;
 
-  await transporter.sendMail({
-    from:    `"StudyFlow" <${process.env.EMAIL_USER}>`,
-    to:      toEmail,
-    subject: `📋 Your Task Update — ${stats.done}/${stats.total} done · ${now}`,
-    html,
-  });
-
-  console.log(`📧 Task digest sent → ${toEmail} (${stats.done}/${stats.total} done)`);
+  try {
+    await axios.post(GOOGLE_SCRIPT_URL, {
+      to: toEmail,
+      subject: \`📋 Your Task Update — \${stats.done}/\${stats.total} done · \${now}\`,
+      htmlBody: html
+    });
+    console.log(\`📧 Task digest sent → \${toEmail} (\${stats.done}/\${stats.total} done)\`);
+  } catch (error) {
+    console.error('❌ Failed to send task digest email:', error.message);
+  }
 };
 
 module.exports = { sendTaskDigestEmail };

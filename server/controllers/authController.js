@@ -107,12 +107,9 @@ exports.forgotPassword = async (req, res) => {
     }
 
     // Prevent spam: if a valid OTP already exists, don't generate a new one
-    // Temporarily disabled for Option B testing so you can click the button multiple times
-    /*
     if (user.resetOtpExpiry && user.resetOtpExpiry > new Date()) {
       return res.status(200).json({ message: 'A reset code was already sent. Please check your email.' });
     }
-    */
 
     // Generate 6-digit OTP
     const otp = crypto.randomInt(100000, 999999).toString();
@@ -126,16 +123,10 @@ exports.forgotPassword = async (req, res) => {
     user.resetToken = null; // Clear any old reset token
     await user.save();
 
-    // OPTION B: Log the OTP to the Render console for testing
-    console.log(`\n==================================================`);
-    console.log(`🔐 PASSWORD RESET OTP FOR ${user.email}: ${otp}`);
-    console.log(`==================================================\n`);
+    // Send email via Google Apps Script
+    await sendPasswordResetEmail({ toEmail: user.email, toName: user.name, otp });
 
-    // Send email asynchronously so it doesn't block the API response
-    sendPasswordResetEmail({ toEmail: user.email, toName: user.name, otp })
-      .catch(err => console.log('Email failed (expected on Render free tier). OTP is in console above.'));
-
-    res.status(200).json({ message: 'Reset code generated! Check Render logs.' });
+    res.status(200).json({ message: 'Reset code sent to your email.' });
   } catch (err) {
     console.error('forgotPassword error:', err);
     res.status(500).json({ message: 'Server error', error: err.message });
