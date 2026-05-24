@@ -205,7 +205,7 @@ function Landingpage(){
                 {/* top row */}
                 <Row className="gy-4">
                 {/* Brand / About blurb */}
-                <Col md={4} lg={3} className="mb-2 mb-md-0">
+                <Col md={4} lg={3} className="mb-2 mb-md-0 text-center text-md-start">
                     <h5 className="brand-title mb-2 studyy"><img src={llogo} alt="StudyFlow" className="llogo" /> Study</h5>
                     <h5 className="brand-title mb-2 flow">Flow</h5>
                     <p className="small opacity-75">
@@ -214,7 +214,7 @@ function Landingpage(){
                 </Col>
 
                 {/* Company */}
-                <Col xs={6} md={4} lg={2}>
+                <Col xs={6} md={4} lg={2} className="text-center text-md-start">
                     <h6 className="fw-bold mb-2">Company</h6>
                     <a href="/#" className={link}>About Us</a>
                     <a href="/#" className={link}>How it Works</a>
@@ -223,7 +223,7 @@ function Landingpage(){
                 </Col>
 
                 {/* Products */}
-                <Col xs={6} md={4} lg={2}>
+                <Col xs={6} md={4} lg={2} className="text-center text-md-start">
                     <h6 className="fw-bold mb-2">Products</h6>
                     <a href="/#" className={link}>AI Assistant</a>
                     <a href="/#" className={link}>Pomodoro Timer</a>
@@ -236,7 +236,7 @@ function Landingpage(){
                 
 
                 {/* Support */}
-                <Col xs={6} md={4} lg={2}>
+                <Col xs={6} md={4} lg={2} className="text-center text-md-start">
                     <h6 className="fw-bold mb-2">Support</h6>
                     <a href="/#" className={link}>FAQ</a>
                     <a href="/#" className={link}>User Guides</a>
@@ -245,19 +245,12 @@ function Landingpage(){
                 </Col>
 
                 {/* Contact / Social */}
-                <Col xs={12} md={6} lg={3} className="mt-4 mt-lg-0">
+                <Col xs={12} md={6} lg={3} className="mt-4 mt-lg-0 text-center text-md-start">
                     <h6 className="fw-bold mb-2">Contact Info</h6>
                     <p className="small mb-1 opacity-75">support@studyflow.com</p>
                     <p className="small opacity-75">
                     Gut No. 30, Hiwarkheda Road,<br/> Kannad, Chh.Sambhajinagar,<br/> Maharashtra 431103
                     </p>
-                    <div className="d-flex gap-3 mt-3">
-                    <a className="icon-btn" href="/#"><FaFacebookF /></a>
-                    <a className="icon-btn" href="/#"><FaTwitter /></a>
-                    <a className="icon-btn" href="/#"><FaInstagram /></a>
-                    <a className="icon-btn" href="/#"><FaLinkedinIn /></a>
-                    <a className="icon-btn" href="/#"><FaYoutube /></a>
-                    </div>
                 </Col>
                 </Row>
 
