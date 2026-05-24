@@ -1,7 +1,5 @@
 # 📌 StudyFlow — AI-Powered Student Productivity Platform
 
-![StudyFlow Preview](./client/public/favicon.ico) <!-- Replace with your actual preview image link -->
-
 ## 📖 Short Intro
 
 StudyFlow is an all-in-one productivity platform designed specifically to help students manage their academic life smarter, stay focused, and study more effectively. By combining productivity tools, AI assistance, and collaborative learning into a single modern platform, StudyFlow eliminates the chaos of juggling multiple apps for assignments, exams, notes, and deadlines. It helps students study smarter, stay organized, and remain consistent without feeling overwhelmed.
@@ -124,4 +122,4 @@ If you'd like to fork and run this project locally, follow these steps:
 
 ## 🌐 Preview
 
-Check out the live project here: [StudyFlow Live](#) *(Replace with your actual Vercel/Render link)*
+Check out the live project here: [StudyFlow Live](https://study-flow-inky.vercel.app/)
