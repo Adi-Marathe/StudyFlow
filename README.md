@@ -1,6 +1,6 @@
-# 📌 StudyFlow — AI-Powered Student Productivity Platform
+# 📌 StudyFlow — AI-Powered Productivity Platform
 
-## 📖 Short Intro
+## 📖 Overview
 
 StudyFlow is an all-in-one productivity platform designed specifically to help students manage their academic life smarter, stay focused, and study more effectively. By combining productivity tools, AI assistance, and collaborative learning into a single modern platform, StudyFlow eliminates the chaos of juggling multiple apps for assignments, exams, notes, and deadlines. It helps students study smarter, stay organized, and remain consistent without feeling overwhelmed.
 
