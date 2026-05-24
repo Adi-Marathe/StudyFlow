@@ -248,10 +248,10 @@ function Landingpage(){
                 <Col md={6} lg={3}>
                     <h6 className="fw-bold mb-2">Contact Info</h6>
                     <p className="small mb-1">support@studyflow.com</p>
-                    <p className="small">
+                    <p className="small d-none d-md-block">
                     Gut No. 30, Hiwarkheda Road,<br/> Kannad, Chh.Sambhajinagar,<br/> Maharashtra 431103
                     </p>
-                    <div className="d-flex gap-2 mt-2">
+                    <div className="d-none d-md-flex gap-2 mt-2">
                     <a className="icon-btn" href="/#"><FaFacebookF /></a>
                     <a className="icon-btn" href="/#"><FaTwitter /></a>
                     <a className="icon-btn" href="/#"><FaInstagram /></a>
