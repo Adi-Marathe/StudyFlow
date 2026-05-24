@@ -19,7 +19,7 @@ function CreateCard({
 
   return (
     <div
-      className={`container ${isDragging ? 'card-dragging' : ''}`}
+      className={`create-card-container ${isDragging ? 'card-dragging' : ''}`}
       data-draggable-card="true"
       ref={draggableProvided?.innerRef}
       {...draggableProps}

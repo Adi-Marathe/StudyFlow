@@ -1,4 +1,4 @@
-.container{
+.create-card-container{
     position: static;
     background-color: white;
     display: flex;
@@ -148,7 +148,7 @@
     color: #e02020 !important;
 }
 
-body.dark-mode .container{
+body.dark-mode .create-card-container{
     background-color: #3a3b3d;
 }
 
