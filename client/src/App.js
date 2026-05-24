@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Landingpage from './Pages/Landingpage/Landingpage';
 import Login from './Pages/Auth/Login';
 import Signup from './Pages/Auth/Signup'
-import ForgotPassword from './Pages/Auth/ForgotPassword'
 import Dashboard from './Pages/Dashboard/Dashboard';
 import { ToastContainer } from 'react-toastify';
 import PrivateRoute from './routes/PrivateRoute';
@@ -29,7 +28,6 @@ function App() {
           <Route path="/" element={<Landingpage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route
           path="/dashboard"
           element={

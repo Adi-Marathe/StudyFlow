@@ -82,12 +82,6 @@ const Login = () => {
         />
         {errors.password && <span className="error-text">⚠ {errors.password}</span>}
 
-        <span className="fp-forgot-link">
-          <span onClick={() => navigate('/forgot-password')} className="signup-link">
-            Forgot password?
-          </span>
-        </span>
-
         <button className="login-btn" type="submit">
           LOG IN
         </button>
