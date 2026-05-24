@@ -208,13 +208,13 @@ function Landingpage(){
                 <Col md={4} lg={3}>
                     <h5 className="brand-title mb-2 studyy"><img src={llogo} alt="StudyFlow" className="llogo" /> Study</h5>
                     <h5 className="brand-title mb-2 flow">Flow</h5>
-                    <p className="small">
+                    <p className="small d-none d-md-block">
                     The all-in-one digital workspace that helps students focus, learn, and collaborate with AI-powered productivity tools.
                     </p>
                 </Col>
 
                 {/* Company */}
-                <Col xs={6} md={4} lg={2}>
+                <Col xs={6} md={4} lg={2} className="d-none d-md-block">
                     <h6 className="fw-bold mb-2">Company</h6>
                     <a href="/#" className={link}>About Us</a>
                     <a href="/#" className={link}>How it Works</a>
@@ -223,7 +223,7 @@ function Landingpage(){
                 </Col>
 
                 {/* Products */}
-                <Col xs={6} md={4} lg={2}>
+                <Col xs={6} md={4} lg={2} className="d-none d-md-block">
                     <h6 className="fw-bold mb-2">Products</h6>
                     <a href="/#" className={link}>AI Assistant</a>
                     <a href="/#" className={link}>Pomodoro Timer</a>
@@ -236,7 +236,7 @@ function Landingpage(){
                 
 
                 {/* Support */}
-                <Col xs={6} md={4} lg={2}>
+                <Col xs={6} md={4} lg={2} className="d-none d-md-block">
                     <h6 className="fw-bold mb-2">Support</h6>
                     <a href="/#" className={link}>FAQ</a>
                     <a href="/#" className={link}>User Guides</a>
