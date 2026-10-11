@@ -1,125 +1,115 @@
-# 📌 StudyFlow — AI-Powered Productivity Platform
+# StudyFlow
 
-## 📖 Overview
+A web app for students that brings tasks, events, notes, flashcards, mind maps and a focus timer into one place, with an AI assistant for when you get stuck.
 
-StudyFlow is an all-in-one productivity platform designed specifically to help students manage their academic life smarter, stay focused, and study more effectively. By combining productivity tools, AI assistance, and collaborative learning into a single modern platform, StudyFlow eliminates the chaos of juggling multiple apps for assignments, exams, notes, and deadlines. It helps students study smarter, stay organized, and remain consistent without feeling overwhelmed.
+Studying usually means bouncing between a to-do app, a notes app, a timer and a calendar. I built StudyFlow to put all of that in one place, so there's less to manage and more time to actually study.
 
-## 💻 Technologies
+Live demo: [study-flow-inky.vercel.app](https://study-flow-inky.vercel.app/)
 
-**Frontend:**
-- **React.js** (Hooks, Context, Router)
-- **CSS Frameworks & UI Libraries:** Bootstrap, React-Bootstrap, Material-UI (MUI), MDB React UI Kit
-- **Styling:** CSS3, Styled-components, Emotion
-- **Drag & Drop & Flows:** React-Beautiful-DnD, ReactFlow
-- **Icons & Animations:** FontAwesome, Lucide-React, Lottie-React, React-Confetti, AOS
-- **Date & Time:** Moment.js, Day.js, React-Big-Calendar
-- **Markdown:** React-Markdown, Remark-gfm, React-Syntax-Highlighter
+<!--
+Add a screenshot or two here, for example:
+![StudyFlow dashboard](./screenshots/dashboard.png)
+-->
 
-**Backend:**
-- **Node.js** & **Express.js**
-- **Database:** MongoDB with Mongoose
-- **Authentication:** JSON Web Tokens (JWT) & bcrypt.js
-- **Scheduling & Emails:** Node-cron, Nodemailer, Resend
-- **AI Integration:** Groq SDK, OpenRouter API (DeepSeek Models), Sarvamai
+### Features
 
-**Tools & Deployment:**
-- Git & GitHub
-- Postman
-- Vercel (Frontend Deployment)
-- Render (Backend Deployment)
-- Figma (UI/UX Prototyping)
+- An AI assistant for doubts and explanations. Replies render as Markdown, code blocks included.
+- A Pomodoro focus timer with custom session and break lengths, break reminders and focus tracking.
+- A task board with drag and drop, priorities and status tracking.
+- An event scheduler with a calendar view and email reminders for upcoming events and tasks.
+- Flashcards for active recall.
+- Mind maps for connecting ideas visually.
+- Notes with Markdown support.
+- A dark, minimal interface that tries to stay out of the way.
 
-## 🚀 Features
+### Tech stack
 
-- **🤖 AI Assistant:** An intelligent chatbot integrated directly into the platform providing instant doubt solving, AI-powered explanations, and Markdown-formatted responses.
-- **⏳ Pomodoro Focus Mode:** Built-in focus timer with custom study sessions, break reminders, and focus tracking.
-- **✅ Task Management:** A modern task manager to organize study goals with priority workflow, drag-and-drop, and status tracking.
-- **📅 Event Scheduler:** Smart scheduling system with email reminders and upcoming task notifications.
-- **📚 Interactive Flashcards:** For active recall learning and revision.
-- **🗺️ Mind Maps:** Visual learning system using ReactFlow to connect ideas and simplify concepts.
-- **📝 Notes System:** A centralized place for study material with Markdown support.
-- **🎨 Modern UI/UX:** Dark-mode aesthetics, smooth animations, responsive layouts, and minimal distractions.
+| Layer | Tools |
+| --- | --- |
+| Frontend | React (Hooks, Context, Router), Bootstrap, MUI, custom CSS |
+| Backend | Node.js, Express |
+| Database | MongoDB with Mongoose |
+| Auth | JWT, bcrypt |
+| AI | Groq, OpenRouter (DeepSeek models), Sarvam AI |
+| Email and scheduling | node-cron, Nodemailer, Resend |
+| Hosting | Vercel (frontend), Render (backend) |
 
-## 🛠️ The Process (How I Built It)
+### Running it locally
 
-1. **Ideation & UI/UX Design:** Identified the problem of students switching between too many apps. Used Figma to design a sleek, dark-mode, and distraction-free UI.
-2. **Frontend Foundation:** Scaffolded the React application and implemented core styling using Bootstrap and custom CSS for the modern aesthetic.
-3. **Backend & Database:** Set up the Node.js/Express server and connected it to MongoDB. Created models for Users, Tasks, Events, and Notes.
-4. **Authentication:** Implemented secure user authentication using bcrypt for password hashing and JWT for session management.
-5. **Feature Integration:**
-   - Integrated `react-big-calendar` for the Event Scheduler.
-   - Built the Pomodoro timer from scratch.
-   - Used `react-beautiful-dnd` for the Task Management board.
-   - Implemented Mind Maps using `reactflow`.
-6. **AI Implementation:** Connected the backend to Groq API and OpenRouter to power the AI study assistant, handling context and Markdown responses.
-7. **Refinement & Polish:** Added animations (AOS, Lottie), toast notifications, and ensured responsive design across devices.
+The repo has two folders: `client` (the React app) and `server` (the Express API). You'll need Node.js and a MongoDB connection, either a local install or a MongoDB Atlas URI.
 
-## 🧠 What I Learned
+Clone the repo:
 
-- **State Management:** Handling complex states across different productivity modules (tasks, timers, calendar).
-- **AI Integration:** Crafting effective prompts and managing AI API responses (handling streams, Markdown formatting) effectively in a full-stack environment.
-- **UI/UX Principles:** How subtle animations, typography, and dark mode contribute to a better, less distracting user experience for students.
-- **Third-Party Libraries:** Deepened my understanding of integrating complex libraries like ReactFlow and React-Beautiful-DnD seamlessly.
-- **Cron Jobs & Emailing:** Automating tasks like sending reminders using `node-cron` and email services.
+```bash
+git clone https://github.com/Adi-Marathe/StudyFlow.git
+cd StudyFlow
+```
 
-## 🔮 How It Could Be Improved
+Set up the backend:
 
-- **Responsive Design:** Optimize the layout further for mobile devices (Mobile App version in React Native is a future goal).
-- **Forgot Password Feature:** Implement a secure password reset flow using email verification links.
-- **Real-time Collaboration:** Allow students to share notes and tasks using WebSockets (Socket.io).
-- **AI-Generated Content:** Automatically generate quizzes and flashcards from personal notes.
-- **Study Analytics:** A dashboard visualizing study habits, focus hours, and task completion streaks.
+```bash
+cd server
+npm install
+```
 
-## ⚙️ Running the Project (Local Development)
+Create a `.env` file in `server/`:
 
-If you'd like to fork and run this project locally, follow these steps:
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+GROQ_API_KEY=your_groq_api_key
+```
 
-### Prerequisites
-- Node.js installed
-- MongoDB installed or a MongoDB Atlas URI
+Keys for the other services (OpenRouter, Sarvam AI, Resend) go in the same file. Then start the server:
 
-### Installation
+```bash
+npm run dev
+```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/studyflow.git
-   cd studyflow
-   ```
+In a second terminal, from the project root, set up the frontend:
 
-2. **Backend Setup:**
-   ```bash
-   cd server
-   npm install
-   ```
-   Create a `.env` file in the `server` directory and add your variables:
-   ```env
-   PORT=5000
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   GROQ_API_KEY=your_groq_api_key
-   # Add other required API keys (Resend, OpenRouter, etc.)
-   ```
-   Start the backend server:
-   ```bash
-   npm run dev
-   ```
+```bash
+cd client
+npm install
+```
 
-3. **Frontend Setup:**
-   ```bash
-   cd ../client
-   npm install
-   ```
-   Create a `.env` file in the `client` directory (if needed):
-   ```env
-   REACT_APP_API_URL=http://localhost:5000/api
-   ```
-   Start the frontend React app:
-   ```bash
-   npm start
-   ```
+If you need to point it at a different API, create a `.env` file in `client/`:
 
-4. Open your browser and navigate to `http://localhost:3000`.
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+```
 
-## 🌐 Preview
+Then start the app:
 
-Check out the live project here: [StudyFlow Live](https://study-flow-inky.vercel.app/)
+```bash
+npm start
+```
+
+It runs at http://localhost:3000.
+
+### How I built it
+
+I designed the interface in Figma first, then built the React frontend and an Express and MongoDB backend with JWT auth. Features went in one at a time. The scheduler uses react-big-calendar, the task board uses react-beautiful-dnd, mind maps run on ReactFlow, and the Pomodoro timer is built from scratch. Reminders go out from a node-cron job through the email service. The AI assistant talks to Groq and OpenRouter through the backend, and the frontend renders its replies as Markdown.
+
+### What I learned
+
+- Keeping state manageable when tasks, timers and the calendar all live in one app.
+- Working with AI APIs: writing better prompts, handling streamed responses and formatting replies as Markdown.
+- How much animation, typography and dark mode affect how distracting an app feels.
+- Fitting bigger libraries like ReactFlow and react-beautiful-dnd into an existing codebase.
+- Scheduling jobs with node-cron and sending email reminders.
+
+### What's next
+
+- Better layouts on small screens, and a React Native app down the line.
+- A forgot-password flow with email verification links.
+- Real-time sharing of notes and tasks with Socket.io.
+- AI-generated quizzes and flashcards from your own notes.
+- A study analytics dashboard with focus hours and task streaks.
+
+### Contributing
+
+Issues and pull requests are welcome. Fork the repo, create a branch for your change and open a PR. For anything big, open an issue first so we can talk it through.
+
+Built by [Aditya Marathe](https://github.com/Adi-Marathe).
